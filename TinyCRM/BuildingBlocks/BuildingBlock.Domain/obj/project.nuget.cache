@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "MY3zIW0Bu4LoWXz4ka2yDPwKW7j8oXeEhvMbc/daIurGajRozVTU110JWjHxE+AbnVndTYiR5GKn+1cSqizwOg==",
+  "dgSpecHash": "jz/kQ3XnBe3slFURT+AXDD0XHiX1xKpZf8PhBm4MlTRMP8ckcqiw8BTXU1LhuJfip80Ai4qBAAnne7pcbamdYA==",
   "success": true,
-  "projectFilePath": "D:\\Intern\\Enlab\\.NET\\TinyCRM_Backend\\TinyCRM\\BuildingBlocks\\BuildingBlock.Domain\\BuildingBlock.Domain.csproj",
+  "projectFilePath": "/Users/phuc1403/TinyCRM_Backend/TinyCRM/BuildingBlocks/BuildingBlock.Domain/BuildingBlock.Domain.csproj",
   "expectedPackageFiles": [],
   "logs": []
 }

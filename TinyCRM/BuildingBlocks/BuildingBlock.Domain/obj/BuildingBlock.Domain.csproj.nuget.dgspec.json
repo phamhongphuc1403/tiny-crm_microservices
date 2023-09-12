@@ -1,31 +1,25 @@
 {
   "format": 1,
   "restore": {
-    "D:\\Intern\\Enlab\\.NET\\TinyCRM_Backend\\TinyCRM\\BuildingBlocks\\BuildingBlock.Domain\\BuildingBlock.Domain.csproj": {}
+    "/Users/phuc1403/TinyCRM_Backend/TinyCRM/BuildingBlocks/BuildingBlock.Domain/BuildingBlock.Domain.csproj": {}
   },
   "projects": {
-    "D:\\Intern\\Enlab\\.NET\\TinyCRM_Backend\\TinyCRM\\BuildingBlocks\\BuildingBlock.Domain\\BuildingBlock.Domain.csproj": {
+    "/Users/phuc1403/TinyCRM_Backend/TinyCRM/BuildingBlocks/BuildingBlock.Domain/BuildingBlock.Domain.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "D:\\Intern\\Enlab\\.NET\\TinyCRM_Backend\\TinyCRM\\BuildingBlocks\\BuildingBlock.Domain\\BuildingBlock.Domain.csproj",
+        "projectUniqueName": "/Users/phuc1403/TinyCRM_Backend/TinyCRM/BuildingBlocks/BuildingBlock.Domain/BuildingBlock.Domain.csproj",
         "projectName": "BuildingBlock.Domain",
-        "projectPath": "D:\\Intern\\Enlab\\.NET\\TinyCRM_Backend\\TinyCRM\\BuildingBlocks\\BuildingBlock.Domain\\BuildingBlock.Domain.csproj",
-        "packagesPath": "C:\\Users\\vieta\\.nuget\\packages\\",
-        "outputPath": "D:\\Intern\\Enlab\\.NET\\TinyCRM_Backend\\TinyCRM\\BuildingBlocks\\BuildingBlock.Domain\\obj\\",
+        "projectPath": "/Users/phuc1403/TinyCRM_Backend/TinyCRM/BuildingBlocks/BuildingBlock.Domain/BuildingBlock.Domain.csproj",
+        "packagesPath": "/Users/phuc1403/.nuget/packages/",
+        "outputPath": "/Users/phuc1403/TinyCRM_Backend/TinyCRM/BuildingBlocks/BuildingBlock.Domain/obj/",
         "projectStyle": "PackageReference",
-        "fallbackFolders": [
-          "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
-        ],
         "configFilePaths": [
-          "C:\\Users\\vieta\\AppData\\Roaming\\NuGet\\NuGet.Config",
-          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
-          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+          "/Users/phuc1403/.nuget/NuGet/NuGet.Config"
         ],
         "originalTargetFrameworks": [
           "net7.0"
         ],
         "sources": {
-          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
@@ -59,7 +53,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.203\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "/opt/homebrew/Cellar/dotnet/7.0.100/libexec/sdk/7.0.100/RuntimeIdentifierGraph.json"
         }
       }
     }

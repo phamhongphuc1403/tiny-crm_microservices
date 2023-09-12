@@ -1,0 +1,41 @@
+﻿version: '3.4'
+
+services:
+  tinycrm.api-gateway:
+    image: ${DOCKER_REGISTRY-}tinycrm.api-gateway
+    ports:
+      - "3000:80"
+    build:
+      context: .
+      dockerfile: TinyCRM/APIGateway/Dockerfile
+    environment:
+      - ASPNETCORE_URLS=http://+:80
+  tinycrm.people.api:
+    image: ${DOCKER_REGISTRY-}tinycrm.people.api
+    ports:
+      - "5001:80"
+    build:
+      context: .
+      dockerfile: TinyCRM/Services/People/People.API/Dockerfile
+    environment:
+      - ASPNETCORE_URLS=http://+:80
+  tinycrm.sales.api:
+    image: ${DOCKER_REGISTRY-}tinycrm.sales.api
+    ports:
+      - "5002:80"
+    build:
+      context: .
+      dockerfile: TinyCRM/Services/Sales/Sales.API/Dockerfile
+    environment:
+      - ASPNETCORE_URLS=http://+:80
+  tinycrm.iam.api:
+    image: ${DOCKER_REGISTRY-}tinycrm.iam.api
+    ports:
+      - "5003:80"
+    build:
+      context: .
+      dockerfile: TinyCRM/Services/IAM/IAM.API/Dockerfile
+    environment:
+      - ASPNETCORE_URLS=http://+:80
+volumes:
+  crmdata:
