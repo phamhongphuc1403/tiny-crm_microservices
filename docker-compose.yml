@@ -1,7 +1,7 @@
 ﻿version: '3.4'
 
 services:
-  tinycrm.api-gateway:
+  tinycrm.api-gateway.api:
     image: ${DOCKER_REGISTRY-}tinycrm.api-gateway
     ports:
       - "3000:80"
