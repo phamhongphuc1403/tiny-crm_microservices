@@ -43,7 +43,7 @@ services:
     depends_on:
       - tinycrm.db
   tinycrm.db:
-    image: mcr.microsoft.com/mssql/server:2022-latest
+    image: mcr.microsoft.com/azure-sql-edge:latest
     ports:
       - "14433:1433"
     restart: always
