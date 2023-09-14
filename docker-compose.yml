@@ -38,7 +38,7 @@ services:
     environment:
       - ASPNETCORE_URLS=http://+:80
       - ConnectionStrings__Default=Server=tinycrm.db,1433;Database=TinyCrm.Iam;User=sa;Password=Admin123;TrustServerCertificate=false;Encrypt=false;
-      - JWT__SecretKey=1234123412341234
+      - JWT__SecretKey=phucphamsieudeptrai
     restart: always
     depends_on:
       - tinycrm.db
