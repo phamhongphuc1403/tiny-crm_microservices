@@ -18,9 +18,6 @@ public static class ApplicationBuilderExtensions
         using var scope = app.ApplicationServices.CreateScope();
 
         var context = scope.ServiceProvider.GetRequiredService<IdentityDataContext>();
-        if ((await context.Database.GetPendingMigrationsAsync()).Any())
-        {
-            await context.Database.MigrateAsync();
-        }
+        if ((await context.Database.GetPendingMigrationsAsync()).Any()) await context.Database.MigrateAsync();
     }
 }

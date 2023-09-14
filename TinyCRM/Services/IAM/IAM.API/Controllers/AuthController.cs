@@ -23,7 +23,7 @@ public class AuthController : ControllerBase
         var result = await _authService.SignInAsync(signInDto);
         return Ok(new { Token = result });
     }
-    
+
     [HttpGet]
     [Authorize]
     public IActionResult AuthenticateAsync()

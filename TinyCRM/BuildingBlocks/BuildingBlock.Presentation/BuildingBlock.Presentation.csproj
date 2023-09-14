@@ -7,16 +7,16 @@
     </PropertyGroup>
 
     <ItemGroup>
-        <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="7.0.10" />
+        <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="7.0.10"/>
         <PackageReference Include="Microsoft.AspNetCore.OpenApi" Version="7.0.5"/>
         <PackageReference Include="Swashbuckle.AspNetCore" Version="6.4.0"/>
-        
+
     </ItemGroup>
 
     <ItemGroup>
-      <ProjectReference Include="..\BuildingBlock.Application\BuildingBlock.Application.csproj" />
-      <ProjectReference Include="..\BuildingBlock.Domain\BuildingBlock.Domain.csproj" />
-      <ProjectReference Include="..\BuildingBlock.RabbitMQ\BuildingBlock.RabbitMQ.csproj" />
+        <ProjectReference Include="..\BuildingBlock.Application\BuildingBlock.Application.csproj"/>
+        <ProjectReference Include="..\BuildingBlock.Domain\BuildingBlock.Domain.csproj"/>
+        <ProjectReference Include="..\BuildingBlock.RabbitMQ\BuildingBlock.RabbitMQ.csproj"/>
     </ItemGroup>
 
 

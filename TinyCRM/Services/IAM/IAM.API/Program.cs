@@ -17,7 +17,7 @@ app.UseSwagger();
 app.UseSwaggerUI();
 
 var environment = app.Services.GetRequiredService<IWebHostEnvironment>();
-    
+
 app.UseCustomerExceptionHandler(environment);
 
 app.UseAuthorization();

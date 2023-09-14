@@ -7,8 +7,8 @@ namespace IAM.Business;
 
 public class DataContributor
 {
-    private readonly UserManager<ApplicationUser> _userManager;
     private readonly RoleManager<ApplicationRole> _roleManager;
+    private readonly UserManager<ApplicationUser> _userManager;
 
     public DataContributor(UserManager<ApplicationUser> userManager, RoleManager<ApplicationRole> roleManager)
     {

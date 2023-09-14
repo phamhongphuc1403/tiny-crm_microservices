@@ -58,6 +58,29 @@ public class Repository<TDbContext, TEntity, TKey> : IRepository<TEntity, TKey>
         return await query.ToListAsync();
     }
 
+    public Task<TEntity?> GetAsync(TKey id, string? includeTables = null)
+    {
+        IQueryable<TEntity> query = DbSet;
+
+        query = query.Where(ExpressionForGet(id));
+
+        if (string.IsNullOrEmpty(includeTables)) return query.FirstOrDefaultAsync();
+        var includeProperties = includeTables.Split(',');
+
+        query = includeProperties.Aggregate(query, (current, includeProperty) => current.Include(includeProperty));
+        return query.FirstOrDefaultAsync();
+    }
+
+    public virtual Task<bool> AnyAsync(TKey id)
+    {
+        return DbSet.AnyAsync();
+    }
+
+    public Task<bool> AnyAsync()
+    {
+        return DbSet.AnyAsync();
+    }
+
     private static IQueryable<TEntity> Filter(IQueryable<TEntity> query, ISpecification<TEntity> specification)
     {
         query = query.Where(specification.ToExpression());
@@ -78,31 +101,8 @@ public class Repository<TDbContext, TEntity, TKey> : IRepository<TEntity, TKey>
         return string.IsNullOrWhiteSpace(sorting) ? query : query.OrderBy(sorting);
     }
 
-    public Task<TEntity?> GetAsync(TKey id, string? includeTables = null)
-    {
-        IQueryable<TEntity> query = DbSet;
-
-        query = query.Where(ExpressionForGet(id));
-
-        if (string.IsNullOrEmpty(includeTables)) return query.FirstOrDefaultAsync();
-        var includeProperties = includeTables.Split(',');
-
-        query = includeProperties.Aggregate(query, (current, includeProperty) => current.Include(includeProperty));
-        return query.FirstOrDefaultAsync();
-    }
-
     protected virtual Expression<Func<TEntity, bool>> ExpressionForGet(TKey id)
     {
         return p => true;
-    }
-
-    public virtual Task<bool> AnyAsync(TKey id)
-    {
-        return DbSet.AnyAsync();
-    }
-
-    public Task<bool> AnyAsync()
-    {
-        return DbSet.AnyAsync();
     }
 }

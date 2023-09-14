@@ -6,10 +6,6 @@ namespace IAM.API.Controllers;
 [Route("api/iam-accounts")]
 public class IamAccountController : Controller
 {
-    public IamAccountController()
-    {
-    }
-    
     [HttpGet]
     public IActionResult GetAccounts()
     {

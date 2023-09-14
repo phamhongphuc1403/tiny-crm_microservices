@@ -11,12 +11,14 @@ using Microsoft.IdentityModel.Tokens;
 
 namespace IAM.Business.Services;
 
-public class AuthService:IAuthService
+public class AuthService : IAuthService
 {
+    private readonly JwtSettings _jwtSettings;
     private readonly SignInManager<ApplicationUser> _signInManager;
-private readonly UserManager<ApplicationUser> _userManager;
-private readonly JwtSettings _jwtSettings;
-    public AuthService(SignInManager<ApplicationUser> signInManager, UserManager<ApplicationUser> userManager, JwtSettings jwtSettings)
+    private readonly UserManager<ApplicationUser> _userManager;
+
+    public AuthService(SignInManager<ApplicationUser> signInManager, UserManager<ApplicationUser> userManager,
+        JwtSettings jwtSettings)
     {
         _signInManager = signInManager;
         _userManager = userManager;
@@ -25,7 +27,6 @@ private readonly JwtSettings _jwtSettings;
 
     public async Task<string> SignInAsync(SignInDto signInDto)
     {
-        
         var user = await _userManager.FindByEmailAsync(signInDto.Email)
                    ?? throw new EntityNotFoundException($"User with Email{signInDto.Email}] not found");
 
@@ -33,7 +34,7 @@ private readonly JwtSettings _jwtSettings;
         if (!result.Succeeded) throw new InvalidPasswordException("Invalid password");
 
         var roles = await _userManager.GetRolesAsync(user);
-        
+
         var token = GenerateToken(user.Id, user.Email!, roles);
         return token;
     }
@@ -49,7 +50,7 @@ private readonly JwtSettings _jwtSettings;
         authClaims.AddRange(roles.Select(role => new Claim(ClaimTypes.Role, role)));
         return authClaims;
     }
-    
+
     private string GenerateToken(string id, string email, IEnumerable<string> roles)
     {
         var authClaims = GenerateAuthClaims(id, email, roles);

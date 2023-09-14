@@ -26,13 +26,13 @@ public interface IAuditEntity
 
 public abstract class AuditEntity<TKey> : EntityBase<TKey>, IAuditEntity
 {
+    private List<IDomainEvent>? _domainEvents;
+    public IReadOnlyCollection<IDomainEvent>? DomainEvents => _domainEvents?.AsReadOnly();
     public DateTime CreatedDate { get; set; }
     public string? CreatedBy { get; set; }
     public DateTime? UpdatedDate { get; set; }
     public string? UpdatedBy { get; set; }
 
-    private List<IDomainEvent>? _domainEvents;
-    public IReadOnlyCollection<IDomainEvent>? DomainEvents => _domainEvents?.AsReadOnly();
     public void AddDomainEvent(IDomainEvent eventItem)
     {
         _domainEvents = _domainEvents ?? new List<IDomainEvent>();

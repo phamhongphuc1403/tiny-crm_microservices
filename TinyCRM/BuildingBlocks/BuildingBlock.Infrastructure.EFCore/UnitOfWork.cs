@@ -8,6 +8,7 @@ public class UnitOfWork<TDbContext> : IUnitOfWork where TDbContext : DbContext
 {
     private readonly TDbContext _dbContext;
     private IDbContextTransaction? _transaction;
+
     public UnitOfWork(TDbContext dbContext)
     {
         _dbContext = dbContext;
@@ -15,7 +16,7 @@ public class UnitOfWork<TDbContext> : IUnitOfWork where TDbContext : DbContext
 
     public async Task<int> SaveChangeAsync()
     {
-            return await _dbContext.SaveChangesAsync();
+        return await _dbContext.SaveChangesAsync();
     }
 
     public void BeginTransaction()
