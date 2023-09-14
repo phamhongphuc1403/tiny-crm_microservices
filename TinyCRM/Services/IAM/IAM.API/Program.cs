@@ -1,25 +1,28 @@
+using BuildingBlock.Presentation.Extensions;
+using BuildingBlock.Presentation.Middleware;
+using IAM.API.Extensions;
+
 var builder = WebApplication.CreateBuilder(args);
 
-// Add services to the container.
-
 builder.Services.AddControllers();
-// Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddSwaggerGen();
-
+builder.Services.AddDatabase(builder.Configuration)
+    .AddAuthentication(builder.Configuration)
+    .AddSwagger()
+    .AddMapper()
+    .AddServices();
 var app = builder.Build();
 
-// Configure the HTTP request pipeline.
-if (app.Environment.IsDevelopment())
-{
-    app.UseSwagger();
-    app.UseSwaggerUI();
-}
+app.UseSwagger();
+app.UseSwaggerUI();
 
-app.UseHttpsRedirection();
+var environment = app.Services.GetRequiredService<IWebHostEnvironment>();
+    
+app.UseCustomerExceptionHandler(environment);
 
 app.UseAuthorization();
 
 app.MapControllers();
-
+await app.ApplyMigrationAsync();
+await app.SeedDataAsync();
 app.Run();

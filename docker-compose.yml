@@ -37,5 +37,18 @@ services:
       dockerfile: TinyCRM/Services/IAM/IAM.API/Dockerfile
     environment:
       - ASPNETCORE_URLS=http://+:80
+      - ConnectionStrings__Default=Server=tinycrm.db,1433;Database=TinyCrm.Iam;User=sa;Password=Admin123;TrustServerCertificate=false;Encrypt=false;
+      - JWT__SecretKey=1234123412341234
+    restart: always
+    depends_on:
+      - tinycrm.db
+  tinycrm.db:
+    image: mcr.microsoft.com/mssql/server:2022-latest
+    ports:
+      - "14433:1433"
+    restart: always
+    environment:
+      - ACCEPT_EULA=Y
+      - SA_PASSWORD=Admin123
 volumes:
   crmdata:

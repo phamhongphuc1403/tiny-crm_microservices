@@ -6,6 +6,14 @@ EXPOSE 443
 FROM mcr.microsoft.com/dotnet/sdk:7.0 AS build
 WORKDIR /src
 COPY ["TinyCRM/Services/IAM/IAM.API/IAM.API.csproj", "TinyCRM/Services/IAM/IAM.API/"]
+COPY ["TinyCRM/BuildingBlocks/BuildingBlock.Domain/BuildingBlock.Domain.csproj", "TinyCRM/BuildingBlocks/BuildingBlock.Domain/"]
+COPY ["TinyCRM/BuildingBlocks/BuildingBlock.Application/BuildingBlock.Application.csproj", "TinyCRM/BuildingBlocks/BuildingBlock.Application/"]
+COPY ["TinyCRM/Services/IAM/IAM.Infrastructure/IAM.Infrastructure.csproj", "TinyCRM/Services/IAM/IAM.Infrastructure/"]
+COPY ["TinyCRM/Services/IAM/IAM.Domain/IAM.Domain.csproj", "TinyCRM/Services/IAM/IAM.Domain/"]
+COPY ["TinyCRM/BuildingBlocks/BuildingBlock.Infrastructure.EFCore/BuildingBlock.Infrastructure.EFCore.csproj", "TinyCRM/BuildingBlocks/BuildingBlock.Infrastructure.EFCore/"]
+COPY ["TinyCRM/BuildingBlocks/BuildingBlock.Infrastructure.RedisCache/BuildingBlock.Infrastructure.RedisCache.csproj", "TinyCRM/BuildingBlocks/BuildingBlock.Infrastructure.RedisCache/"]
+COPY ["TinyCRM/Services/IAM/IAM.Business/IAM.Business.csproj", "TinyCRM/Services/IAM/IAM.Business/"]
+COPY ["TinyCRM/BuildingBlocks/BuildingBlock.Presentation/BuildingBlock.Presentation.csproj", "TinyCRM/BuildingBlocks/BuildingBlock.Presentation/"]
 RUN dotnet restore "TinyCRM/Services/IAM/IAM.API/IAM.API.csproj"
 COPY . .
 WORKDIR "/src/TinyCRM/Services/IAM/IAM.API"

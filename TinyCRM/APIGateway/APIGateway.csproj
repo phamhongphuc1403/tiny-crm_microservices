@@ -15,9 +15,14 @@
     </ItemGroup>
 
     <ItemGroup>
+      <ProjectReference Include="..\BuildingBlocks\BuildingBlock.Presentation\BuildingBlock.Presentation.csproj" />
+    </ItemGroup>
+
+    <ItemGroup>
       <Content Include="..\..\.dockerignore">
         <Link>.dockerignore</Link>
       </Content>
     </ItemGroup>
+
 
 </Project>

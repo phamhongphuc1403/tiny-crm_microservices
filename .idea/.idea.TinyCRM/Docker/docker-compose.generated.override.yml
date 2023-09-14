@@ -3,7 +3,7 @@ version: "3.4"
 services:
   tinycrm.api-gateway.api:
     build:
-      context: "/Users/phuc1403/TinyCRM_Backend"
+      context: "D:\\Intern\\Enlab\\.NET\\TinyCRM_Backend"
       dockerfile: "TinyCRM/APIGateway/Dockerfile"
       target: "base"
     command: []
@@ -13,18 +13,18 @@ services:
     environment:
       ASPNETCORE_ENVIRONMENT: "Development"
       DOTNET_USE_POLLING_FILE_WATCHER: "true"
-      NUGET_PACKAGES: "/Users/phuc1403/.nuget/packages"
-      NUGET_FALLBACK_PACKAGES: "/Users/phuc1403/.nuget/packages"
+      NUGET_PACKAGES: "C:\\Users\\vieta\\.nuget\\packages"
+      NUGET_FALLBACK_PACKAGES: "C:\\Users\\vieta\\.nuget\\packages"
     image: "tinycrm.api-gateway:dev"
     ports: []
     volumes:
-    - "/Users/phuc1403/.nuget/packages:/root/.nuget/fallbackpackages"
-    - "/Users/phuc1403/TinyCRM_Backend/TinyCRM/APIGateway:/app:rw"
-    - "/Users/phuc1403/TinyCRM_Backend:/src:rw"
+    - "C:\\Users\\vieta\\.nuget\\packages:/root/.nuget/fallbackpackages"
+    - "D:\\Intern\\Enlab\\.NET\\TinyCRM_Backend\\TinyCRM\\APIGateway:/app:rw"
+    - "D:\\Intern\\Enlab\\.NET\\TinyCRM_Backend:/src:rw"
     working_dir: "/app"
   tinycrm.iam.api:
     build:
-      context: "/Users/phuc1403/TinyCRM_Backend"
+      context: "D:\\Intern\\Enlab\\.NET\\TinyCRM_Backend"
       dockerfile: "TinyCRM/Services/IAM/IAM.API/Dockerfile"
       target: "base"
     command: []
@@ -34,18 +34,18 @@ services:
     environment:
       ASPNETCORE_ENVIRONMENT: "Development"
       DOTNET_USE_POLLING_FILE_WATCHER: "true"
-      NUGET_PACKAGES: "/Users/phuc1403/.nuget/packages"
-      NUGET_FALLBACK_PACKAGES: "/Users/phuc1403/.nuget/packages"
+      NUGET_PACKAGES: "C:\\Users\\vieta\\.nuget\\packages"
+      NUGET_FALLBACK_PACKAGES: "C:\\Users\\vieta\\.nuget\\packages"
     image: "tinycrm.iam.api:dev"
     ports: []
     volumes:
-    - "/Users/phuc1403/.nuget/packages:/root/.nuget/fallbackpackages"
-    - "/Users/phuc1403/TinyCRM_Backend/TinyCRM/Services/IAM/IAM.API:/app:rw"
-    - "/Users/phuc1403/TinyCRM_Backend:/src:rw"
+    - "C:\\Users\\vieta\\.nuget\\packages:/root/.nuget/fallbackpackages"
+    - "D:\\Intern\\Enlab\\.NET\\TinyCRM_Backend\\TinyCRM\\Services\\IAM\\IAM.API:/app:rw"
+    - "D:\\Intern\\Enlab\\.NET\\TinyCRM_Backend:/src:rw"
     working_dir: "/app"
   tinycrm.people.api:
     build:
-      context: "/Users/phuc1403/TinyCRM_Backend"
+      context: "D:\\Intern\\Enlab\\.NET\\TinyCRM_Backend"
       dockerfile: "TinyCRM/Services/People/People.API/Dockerfile"
       target: "base"
     command: []
@@ -55,18 +55,18 @@ services:
     environment:
       ASPNETCORE_ENVIRONMENT: "Development"
       DOTNET_USE_POLLING_FILE_WATCHER: "true"
-      NUGET_PACKAGES: "/Users/phuc1403/.nuget/packages"
-      NUGET_FALLBACK_PACKAGES: "/Users/phuc1403/.nuget/packages"
+      NUGET_PACKAGES: "C:\\Users\\vieta\\.nuget\\packages"
+      NUGET_FALLBACK_PACKAGES: "C:\\Users\\vieta\\.nuget\\packages"
     image: "tinycrm.people.api:dev"
     ports: []
     volumes:
-    - "/Users/phuc1403/.nuget/packages:/root/.nuget/fallbackpackages"
-    - "/Users/phuc1403/TinyCRM_Backend/TinyCRM/Services/People/People.API:/app:rw"
-    - "/Users/phuc1403/TinyCRM_Backend:/src:rw"
+    - "C:\\Users\\vieta\\.nuget\\packages:/root/.nuget/fallbackpackages"
+    - "D:\\Intern\\Enlab\\.NET\\TinyCRM_Backend\\TinyCRM\\Services\\People\\People.API:/app:rw"
+    - "D:\\Intern\\Enlab\\.NET\\TinyCRM_Backend:/src:rw"
     working_dir: "/app"
   tinycrm.sales.api:
     build:
-      context: "/Users/phuc1403/TinyCRM_Backend"
+      context: "D:\\Intern\\Enlab\\.NET\\TinyCRM_Backend"
       dockerfile: "TinyCRM/Services/Sales/Sales.API/Dockerfile"
       target: "base"
     command: []
@@ -76,12 +76,12 @@ services:
     environment:
       ASPNETCORE_ENVIRONMENT: "Development"
       DOTNET_USE_POLLING_FILE_WATCHER: "true"
-      NUGET_PACKAGES: "/Users/phuc1403/.nuget/packages"
-      NUGET_FALLBACK_PACKAGES: "/Users/phuc1403/.nuget/packages"
+      NUGET_PACKAGES: "C:\\Users\\vieta\\.nuget\\packages"
+      NUGET_FALLBACK_PACKAGES: "C:\\Users\\vieta\\.nuget\\packages"
     image: "tinycrm.sales.api:dev"
     ports: []
     volumes:
-    - "/Users/phuc1403/.nuget/packages:/root/.nuget/fallbackpackages"
-    - "/Users/phuc1403/TinyCRM_Backend/TinyCRM/Services/Sales/Sales.API:/app:rw"
-    - "/Users/phuc1403/TinyCRM_Backend:/src:rw"
+    - "C:\\Users\\vieta\\.nuget\\packages:/root/.nuget/fallbackpackages"
+    - "D:\\Intern\\Enlab\\.NET\\TinyCRM_Backend\\TinyCRM\\Services\\Sales\\Sales.API:/app:rw"
+    - "D:\\Intern\\Enlab\\.NET\\TinyCRM_Backend:/src:rw"
     working_dir: "/app"
