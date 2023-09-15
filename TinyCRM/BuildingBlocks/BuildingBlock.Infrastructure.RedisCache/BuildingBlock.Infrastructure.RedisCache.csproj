@@ -5,5 +5,12 @@
         <ImplicitUsings>enable</ImplicitUsings>
         <Nullable>enable</Nullable>
     </PropertyGroup>
+    <ItemGroup>
+        <PackageReference Include="StackExchange.Redis" Version="2.6.122"/>
+        <PackageReference Include="Newtonsoft.Json" Version="13.0.3"/>
 
+    </ItemGroup>
+    <ItemGroup>
+      <ProjectReference Include="..\BuildingBlock.Application\BuildingBlock.Application.csproj" />
+    </ItemGroup>
 </Project>

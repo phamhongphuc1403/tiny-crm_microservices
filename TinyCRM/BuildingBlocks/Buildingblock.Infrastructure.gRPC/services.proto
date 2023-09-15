@@ -1,0 +1,13 @@
+syntax = "proto3";
+
+service Services {
+  rpc GetPermissions (DataRequest) returns (DataResponse);
+}
+
+message DataRequest {
+  string user_
+}
+
+message DataResponse {
+  string response_message = 1;
+}

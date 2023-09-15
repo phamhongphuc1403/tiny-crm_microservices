@@ -1,11 +1,16 @@
 using System.Reflection;
 using BuildingBlock.Domain.Interfaces;
 using BuildingBlock.Infrastructure.EFCore;
+using BuildingBlock.Infrastructure.RedisCache;
+using BuildingBlock.Infrastructure.RedisCache.Cache.Interface;
 using IAM.Business;
 using IAM.Business.Services;
 using IAM.Business.Services.IServices;
+using IAM.Infrastructure.Cache;
+using IAM.Infrastructure.Cache.Interface;
 using IAM.Infrastructure.EFCore;
 using Microsoft.EntityFrameworkCore;
+using StackExchange.Redis;
 
 namespace IAM.API.Extensions;
 
@@ -33,6 +38,17 @@ public static class DependencyInjection
         return services.AddScoped<IAuthService, AuthService>();
     }
 
+    public static IServiceCollection AddRedisCache(this IServiceCollection services, IConfiguration configuration)
+    {
+        var multiplexer = ConnectionMultiplexer.Connect(configuration.GetConnectionString("Redis") ?? string.Empty);
+
+        services.AddSingleton<IConnectionMultiplexer>(multiplexer);
+        services.AddTransient<ICacheService, RedisCacheService>();
+        services.AddTransient<ICacheIamService,RedisCacheIamService>();
+        services.AddTransient<IPermissionCacheManager, PermissionCacheManager>();
+        services.AddTransient<IPermissionCacheIamManager, PermissionCacheIamManager>();
+        return services;
+    }
     public static IServiceCollection AddMapper(this IServiceCollection services)
     {
         services.AddAutoMapper(Assembly.GetAssembly(typeof(IdentityBusinessAssemblyReference)));

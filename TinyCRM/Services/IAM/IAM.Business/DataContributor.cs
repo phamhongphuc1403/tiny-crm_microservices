@@ -20,7 +20,6 @@ public class DataContributor
     {
         if (!_roleManager.Roles.Any() && !_userManager.Users.Any())
         {
-            await _roleManager.CreateAsync(new ApplicationRole(Role.SuperAdmin));
             await _roleManager.CreateAsync(new ApplicationRole(Role.Admin));
             await _roleManager.CreateAsync(new ApplicationRole(Role.User));
 
@@ -31,8 +30,8 @@ public class DataContributor
                 Name = "superAdmin"
             };
 
-            await _userManager.CreateAsync(user, "@SuperAdmin123");
-            await _userManager.AddToRoleAsync(user, Role.SuperAdmin);
+            await _userManager.CreateAsync(user, "@Admin123");
+            await _userManager.AddToRoleAsync(user, Role.Admin);
             var faker = new Faker<ApplicationUser>()
                 .RuleFor(u => u.UserName, f => f.Internet.UserName())
                 .RuleFor(u => u.Email, (f, u) => f.Internet.Email(u.UserName))

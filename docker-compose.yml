@@ -42,16 +42,20 @@ services:
     image: ${DOCKER_REGISTRY-}tinycrm.iam.api
     ports:
       - "5003:80"
+      - "50051:50051"
     build:
       context: .
       dockerfile: TinyCRM/Services/IAM/IAM.API/Dockerfile
     environment:
       - ASPNETCORE_URLS=http://+:80
+      - ASPNETCORE_URLS=grpc://+:50051
       - ConnectionStrings__Default=Server=tinycrm.db,1433;Database=TinyCrm.Iam;User=sa;Password=Admin123;TrustServerCertificate=false;Encrypt=false;
+      - ConnectionStrings__Redis=tinycrm.redis:6379
       - JWT__SecretKey=phucphamsieudeptrai
     restart: always
     depends_on:
-      - tinycrm.db
+      - tinycrm.db  
+      - tinycrm.redis
   tinycrm.db:
     image: mcr.microsoft.com/azure-sql-edge:latest
     ports:
@@ -60,6 +64,10 @@ services:
     environment:
       - ACCEPT_EULA=Y
       - SA_PASSWORD=Admin123
+  tinycrm.redis:
+    image: redis
+    ports:
+      - "6379:6379"
   tinycrm.rabbitmq:
     image: rabbitmq:3.12-management
     ports:

@@ -28,7 +28,8 @@ public class AuthController : ControllerBase
     [Authorize]
     public IActionResult AuthenticateAsync()
     {
-        var a = User.Claims.Select(x => new AuthenticationClaim(x.Type, x.Value));
-        return Ok(a);
+        var claims = User.Claims.Select(x => new AuthenticationClaim(x.Type, x.Value));
+        var user = User.Identity?.Name;
+        return Ok(claims);
     }
 }

@@ -1,0 +1,31 @@
+syntax = "proto3";
+
+option csharp_namespace = "IAM.Infrastructure.Grpc";
+package greet;
+
+// The greeting service definition.
+service Greeter {
+  // Sends a greeting
+  rpc SayHello (HelloRequest) returns (HelloReply);
+  rpc GetPermissions (PermissionRequest) returns (PermissionResponse);
+}
+
+// The request message containing the user's ID.
+message PermissionRequest {
+  string userId = 1;
+}
+
+// The response message containing the permissions.
+message PermissionResponse {
+  repeated string permissions = 1;
+}
+
+// The request message containing the user's name.
+message HelloRequest {
+  string name = 1;
+}
+
+// The response message containing the greetings.
+message HelloReply {
+  string message = 1;
+}

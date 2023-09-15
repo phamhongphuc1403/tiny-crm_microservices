@@ -5,7 +5,9 @@ using BuildingBlock.Domain.Exceptions;
 using IAM.Business.Models;
 using IAM.Business.Models.Dto.Users;
 using IAM.Business.Services.IServices;
+using IAM.Domain.Entities.Roles;
 using IAM.Domain.Entities.Users;
+using IAM.Infrastructure.Cache.Interface;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.IdentityModel.Tokens;
 
@@ -16,13 +18,19 @@ public class AuthService : IAuthService
     private readonly JwtSettings _jwtSettings;
     private readonly SignInManager<ApplicationUser> _signInManager;
     private readonly UserManager<ApplicationUser> _userManager;
+    private readonly RoleManager<ApplicationRole> _roleManager;
+    private readonly IPermissionCacheIamManager _permissionCacheManager;
+
 
     public AuthService(SignInManager<ApplicationUser> signInManager, UserManager<ApplicationUser> userManager,
-        JwtSettings jwtSettings)
+        JwtSettings jwtSettings,
+        RoleManager<ApplicationRole> roleManager, IPermissionCacheIamManager permissionCacheManager)
     {
         _signInManager = signInManager;
         _userManager = userManager;
         _jwtSettings = jwtSettings;
+        _roleManager = roleManager;
+        _permissionCacheManager = permissionCacheManager;
     }
 
     public async Task<string> SignInAsync(SignInDto signInDto)
@@ -37,6 +45,49 @@ public class AuthService : IAuthService
 
         var token = GenerateToken(user.Id, user.Email!, roles);
         return token;
+    }
+
+
+    public async Task<IEnumerable<string>> GetPermissionsAsync(string userId)
+    {
+        var permissions = new List<string>();
+        var roles = await GetRolesAsync(userId);
+        foreach (var role in roles)
+        {
+            var rolePermissions = await _permissionCacheManager.GetPermissionsRoleAsync(role);
+            if (rolePermissions == null)
+            {
+                rolePermissions = await GetPermissionsRoleAsync(role);
+                await _permissionCacheManager.SetPermissionsRoleAsync(role, rolePermissions);
+            }
+    
+            permissions.AddRange(rolePermissions);
+        }
+    
+        return permissions;
+    }
+    
+    private async Task<List<string>> GetPermissionsRoleAsync(string role)
+    {
+        var roleEntity = await _roleManager.FindByNameAsync(role)
+                         ?? throw new EntityNotFoundException($"Role with name {role} not found");
+    
+        var claims = await _roleManager.GetClaimsAsync(roleEntity);
+        return (from claim in claims where claim.Type == "Permission" select claim.Value).ToList();
+    }
+    
+    private async Task<IList<string>> GetRolesAsync(string userId)
+    {
+        var roles = await _permissionCacheManager.GetRolesUserAsync(userId);
+        if (roles != null) return (IList<string>)roles;
+    
+        var user = await _userManager.FindByIdAsync(userId);
+        if (user == null) throw new EntityNotFoundException($"User with id {userId} not found");
+    
+        roles = await _userManager.GetRolesAsync(user);
+        await _permissionCacheManager.SetRolesUserAsync(userId, roles,
+            TimeSpan.FromMinutes(_jwtSettings.ExpiryInMinutes));
+        return (IList<string>)roles;
     }
 
     private static IEnumerable<Claim> GenerateAuthClaims(string id, string email, IEnumerable<string> roles)
