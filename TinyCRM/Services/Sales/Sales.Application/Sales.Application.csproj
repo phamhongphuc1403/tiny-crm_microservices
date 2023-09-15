@@ -6,4 +6,15 @@
         <Nullable>enable</Nullable>
     </PropertyGroup>
 
+
+    <ItemGroup>
+        <ProjectReference Include="..\..\..\BuildingBlocks\BuildingBlock.Application\BuildingBlock.Application.csproj"/>
+        <ProjectReference Include="..\..\..\BuildingBlocks\BuildingBlock.Domain\BuildingBlock.Domain.csproj"/>
+        <ProjectReference Include="..\Sales.Domain\Sales.Domain.csproj"/>
+    </ItemGroup>
+
+    <ItemGroup>
+        <PackageReference Include="AutoMapper" Version="12.0.1"/>
+        <PackageReference Include="Microsoft.Extensions.Logging.Abstractions" Version="7.0.0"/>
+    </ItemGroup>
 </Project>

@@ -1,20 +1,27 @@
+using BuildingBlock.Presentation.Extensions;
+using Sales.API.Extensions;
+using Sales.Application;
+using Sales.Infrastructure.EFCore;
+
 var builder = WebApplication.CreateBuilder(args);
 
-// Add services to the container.
 
 builder.Services.AddControllers();
-// Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
-builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddSwaggerGen();
+
+builder.Services
+    .AddSwagger()
+    .AddCqrs<SalesApplicationAssemblyReference>()
+    .AddMapper<Mapper>()
+    .AddDatabase<SaleDbContext>(builder.Configuration)
+    .AddDependencyInjection()
+    ;
+
+await builder.Services.ApplyMigrationAsync<SaleDbContext>();
 
 var app = builder.Build();
 
-// Configure the HTTP request pipeline.
-if (app.Environment.IsDevelopment())
-{
-    app.UseSwagger();
-    app.UseSwaggerUI();
-}
+app.UseSwagger();
+app.UseSwaggerUI();
 
 app.UseHttpsRedirection();
 

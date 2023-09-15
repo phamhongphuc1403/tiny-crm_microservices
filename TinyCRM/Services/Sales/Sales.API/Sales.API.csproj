@@ -8,7 +8,12 @@
     </PropertyGroup>
 
     <ItemGroup>
+        <PackageReference Include="MediatR" Version="12.1.1"/>
         <PackageReference Include="Microsoft.AspNetCore.OpenApi" Version="7.0.5"/>
+        <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="7.0.10">
+            <PrivateAssets>all</PrivateAssets>
+            <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+        </PackageReference>
         <PackageReference Include="Swashbuckle.AspNetCore" Version="6.4.0"/>
     </ItemGroup>
 
@@ -17,5 +22,13 @@
             <Link>.dockerignore</Link>
         </Content>
     </ItemGroup>
+
+    <ItemGroup>
+        <ProjectReference Include="..\..\..\BuildingBlocks\BuildingBlock.Application\BuildingBlock.Application.csproj"/>
+        <ProjectReference Include="..\..\..\BuildingBlocks\BuildingBlock.Presentation\BuildingBlock.Presentation.csproj"/>
+        <ProjectReference Include="..\Sales.Application\Sales.Application.csproj"/>
+        <ProjectReference Include="..\Sales.Infrastructure.EFCore\Sales.Infrastructure.EFCore.csproj"/>
+    </ItemGroup>
+
 
 </Project>
