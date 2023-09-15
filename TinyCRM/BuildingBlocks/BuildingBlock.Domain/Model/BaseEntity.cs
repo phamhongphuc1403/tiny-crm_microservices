@@ -49,3 +49,7 @@ public abstract class AuditEntity<TKey> : EntityBase<TKey>, IAuditEntity
         _domainEvents?.Clear();
     }
 }
+
+public abstract class GuidEntity : AuditEntity<Guid>
+{
+}

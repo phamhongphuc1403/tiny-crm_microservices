@@ -1,4 +1,4 @@
-namespace ApiGateway.Authentication;
+namespace APIGateway.Authentication;
 
 public class AuthenticationClaim
 {

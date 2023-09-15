@@ -3,7 +3,7 @@ using System.Text.Encodings.Web;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.Extensions.Options;
 
-namespace ApiGateway.Authentication;
+namespace APIGateway.Authentication;
 
 public class IamAuthenticationHandler : AuthenticationHandler<AuthenticationSchemeOptions>
 {

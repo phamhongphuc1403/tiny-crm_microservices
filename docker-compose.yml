@@ -35,9 +35,12 @@ services:
       dockerfile: TinyCRM/Services/Sales/Sales.API/Dockerfile
     environment:
       - ASPNETCORE_URLS=http://+:80
+      - MSSQL__CONNECTION_STRING=Server=tinycrm.db,1433;Database=TinyCrm.Sales;User=sa;Password=Admin123;TrustServerCertificate=false;Encrypt=false;
     depends_on:
       tinycrm.rabbitmq:
         condition: service_healthy
+    links:
+      - tinycrm.db
   tinycrm.iam.api:
     image: ${DOCKER_REGISTRY-}tinycrm.iam.api
     ports:

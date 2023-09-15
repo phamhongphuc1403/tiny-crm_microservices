@@ -1,4 +1,4 @@
-using ApiGateway.Authentication;
+using APIGateway.Authentication;
 using BuildingBlock.Presentation.Extensions;
 using Microsoft.AspNetCore.Authentication;
 using Ocelot.DependencyInjection;
