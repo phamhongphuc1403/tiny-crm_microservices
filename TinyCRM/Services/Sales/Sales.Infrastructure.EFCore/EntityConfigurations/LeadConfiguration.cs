@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using Sales.Domain.Entities;
 using Sales.Domain.Entities.Enums;
 
-namespace BuildingBlock.Infrastructure.EFCore.EntityConfigurations;
+namespace Sales.Infrastructure.EFCore.EntityConfigurations;
 
 public class LeadConfiguration : IEntityTypeConfiguration<Lead>
 {
@@ -51,7 +51,7 @@ public class LeadConfiguration : IEntityTypeConfiguration<Lead>
                 Description =
                     "While the Panther received knife and fork with a little scream of laughter. 'Oh, hush!' the Rabbit say, 'A barrowful of WHAT?' thought Alice to herself, (not in a moment to think that proved it at.",
                 DisqualificationDate = DateTime.Parse("2023-09-16"),
-                DisqualificationReason = LeadDisqualificationReason.Budget,
+                DisqualificationReason = LeadDisqualificationReason.Budget
             },
             new Lead
             {
@@ -63,7 +63,7 @@ public class LeadConfiguration : IEntityTypeConfiguration<Lead>
                 Status = LeadStatus.Qualify,
                 CreatedDate = DateTime.Parse("2023-09-15"),
                 Description =
-                    "Alice, 'and why it is to-day! And I declare it's too bad, that it was only sobbing,' she thought, 'it's sure to make out what it was: at first was moderate. But the insolence of his.",
+                    "Alice, 'and why it is to-day! And I declare it's too bad, that it was only sobbing,' she thought, 'it's sure to make out what it was: at first was moderate. But the insolence of his."
             }
         );
     }

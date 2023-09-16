@@ -12,7 +12,7 @@ public class RedisCacheService : ICacheService
     {
         _db = redis.GetDatabase();
     }
-    
+
     public async Task<T?> GetRecordAsync<T>(string key)
     {
         var stringData = await _db.StringGetAsync(key);

@@ -1,6 +1,6 @@
 ﻿using System.Linq.Expressions;
 
-namespace BuildingBlock.Domain.Helper.Specification;
+namespace BuildingBlock.Domain.Specifications;
 
 public interface ISpecification<T>
 {

@@ -1,8 +1,8 @@
 ﻿using System.Linq.Dynamic.Core;
 using System.Linq.Expressions;
-using BuildingBlock.Domain.Helper.Specification;
 using BuildingBlock.Domain.Interfaces;
 using BuildingBlock.Domain.Model;
+using BuildingBlock.Domain.Specifications;
 using Microsoft.EntityFrameworkCore;
 
 namespace BuildingBlock.Infrastructure.EFCore;

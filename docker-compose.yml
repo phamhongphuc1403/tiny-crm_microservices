@@ -15,9 +15,9 @@ services:
       - tinycrm.sales.api
       - tinycrm.iam.api
     links:
-        - tinycrm.people.api
-        - tinycrm.sales.api
-        - tinycrm.iam.api
+      - tinycrm.people.api
+      - tinycrm.sales.api
+      - tinycrm.iam.api
   tinycrm.people.api:
     image: ${DOCKER_REGISTRY-}tinycrm.people.api
     ports:
@@ -59,9 +59,8 @@ services:
       - ConnectionStrings__Default=Server=tinycrm.db,1433;Database=TinyCrm.Iam;User=sa;Password=Admin123;TrustServerCertificate=false;Encrypt=false;
       - ConnectionStrings__Redis=tinycrm.redis:6379
       - JWT__SecretKey=phucphamsieudeptrai
-    restart: always
     depends_on:
-      - tinycrm.db  
+      - tinycrm.db
       - tinycrm.redis
   tinycrm.db:
     image: mcr.microsoft.com/azure-sql-edge:latest

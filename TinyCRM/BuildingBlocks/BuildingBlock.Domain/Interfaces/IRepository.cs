@@ -1,4 +1,4 @@
-﻿using BuildingBlock.Domain.Helper.Specification;
+﻿using BuildingBlock.Domain.Specifications;
 
 namespace BuildingBlock.Domain.Interfaces;
 

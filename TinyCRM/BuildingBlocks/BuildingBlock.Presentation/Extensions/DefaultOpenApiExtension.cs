@@ -22,7 +22,7 @@ public static class DefaultOpenApiExtension
                 Title = title,
                 Version = version
             });
-            
+
             options.AddSecurityDefinition(JwtBearerDefaults.AuthenticationScheme, new OpenApiSecurityScheme
             {
                 In = ParameterLocation.Header,

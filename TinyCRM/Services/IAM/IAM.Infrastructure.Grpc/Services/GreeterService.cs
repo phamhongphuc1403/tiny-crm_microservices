@@ -6,8 +6,9 @@ namespace IAM.Infrastructure.Grpc.Services;
 
 public class GreeterService : Greeter.GreeterBase
 {
-    private readonly ILogger<GreeterService> _logger;
     private readonly IAuthService _authService;
+    private readonly ILogger<GreeterService> _logger;
+
     public GreeterService(ILogger<GreeterService> logger, IAuthService authService)
     {
         _logger = logger;

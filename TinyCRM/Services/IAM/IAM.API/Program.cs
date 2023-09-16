@@ -7,14 +7,8 @@ using Microsoft.AspNetCore.Server.Kestrel.Core;
 var builder = WebApplication.CreateBuilder(args);
 builder.WebHost.ConfigureKestrel(options =>
 {
-    options.ListenAnyIP(80, listenOptions =>
-    {
-        listenOptions.Protocols = HttpProtocols.Http1;
-    });
-    options.ListenAnyIP(50051, listenOptions =>
-    {
-        listenOptions.Protocols = HttpProtocols.Http2;
-    });
+    options.ListenAnyIP(80, listenOptions => { listenOptions.Protocols = HttpProtocols.Http1; });
+    options.ListenAnyIP(50051, listenOptions => { listenOptions.Protocols = HttpProtocols.Http2; });
 });
 builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();

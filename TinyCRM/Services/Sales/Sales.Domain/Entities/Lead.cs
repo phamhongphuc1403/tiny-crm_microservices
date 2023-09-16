@@ -5,17 +5,6 @@ namespace Sales.Domain.Entities;
 
 public class Lead : GuidEntity
 {
-    public string Title { get; set; } = null!;
-    public Guid CustomerId { get; set; }
-    // public virtual AccountEntity Customer { get; set; } = null!;
-    public LeadSource? Source { get; set; }
-    public double? EstimatedRevenue { get; set; }
-    public string? Description { get; set; }
-    
-    public LeadStatus Status { get; set; }
-    public LeadDisqualificationReason? DisqualificationReason { get; set; }
-    public string? DisqualificationDescription { get; set; }
-    public DateTime DisqualificationDate { get; set; }
     // public virtual Deal? Deal { get; set; }
 
     private Lead(string title, Guid customerId, LeadSource? source, double? estimatedRevenue,
@@ -31,8 +20,21 @@ public class Lead : GuidEntity
 
     public Lead()
     {
-        
     }
+
+    public string Title { get; set; } = null!;
+
+    public Guid CustomerId { get; set; }
+
+    // public virtual AccountEntity Customer { get; set; } = null!;
+    public LeadSource? Source { get; set; }
+    public double? EstimatedRevenue { get; set; }
+    public string? Description { get; set; }
+
+    public LeadStatus Status { get; set; }
+    public LeadDisqualificationReason? DisqualificationReason { get; set; }
+    public string? DisqualificationDescription { get; set; }
+    public DateTime DisqualificationDate { get; set; }
 
     public static Lead Create(string title, Guid customerId, LeadSource? source, double? estimatedRevenue,
         string? description)

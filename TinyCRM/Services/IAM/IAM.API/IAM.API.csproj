@@ -18,9 +18,9 @@
     </ItemGroup>
 
     <ItemGroup>
-      <ProjectReference Include="..\..\..\BuildingBlocks\BuildingBlock.Presentation\BuildingBlock.Presentation.csproj" />
-      <ProjectReference Include="..\IAM.Business\IAM.Business.csproj" />
-        <ProjectReference Include="..\IAM.Infrastructure.Grpc\IAM.Infrastructure.Grpc.csproj" />
+        <ProjectReference Include="..\..\..\BuildingBlocks\BuildingBlock.Presentation\BuildingBlock.Presentation.csproj"/>
+        <ProjectReference Include="..\IAM.Business\IAM.Business.csproj"/>
+        <ProjectReference Include="..\IAM.Infrastructure.Grpc\IAM.Infrastructure.Grpc.csproj"/>
 
     </ItemGroup>
 

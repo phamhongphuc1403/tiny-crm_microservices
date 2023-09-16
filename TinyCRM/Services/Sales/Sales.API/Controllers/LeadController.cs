@@ -25,4 +25,13 @@ public class LeadController : ControllerBase
 
         return Ok(leads);
     }
+
+    [HttpGet("{id:guid}")]
+    [ActionName(nameof(GetByIdAsync))]
+    public async Task<ActionResult<LeadDto>> GetByIdAsync(Guid id)
+    {
+        var lead = await _mediator.Send(new GetLeadQuery(id));
+
+        return Ok(lead);
+    }
 }

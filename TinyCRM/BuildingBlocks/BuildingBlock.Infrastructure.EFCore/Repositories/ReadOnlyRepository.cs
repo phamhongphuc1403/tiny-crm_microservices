@@ -1,7 +1,7 @@
 using System.Linq.Dynamic.Core;
-using BuildingBlock.Domain.Helper.Specification;
 using BuildingBlock.Domain.Model;
 using BuildingBlock.Domain.Repositories;
+using BuildingBlock.Domain.Specifications;
 using Microsoft.EntityFrameworkCore;
 
 namespace BuildingBlock.Infrastructure.EFCore.Repositories;
@@ -21,7 +21,7 @@ public class ReadOnlyRepository<TDbContext, TEntity> : IReadOnlyRepository<TEnti
     protected DbSet<TEntity> DbSet => _dbSet ??= _dbContext.Set<TEntity>();
 
     public Task<TEntity?> GetAnyAsync(ISpecification<TEntity> specification,
-        string? includeTables)
+        string? includeTables = null)
     {
         var query = DbSet.AsNoTracking();
 
@@ -33,7 +33,7 @@ public class ReadOnlyRepository<TDbContext, TEntity> : IReadOnlyRepository<TEnti
     }
 
     public Task<List<TEntity>> GetAllAsync(ISpecification<TEntity> specification,
-        string? includeTables)
+        string? includeTables = null)
     {
         var query = DbSet.AsNoTracking();
 
@@ -49,9 +49,9 @@ public class ReadOnlyRepository<TDbContext, TEntity> : IReadOnlyRepository<TEnti
         return DbSet.AsNoTracking().AnyAsync(specification.ToExpression());
     }
 
-    public async Task<(List<TEntity>, int)> GetFilterAndPagingAsync(ISpecification<TEntity> specification,
-        string? includeTables, string sort, int pageIndex,
-        int pageSize)
+    public async Task<(List<TEntity>, int)> GetFilterAndPagingAsync(ISpecification<TEntity> specification, string sort,
+        int pageIndex,
+        int pageSize, string? includeTables = null)
     {
         var query = DbSet.AsNoTracking();
 

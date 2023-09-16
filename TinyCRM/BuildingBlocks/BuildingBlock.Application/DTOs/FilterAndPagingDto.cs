@@ -11,7 +11,7 @@ public class FilterAndPagingDto<TEnum>
     public int PageIndex { get; set; } = 1;
 
     [Range(1, int.MaxValue, ErrorMessage = "PageSize must be a positive number.")]
-    public int PageSize { get; set; } = int.MaxValue;
+    public int PageSize { get; set; } = 10;
 
     public bool IsDescending { get; set; } = true;
 

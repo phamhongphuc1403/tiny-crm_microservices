@@ -1,5 +1,5 @@
 using System.Linq.Expressions;
-using BuildingBlock.Domain.Helper.Specification;
+using BuildingBlock.Domain.Specifications;
 using Sales.Domain.Entities;
 
 namespace Sales.Domain.Specifications;
