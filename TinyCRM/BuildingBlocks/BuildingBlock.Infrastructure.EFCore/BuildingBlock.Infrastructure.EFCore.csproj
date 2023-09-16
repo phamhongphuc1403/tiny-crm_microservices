@@ -18,7 +18,6 @@
         <PackageReference Include="Microsoft.EntityFrameworkCore.Relational" Version="7.0.10"/>
         <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="7.0.10"/>
         <PackageReference Include="System.Linq.Dynamic.Core" Version="1.3.3"/>
-        <ProjectReference Include="..\..\Services\Sales\Sales.Domain\Sales.Domain.csproj"/>
         <ProjectReference Include="..\BuildingBlock.Domain\BuildingBlock.Domain.csproj"/>
     </ItemGroup>
 </Project>

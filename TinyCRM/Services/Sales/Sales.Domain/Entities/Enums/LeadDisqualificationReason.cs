@@ -1,6 +1,6 @@
 namespace Sales.Domain.Entities.Enums;
 
-public enum LeadDisqualificationReasons
+public enum LeadDisqualificationReason
 {
     Budget = 1,
     BadFakeData,

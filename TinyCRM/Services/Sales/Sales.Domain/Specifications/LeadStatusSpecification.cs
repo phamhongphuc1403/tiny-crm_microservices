@@ -7,9 +7,9 @@ namespace Sales.Domain.Specifications;
 
 public class LeadStatusSpecification : Specification<Lead>, ISpecification<Lead>
 {
-    private readonly LeadStatuses? _status;
+    private readonly LeadStatus? _status;
 
-    public LeadStatusSpecification(LeadStatuses? status)
+    public LeadStatusSpecification(LeadStatus? status)
     {
         _status = status;
     }

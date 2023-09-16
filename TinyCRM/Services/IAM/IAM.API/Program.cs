@@ -20,7 +20,7 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddDatabase(builder.Configuration)
     .AddAuthentication(builder.Configuration)
-    .AddSwagger()
+    .AddDefaultOpenApi(builder.Configuration)
     .AddMapper()
     .AddServices()
     .AddRedisCache(builder.Configuration);

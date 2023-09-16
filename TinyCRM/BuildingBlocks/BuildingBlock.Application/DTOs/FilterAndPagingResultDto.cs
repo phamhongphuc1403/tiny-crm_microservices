@@ -1,17 +1,15 @@
-using BuildingBlock.Domain.Model;
-
 namespace BuildingBlock.Application.DTOs;
 
-public class FilterAndPagingResultDto<TEntity> where TEntity : GuidEntity
+public class FilterAndPagingResultDto<TDto>
 {
-    public FilterAndPagingResultDto(List<TEntity> data, int page, int take, int totalCount)
+    public FilterAndPagingResultDto(List<TDto> data, int page, int take, int totalCount)
     {
         Data = data;
         Meta = new MetaDto(page, take, totalCount);
     }
 
     public MetaDto Meta { get; private set; }
-    public List<TEntity> Data { get; private set; }
+    public List<TDto> Data { get; private set; }
 }
 
 public class MetaDto

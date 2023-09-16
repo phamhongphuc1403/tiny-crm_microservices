@@ -1,6 +1,6 @@
 namespace Sales.Domain.Entities.Enums;
 
-public enum LeadStatuses
+public enum LeadStatus
 {
     Prospect = 1,
     Open,

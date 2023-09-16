@@ -1,24 +1,29 @@
 ﻿using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.OpenApi.Models;
 
 namespace BuildingBlock.Presentation.Extensions;
 
-public static class ServiceCollectionSwagger
+public static class DefaultOpenApiExtension
 {
-    public static IServiceCollection AddSwagger(this IServiceCollection services)
+    public static IServiceCollection AddDefaultOpenApi(this IServiceCollection services, IConfiguration configuration)
     {
         services.AddEndpointsApiExplorer();
 
-        services.AddSwaggerGen(c =>
+        services.AddSwaggerGen(options =>
         {
-            c.SwaggerDoc("v1", new OpenApiInfo
-            {
-                Title = "Tiny CRM",
-                Version = "v1"
-            });
+            var openApi = configuration.GetSection("OpenApi").GetSection("Document");
+            var title = $"TinyCRM.{openApi["Title"] ?? "API"}";
+            var version = openApi["Version"] ?? "v1";
 
-            c.AddSecurityDefinition(JwtBearerDefaults.AuthenticationScheme, new OpenApiSecurityScheme
+            options.SwaggerDoc(version, new OpenApiInfo
+            {
+                Title = title,
+                Version = version
+            });
+            
+            options.AddSecurityDefinition(JwtBearerDefaults.AuthenticationScheme, new OpenApiSecurityScheme
             {
                 In = ParameterLocation.Header,
                 Description = "Please insert JWT with Bearer into field",
@@ -28,7 +33,7 @@ public static class ServiceCollectionSwagger
                 Scheme = JwtBearerDefaults.AuthenticationScheme
             });
 
-            c.AddSecurityRequirement(new OpenApiSecurityRequirement
+            options.AddSecurityRequirement(new OpenApiSecurityRequirement
             {
                 {
                     new OpenApiSecurityScheme

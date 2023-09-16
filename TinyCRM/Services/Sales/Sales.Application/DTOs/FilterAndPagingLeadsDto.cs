@@ -4,7 +4,7 @@ using Sales.Domain.Entities.Enums;
 
 namespace Sales.Application.DTOs;
 
-public class FilterAndPagingLeadsDto : FilterAndPagingDto<LeadSortProperties>
+public class FilterAndPagingLeadsDto : FilterAndPagingDto<LeadSortProperty>
 {
-    public LeadStatuses? Status { get; set; }
+    public LeadStatus? Status { get; set; }
 }

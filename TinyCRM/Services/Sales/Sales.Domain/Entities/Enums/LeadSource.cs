@@ -1,6 +1,6 @@
 namespace Sales.Domain.Entities.Enums;
 
-public enum LeadSources
+public enum LeadSource
 {
     Email = 1,
     Event,

@@ -8,7 +8,7 @@ var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddHttpClient<IamService>();
 
-builder.Services.AddSwagger();
+builder.Services.AddDefaultOpenApi(builder.Configuration);
 builder.Services.AddOcelot();
 builder.Services.AddSwaggerForOcelot(builder.Configuration);
 

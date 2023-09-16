@@ -44,8 +44,6 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Sales.API", "TinyCRM\Servic
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BuildingBlock.Infrastructure.RedisCache", "TinyCRM\BuildingBlocks\BuildingBlock.Infrastructure.RedisCache\BuildingBlock.Infrastructure.RedisCache.csproj", "{CE34A830-336B-4420-96DB-B611E7C13855}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BuildingBlock.RabbitMQ", "TinyCRM\BuildingBlocks\BuildingBlock.RabbitMQ\BuildingBlock.RabbitMQ.csproj", "{CE44A830-336B-4420-96DB-B611E7C13855}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Sales.Domain", "TinyCRM\Services\Sales\Sales.Domain\Sales.Domain.csproj", "{CDFAD51B-B10D-42C5-96DA-FA643BE39146}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Sales.Application", "TinyCRM\Services\Sales\Sales.Application\Sales.Application.csproj", "{D1E376E0-CBD2-4C4D-AE71-FB66B905C8C4}"
@@ -74,6 +72,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "DockerCompose", "DockerComp
 	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IAM.Infrastructure.Grpc", "TinyCRM\Services\IAM\IAM.Infrastructure.Grpc\IAM.Infrastructure.Grpc.csproj", "{4D4A3E49-798A-414D-A54B-4044A9E45D18}"
+EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BuildingBlock.RabbitMQ", "TinyCRM\BuildingBlocks\BuildingBlock.RabbitMQ\BuildingBlock.RabbitMQ.csproj", "{233F6CDA-25DD-4CE8-9907-145EF46A9D41}"
 EndProject
 Global
@@ -195,7 +194,6 @@ Global
 		{96AD94F4-1ED1-4955-9324-A8892D98341B} = {092AA6A0-B54C-430E-8A94-D2A51EE78150}
 		{725E518B-2ABD-4F05-9784-E38FAB764D07} = {092AA6A0-B54C-430E-8A94-D2A51EE78150}
 		{4D4A3E49-798A-414D-A54B-4044A9E45D18} = {092AA6A0-B54C-430E-8A94-D2A51EE78150}
-		{CE44A830-336B-4420-96DB-B611E7C13855} = {3A37EDE2-7513-48D9-8DBA-E7D15AEE0A6D}
 		{233F6CDA-25DD-4CE8-9907-145EF46A9D41} = {3A37EDE2-7513-48D9-8DBA-E7D15AEE0A6D}
 	EndGlobalSection
 EndGlobal
