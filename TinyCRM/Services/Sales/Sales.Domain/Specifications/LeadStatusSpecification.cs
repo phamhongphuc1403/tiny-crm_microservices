@@ -16,6 +16,8 @@ public class LeadStatusSpecification : Specification<Lead>, ISpecification<Lead>
 
     public override Expression<Func<Lead, bool>> ToExpression()
     {
-        return _status != null ? lead => lead.Status == _status : lead => true;
+        if (_status == null) return lead => true;
+
+        return lead => lead.Status == _status;
     }
 }

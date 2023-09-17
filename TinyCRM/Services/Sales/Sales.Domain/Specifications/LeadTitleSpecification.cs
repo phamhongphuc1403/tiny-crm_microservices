@@ -15,6 +15,8 @@ public class LeadTitleSpecification : Specification<Lead>, ISpecification<Lead>
 
     public override Expression<Func<Lead, bool>> ToExpression()
     {
+        if (string.IsNullOrWhiteSpace(_keyword)) return lead => true;
+        
         return lead => lead.Title.Contains(_keyword);
     }
 }

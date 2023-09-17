@@ -18,7 +18,10 @@ public class AndSpecification<T> : Specification<T>
         var leftExpression = _left.ToExpression();
         var rightExpression = _right.ToExpression();
 
-        var body = Expression.AndAlso(leftExpression.Body, rightExpression.Body);
+        var rightBody =
+            ExpressionParameterReplacer.ReplaceParameters(rightExpression.Body, leftExpression.Parameters[0]);
+
+        var body = Expression.AndAlso(leftExpression.Body, rightBody);
         var lambda = Expression.Lambda<Func<T, bool>>(body, leftExpression.Parameters);
 
         return lambda;
