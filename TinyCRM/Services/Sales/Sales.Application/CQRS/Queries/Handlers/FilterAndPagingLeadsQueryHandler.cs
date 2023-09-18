@@ -26,7 +26,7 @@ public class
     public async Task<FilterAndPagingResultDto<LeadDto>> Handle(FilterAndPagingLeadsQuery query,
         CancellationToken cancellationToken)
     {
-        var leadTitleSpecification = new LeadTitleSpecification(query.Keyword);
+        var leadTitleSpecification = new LeadTitlePartialMatchSpecification(query.Keyword);
 
         var leadStatusSpecification = new LeadStatusSpecification(query.Status);
 

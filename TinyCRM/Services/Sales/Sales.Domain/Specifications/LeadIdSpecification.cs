@@ -4,7 +4,7 @@ using Sales.Domain.Entities;
 
 namespace Sales.Domain.Specifications;
 
-public class LeadIdSpecification : Specification<Lead>, ISpecification<Lead>
+public class LeadIdSpecification : Specification<Lead>
 {
     private readonly Guid _id;
 

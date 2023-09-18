@@ -27,6 +27,7 @@ services:
       dockerfile: TinyCRM/Services/People/People.API/Dockerfile
     environment:
       - ASPNETCORE_URLS=http://+:80
+      - CONNECTION_STRING=Server=tinycrm.db,1433;Database=TinyCrm.People;User=sa;Password=Admin123;TrustServerCertificate=false;Encrypt=false;
     depends_on:
       tinycrm.rabbitmq:
         condition: service_healthy
@@ -39,7 +40,7 @@ services:
       dockerfile: TinyCRM/Services/Sales/Sales.API/Dockerfile
     environment:
       - ASPNETCORE_URLS=http://+:80
-      - MSSQL__CONNECTION_STRING=Server=tinycrm.db,1433;Database=TinyCrm.Sales;User=sa;Password=Admin123;TrustServerCertificate=false;Encrypt=false;
+      - CONNECTION_STRING=Server=tinycrm.db,1433;Database=TinyCrm.Sales;User=sa;Password=Admin123;TrustServerCertificate=false;Encrypt=false;
     depends_on:
       tinycrm.rabbitmq:
         condition: service_healthy

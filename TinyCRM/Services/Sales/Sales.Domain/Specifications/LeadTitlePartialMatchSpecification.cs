@@ -4,11 +4,11 @@ using Sales.Domain.Entities;
 
 namespace Sales.Domain.Specifications;
 
-public class LeadTitleSpecification : Specification<Lead>, ISpecification<Lead>
+public class LeadTitlePartialMatchSpecification : Specification<Lead>
 {
     private readonly string _keyword;
 
-    public LeadTitleSpecification(string keyword)
+    public LeadTitlePartialMatchSpecification(string keyword)
     {
         _keyword = keyword;
     }

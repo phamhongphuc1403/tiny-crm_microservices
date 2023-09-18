@@ -5,7 +5,7 @@ using Sales.Domain.Entities.Enums;
 
 namespace Sales.Domain.Specifications;
 
-public class LeadStatusSpecification : Specification<Lead>, ISpecification<Lead>
+public class LeadStatusSpecification : Specification<Lead>
 {
     private readonly LeadStatus? _status;
 
