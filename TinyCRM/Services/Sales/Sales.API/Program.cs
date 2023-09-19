@@ -7,9 +7,6 @@ var builder = WebApplication.CreateBuilder(args);
 
 await builder.Services.AddDefaultExtensions(builder.Configuration);
 
-builder.Services.AddControllers();
-builder.Services.AddEndpointsApiExplorer();
-
 builder.Services.AddHttpContextAccessor();
 builder.Services.AddScoped<ICurrentUser, CurrentUser>();
 var app = builder.Build();

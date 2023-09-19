@@ -18,7 +18,7 @@ public class AccountConfiguration : IEntityTypeConfiguration<Account>
         builder.HasIndex(a => a.Phone).IsUnique();
         builder.Property(account => account.Phone)
             .IsRequired()
-            .HasMaxLength(20);
+            .HasMaxLength(30);
         builder.Property(account => account.Address)
             .IsRequired()
             .HasMaxLength(255);

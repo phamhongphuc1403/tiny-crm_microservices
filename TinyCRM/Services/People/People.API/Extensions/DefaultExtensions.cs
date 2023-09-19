@@ -1,12 +1,10 @@
 using System.Text.Json.Serialization;
-using AutoMapper;
 using BuildingBlock.Application.Identity;
 using BuildingBlock.Presentation.Authentication;
 using BuildingBlock.Presentation.Authorization;
 using BuildingBlock.Presentation.Extensions;
 using People.Application;
 using People.Infrastructure.EFCore;
-using Mapper = People.Infrastructure.EFCore.Mapper;
 
 namespace People.API.Extensions;
 

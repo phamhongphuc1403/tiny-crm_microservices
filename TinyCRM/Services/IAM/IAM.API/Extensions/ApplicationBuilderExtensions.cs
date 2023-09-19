@@ -6,7 +6,7 @@ namespace IAM.API.Extensions;
 
 public static class ApplicationBuilderExtensions
 {
-    public static async Task SeedDataAsync(this IApplicationBuilder app)
+    public static async Task SeedIamDataAsync(this IApplicationBuilder app)
     {
         using var scope = app.ApplicationServices.CreateScope();
         var seedData = scope.ServiceProvider.GetRequiredService<DataContributor>();

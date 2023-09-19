@@ -14,7 +14,7 @@ public class UnitOfWork<TDbContext> : IUnitOfWork where TDbContext : DbContext
         _dbContext = dbContext;
     }
 
-    public async Task<int> SaveChangeAsync()
+    public async Task<int> SaveChangesAsync()
     {
         return await _dbContext.SaveChangesAsync();
     }

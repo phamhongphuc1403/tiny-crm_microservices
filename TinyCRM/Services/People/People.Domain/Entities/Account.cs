@@ -4,9 +4,22 @@ namespace People.Domain.Entities;
 
 public class Account : GuidEntity
 {
-    public string Name { set; get; } = null!;
-    public string Email { set; get; } = null!;
-    public string Phone { set; get; } = null!;
-    public string Address { set; get; } = null!;
-    public double TotalSales { set; get; }
+    public Account(string name, string email, string phone, string address, double totalSales)
+    {
+        Name = name;
+        Email = email;
+        Phone = phone;
+        Address = address;
+        TotalSales = totalSales;
+    }
+
+    public Account()
+    {
+    }
+
+    public string Name { get; private set; }
+    public string Email { get; private set; }
+    public string Phone { get; private set; }
+    public string Address { get; private set; }
+    public double TotalSales { get; private set; }
 }

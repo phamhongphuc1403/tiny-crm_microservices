@@ -49,6 +49,11 @@ public class ReadOnlyRepository<TDbContext, TEntity> : IReadOnlyRepository<TEnti
         return DbSet.AsNoTracking().AnyAsync(specification.ToExpression());
     }
 
+    public Task<bool> CheckIfExistAsync()
+    {
+        return DbSet.AsNoTracking().AnyAsync();
+    }
+
     public async Task<(List<TEntity>, int)> GetFilterAndPagingAsync(ISpecification<TEntity> specification, string sort,
         int pageIndex,
         int pageSize, string? includeTables = null)

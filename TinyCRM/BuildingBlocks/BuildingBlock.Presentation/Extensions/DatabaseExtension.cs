@@ -12,8 +12,7 @@ public static class DatabaseExtension
     {
         services.AddDbContext<TDbContext>(options =>
         {
-            options.UseSqlServer(Environment.GetEnvironmentVariable("CONNECTION_STRING") ??
-                                 configuration.GetConnectionString("DefaultConnection"));
+            options.UseSqlServer(configuration.GetConnectionString("Default"));
             options.EnableSensitiveDataLogging();
         });
 
