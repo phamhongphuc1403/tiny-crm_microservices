@@ -12,9 +12,9 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Sales", "Sales", "{85BBD192
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "People", "People", "{92941348-5B6B-4308-990F-B5CE7C17923B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IAM.API", "TinyCRM\Services\IAM\IAM.API\IAM.API.csproj", "{81FF25B7-7612-4FB0-A929-D77601FD5FEB}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "IAM.API", "TinyCRM\Services\IAM\IAM.API\IAM.API.csproj", "{81FF25B7-7612-4FB0-A929-D77601FD5FEB}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "People.API", "TinyCRM\Services\People\People.API\People.API.csproj", "{437681C9-9953-41B2-955F-347C7CAE9FF0}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "People.API", "TinyCRM\Services\People\People.API\People.API.csproj", "{437681C9-9953-41B2-955F-347C7CAE9FF0}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Presentation", "Presentation", "{A48D5F92-D92C-45E8-AB98-6225604570BF}"
 EndProject
@@ -24,15 +24,15 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Core", "Core", "{88A0C185-C
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Infracstructure", "Infracstructure", "{960A8B7B-9D4A-40B6-B782-1DA367D4652A}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "APIGateway", "TinyCRM\APIGateway\APIGateway.csproj", "{811C1206-9EA9-40F0-9570-6BABF0CBE077}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "APIGateway", "TinyCRM\APIGateway\APIGateway.csproj", "{811C1206-9EA9-40F0-9570-6BABF0CBE077}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BuildingBlock.Domain", "TinyCRM\BuildingBlocks\BuildingBlock.Domain\BuildingBlock.Domain.csproj", "{36E9497E-1F75-4AF5-9926-EA65C334D0F1}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BuildingBlock.Domain", "TinyCRM\BuildingBlocks\BuildingBlock.Domain\BuildingBlock.Domain.csproj", "{36E9497E-1F75-4AF5-9926-EA65C334D0F1}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BuildingBlock.Application", "TinyCRM\BuildingBlocks\BuildingBlock.Application\BuildingBlock.Application.csproj", "{D191A39B-D57D-40D2-9D41-659DF08BA91C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BuildingBlock.Application", "TinyCRM\BuildingBlocks\BuildingBlock.Application\BuildingBlock.Application.csproj", "{D191A39B-D57D-40D2-9D41-659DF08BA91C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BuildingBlock.Presentation", "TinyCRM\BuildingBlocks\BuildingBlock.Presentation\BuildingBlock.Presentation.csproj", "{B2EB7761-1068-455F-8E94-E396BFF4E806}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BuildingBlock.Presentation", "TinyCRM\BuildingBlocks\BuildingBlock.Presentation\BuildingBlock.Presentation.csproj", "{B2EB7761-1068-455F-8E94-E396BFF4E806}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BuildingBlock.Infrastructure.EFCore", "TinyCRM\BuildingBlocks\BuildingBlock.Infrastructure.EFCore\BuildingBlock.Infrastructure.EFCore.csproj", "{4CE81759-F7CE-4FC4-A7AA-D0033F9DC03D}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BuildingBlock.Infrastructure.EFCore", "TinyCRM\BuildingBlocks\BuildingBlock.Infrastructure.EFCore\BuildingBlock.Infrastructure.EFCore.csproj", "{4CE81759-F7CE-4FC4-A7AA-D0033F9DC03D}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Core", "Core", "{457BB248-6900-48E0-AD7B-D6AE70966D76}"
 EndProject
@@ -40,31 +40,33 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Presentation", "Presentatio
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Infracstructure", "Infracstructure", "{0F028C6F-61D9-4562-BA08-680BBCAEA297}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Sales.API", "TinyCRM\Services\Sales\Sales.API\Sales.API.csproj", "{947F6940-53E7-4862-81AC-B7EB9EEB78B9}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Sales.API", "TinyCRM\Services\Sales\Sales.API\Sales.API.csproj", "{947F6940-53E7-4862-81AC-B7EB9EEB78B9}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BuildingBlock.Infrastructure.RedisCache", "TinyCRM\BuildingBlocks\BuildingBlock.Infrastructure.RedisCache\BuildingBlock.Infrastructure.RedisCache.csproj", "{CE34A830-336B-4420-96DB-B611E7C13855}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BuildingBlock.Infrastructure.RedisCache", "TinyCRM\BuildingBlocks\BuildingBlock.Infrastructure.RedisCache\BuildingBlock.Infrastructure.RedisCache.csproj", "{CE34A830-336B-4420-96DB-B611E7C13855}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Sales.Domain", "TinyCRM\Services\Sales\Sales.Domain\Sales.Domain.csproj", "{CDFAD51B-B10D-42C5-96DA-FA643BE39146}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BuildingBlock.RabbitMQ", "TinyCRM\BuildingBlocks\BuildingBlock.RabbitMQ\BuildingBlock.RabbitMQ.csproj", "{CE44A830-336B-4420-96DB-B611E7C13855}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Sales.Application", "TinyCRM\Services\Sales\Sales.Application\Sales.Application.csproj", "{D1E376E0-CBD2-4C4D-AE71-FB66B905C8C4}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Sales.Domain", "TinyCRM\Services\Sales\Sales.Domain\Sales.Domain.csproj", "{CDFAD51B-B10D-42C5-96DA-FA643BE39146}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Sales.Infrastructure.EFCore", "TinyCRM\Services\Sales\Sales.Infrastructure.EFCore\Sales.Infrastructure.EFCore.csproj", "{006EB2F1-627D-4797-BE29-362E602B0182}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Sales.Application", "TinyCRM\Services\Sales\Sales.Application\Sales.Application.csproj", "{D1E376E0-CBD2-4C4D-AE71-FB66B905C8C4}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "People.Infrastructure.EFCore", "TinyCRM\Services\People\People.Infrastructure.EFCore\People.Infrastructure.EFCore.csproj", "{256CF60F-58DF-486D-8821-13BBF26EAEB7}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Sales.Infrastructure.EFCore", "TinyCRM\Services\Sales\Sales.Infrastructure.EFCore\Sales.Infrastructure.EFCore.csproj", "{006EB2F1-627D-4797-BE29-362E602B0182}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "People.Domain", "TinyCRM\Services\People\People.Domain\People.Domain.csproj", "{5AAE2453-E4BC-407C-B35D-6B73EE6FC623}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "People.Infrastructure.EFCore", "TinyCRM\Services\People\People.Infrastructure.EFCore\People.Infrastructure.EFCore.csproj", "{256CF60F-58DF-486D-8821-13BBF26EAEB7}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "People.Application", "TinyCRM\Services\People\People.Application\People.Application.csproj", "{A3DBF825-ABD6-4C7B-B3E6-DC3D9219AF20}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "People.Domain", "TinyCRM\Services\People\People.Domain\People.Domain.csproj", "{5AAE2453-E4BC-407C-B35D-6B73EE6FC623}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "People.Application", "TinyCRM\Services\People\People.Application\People.Application.csproj", "{A3DBF825-ABD6-4C7B-B3E6-DC3D9219AF20}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Business", "Business", "{1FBE68F5-33ED-491B-BF83-282A45B30955}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Data", "Data", "{092AA6A0-B54C-430E-8A94-D2A51EE78150}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IAM.Business", "TinyCRM\Services\IAM\IAM.Business\IAM.Business.csproj", "{1B0A3586-3C70-4CAC-ACA5-340DF255B91B}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "IAM.Business", "TinyCRM\Services\IAM\IAM.Business\IAM.Business.csproj", "{1B0A3586-3C70-4CAC-ACA5-340DF255B91B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IAM.Domain", "TinyCRM\Services\IAM\IAM.Domain\IAM.Domain.csproj", "{96AD94F4-1ED1-4955-9324-A8892D98341B}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "IAM.Domain", "TinyCRM\Services\IAM\IAM.Domain\IAM.Domain.csproj", "{96AD94F4-1ED1-4955-9324-A8892D98341B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IAM.Infrastructure", "TinyCRM\Services\IAM\IAM.Infrastructure\IAM.Infrastructure.csproj", "{725E518B-2ABD-4F05-9784-E38FAB764D07}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "IAM.Infrastructure", "TinyCRM\Services\IAM\IAM.Infrastructure\IAM.Infrastructure.csproj", "{725E518B-2ABD-4F05-9784-E38FAB764D07}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "DockerCompose", "DockerCompose", "{52CACCF8-684A-4A04-AE55-FADEF08A2A48}"
 	ProjectSection(SolutionItems) = preProject
@@ -72,8 +74,6 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "DockerCompose", "DockerComp
 	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IAM.Infrastructure.Grpc", "TinyCRM\Services\IAM\IAM.Infrastructure.Grpc\IAM.Infrastructure.Grpc.csproj", "{4D4A3E49-798A-414D-A54B-4044A9E45D18}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BuildingBlock.RabbitMQ", "TinyCRM\BuildingBlocks\BuildingBlock.RabbitMQ\BuildingBlock.RabbitMQ.csproj", "{233F6CDA-25DD-4CE8-9907-145EF46A9D41}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -117,6 +117,10 @@ Global
 		{CE34A830-336B-4420-96DB-B611E7C13855}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{CE34A830-336B-4420-96DB-B611E7C13855}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{CE34A830-336B-4420-96DB-B611E7C13855}.Release|Any CPU.Build.0 = Release|Any CPU
+		{CE44A830-336B-4420-96DB-B611E7C13855}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CE44A830-336B-4420-96DB-B611E7C13855}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CE44A830-336B-4420-96DB-B611E7C13855}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CE44A830-336B-4420-96DB-B611E7C13855}.Release|Any CPU.Build.0 = Release|Any CPU
 		{CDFAD51B-B10D-42C5-96DA-FA643BE39146}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{CDFAD51B-B10D-42C5-96DA-FA643BE39146}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{CDFAD51B-B10D-42C5-96DA-FA643BE39146}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -157,6 +161,13 @@ Global
 		{4D4A3E49-798A-414D-A54B-4044A9E45D18}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{4D4A3E49-798A-414D-A54B-4044A9E45D18}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{4D4A3E49-798A-414D-A54B-4044A9E45D18}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+		{4D4A3E49-798A-414D-A54B-4044A9E45D18}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4D4A3E49-798A-414D-A54B-4044A9E45D18}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4D4A3E49-798A-414D-A54B-4044A9E45D18}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4D4A3E49-798A-414D-A54B-4044A9E45D18}.Release|Any CPU.Build.0 = Release|Any CPU
 		{233F6CDA-25DD-4CE8-9907-145EF46A9D41}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{233F6CDA-25DD-4CE8-9907-145EF46A9D41}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{233F6CDA-25DD-4CE8-9907-145EF46A9D41}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -166,12 +177,12 @@ Global
 		{1D6AD318-0466-4529-8142-645A993ECE0B} = {5D294B95-10C1-4A0A-9D6D-4E1528327AE8}
 		{85BBD192-BE79-42E8-B941-8972FF30ACEF} = {5D294B95-10C1-4A0A-9D6D-4E1528327AE8}
 		{92941348-5B6B-4308-990F-B5CE7C17923B} = {5D294B95-10C1-4A0A-9D6D-4E1528327AE8}
-		{A48D5F92-D92C-45E8-AB98-6225604570BF} = {1D6AD318-0466-4529-8142-645A993ECE0B}
 		{81FF25B7-7612-4FB0-A929-D77601FD5FEB} = {A48D5F92-D92C-45E8-AB98-6225604570BF}
+		{437681C9-9953-41B2-955F-347C7CAE9FF0} = {E828A605-2782-4770-95F5-98E8BE65C433}
+		{A48D5F92-D92C-45E8-AB98-6225604570BF} = {1D6AD318-0466-4529-8142-645A993ECE0B}
 		{E828A605-2782-4770-95F5-98E8BE65C433} = {92941348-5B6B-4308-990F-B5CE7C17923B}
 		{88A0C185-CAC2-4CE1-A1C7-92FEEBCF2683} = {92941348-5B6B-4308-990F-B5CE7C17923B}
 		{960A8B7B-9D4A-40B6-B782-1DA367D4652A} = {92941348-5B6B-4308-990F-B5CE7C17923B}
-		{437681C9-9953-41B2-955F-347C7CAE9FF0} = {E828A605-2782-4770-95F5-98E8BE65C433}
 		{811C1206-9EA9-40F0-9570-6BABF0CBE077} = {9B2EB4EE-BA1A-4600-8698-1FB5C137FB52}
 		{36E9497E-1F75-4AF5-9926-EA65C334D0F1} = {3A37EDE2-7513-48D9-8DBA-E7D15AEE0A6D}
 		{D191A39B-D57D-40D2-9D41-659DF08BA91C} = {3A37EDE2-7513-48D9-8DBA-E7D15AEE0A6D}
@@ -182,6 +193,7 @@ Global
 		{0F028C6F-61D9-4562-BA08-680BBCAEA297} = {85BBD192-BE79-42E8-B941-8972FF30ACEF}
 		{947F6940-53E7-4862-81AC-B7EB9EEB78B9} = {FE29C1A7-8863-40DB-A303-50D8A1CEFC0B}
 		{CE34A830-336B-4420-96DB-B611E7C13855} = {3A37EDE2-7513-48D9-8DBA-E7D15AEE0A6D}
+		{CE44A830-336B-4420-96DB-B611E7C13855} = {3A37EDE2-7513-48D9-8DBA-E7D15AEE0A6D}
 		{CDFAD51B-B10D-42C5-96DA-FA643BE39146} = {457BB248-6900-48E0-AD7B-D6AE70966D76}
 		{D1E376E0-CBD2-4C4D-AE71-FB66B905C8C4} = {457BB248-6900-48E0-AD7B-D6AE70966D76}
 		{006EB2F1-627D-4797-BE29-362E602B0182} = {0F028C6F-61D9-4562-BA08-680BBCAEA297}
@@ -193,6 +205,10 @@ Global
 		{1B0A3586-3C70-4CAC-ACA5-340DF255B91B} = {1FBE68F5-33ED-491B-BF83-282A45B30955}
 		{96AD94F4-1ED1-4955-9324-A8892D98341B} = {092AA6A0-B54C-430E-8A94-D2A51EE78150}
 		{725E518B-2ABD-4F05-9784-E38FAB764D07} = {092AA6A0-B54C-430E-8A94-D2A51EE78150}
+		{4D4A3E49-798A-414D-A54B-4044A9E45D18} = {092AA6A0-B54C-430E-8A94-D2A51EE78150}
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {ED4E88BC-28CC-4E52-B707-F67C29CDDD0C}
 		{4D4A3E49-798A-414D-A54B-4044A9E45D18} = {092AA6A0-B54C-430E-8A94-D2A51EE78150}
 		{233F6CDA-25DD-4CE8-9907-145EF46A9D41} = {3A37EDE2-7513-48D9-8DBA-E7D15AEE0A6D}
 	EndGlobalSection

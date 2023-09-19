@@ -1,16 +1,26 @@
 using System.Text;
+using BuildingBlock.Presentation.Authorization;
 using IAM.Business.Models;
 using IAM.Domain.Entities.Roles;
 using IAM.Domain.Entities.Users;
 using IAM.Infrastructure.EFCore;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.IdentityModel.Tokens;
+using PermissionAuthorizationHandler = IAM.API.Authorization.PermissionAuthorizationHandler;
 
 namespace IAM.API.Extensions;
 
-public static class Authentication
+public static class AuthenticationExtensions
 {
+    public static IServiceCollection AddAuthorizations(this IServiceCollection services)
+    {
+        services.AddSingleton<IAuthorizationPolicyProvider, PermissionPolicyProvider>();
+        services.AddScoped<IAuthorizationHandler, PermissionAuthorizationHandler>();
+
+        return services;
+    }
     public static IServiceCollection AddAuthentication(this IServiceCollection services, IConfiguration configuration)
     {
         var jwtSetting = GetJwtSetting(configuration);

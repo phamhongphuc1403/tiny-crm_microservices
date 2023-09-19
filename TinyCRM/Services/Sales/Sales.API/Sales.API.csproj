@@ -30,5 +30,4 @@
         <ProjectReference Include="..\Sales.Infrastructure.EFCore\Sales.Infrastructure.EFCore.csproj"/>
     </ItemGroup>
 
-
 </Project>

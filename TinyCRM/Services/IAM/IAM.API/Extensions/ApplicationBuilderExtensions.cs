@@ -1,4 +1,4 @@
-﻿using IAM.Business;
+﻿using IAM.Business.Helper;
 using IAM.Infrastructure.EFCore;
 using Microsoft.EntityFrameworkCore;
 
@@ -10,7 +10,9 @@ public static class ApplicationBuilderExtensions
     {
         using var scope = app.ApplicationServices.CreateScope();
         var seedData = scope.ServiceProvider.GetRequiredService<DataContributor>();
+        var seedPermissions = scope.ServiceProvider.GetRequiredService<PermissionContributor>();
         await seedData.SeedAsync();
+        await seedPermissions.SeedPermissionsAsync();
     }
 
     public static async Task ApplyMigrationAsync(this IApplicationBuilder app)

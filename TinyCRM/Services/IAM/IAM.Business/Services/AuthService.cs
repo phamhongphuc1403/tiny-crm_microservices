@@ -3,7 +3,7 @@ using System.Security.Claims;
 using System.Text;
 using BuildingBlock.Domain.Exceptions;
 using IAM.Business.Models;
-using IAM.Business.Models.Dto.Users;
+using IAM.Business.Models.Users;
 using IAM.Business.Services.IServices;
 using IAM.Domain.Entities.Roles;
 using IAM.Domain.Entities.Users;
@@ -15,11 +15,11 @@ namespace IAM.Business.Services;
 
 public class AuthService : IAuthService
 {
-    private readonly JwtSettings _jwtSettings;
-    private readonly IPermissionCacheIamManager _permissionCacheManager;
-    private readonly RoleManager<ApplicationRole> _roleManager;
     private readonly SignInManager<ApplicationUser> _signInManager;
     private readonly UserManager<ApplicationUser> _userManager;
+    private readonly JwtSettings _jwtSettings;
+    private readonly RoleManager<ApplicationRole> _roleManager;
+    private readonly IPermissionCacheIamManager _permissionCacheManager;
 
 
     public AuthService(SignInManager<ApplicationUser> signInManager, UserManager<ApplicationUser> userManager,
@@ -60,30 +60,30 @@ public class AuthService : IAuthService
                 rolePermissions = await GetPermissionsRoleAsync(role);
                 await _permissionCacheManager.SetPermissionsRoleAsync(role, rolePermissions);
             }
-
+    
             permissions.AddRange(rolePermissions);
         }
-
+    
         return permissions;
     }
-
+    
     private async Task<List<string>> GetPermissionsRoleAsync(string role)
     {
         var roleEntity = await _roleManager.FindByNameAsync(role)
                          ?? throw new EntityNotFoundException($"Role with name {role} not found");
-
+    
         var claims = await _roleManager.GetClaimsAsync(roleEntity);
         return (from claim in claims where claim.Type == "Permission" select claim.Value).ToList();
     }
-
+    
     private async Task<IList<string>> GetRolesAsync(string userId)
     {
         var roles = await _permissionCacheManager.GetRolesUserAsync(userId);
         if (roles != null) return (IList<string>)roles;
-
+    
         var user = await _userManager.FindByIdAsync(userId);
         if (user == null) throw new EntityNotFoundException($"User with id {userId} not found");
-
+    
         roles = await _userManager.GetRolesAsync(user);
         await _permissionCacheManager.SetRolesUserAsync(userId, roles,
             TimeSpan.FromMinutes(_jwtSettings.ExpiryInMinutes));

@@ -1,6 +1,6 @@
 using System.ComponentModel.DataAnnotations;
 
-namespace IAM.Business.Models.Dto.Users;
+namespace IAM.Business.Models.Users;
 
 public class SignInDto
 {

@@ -3,7 +3,7 @@ using IAM.Domain.Entities.Roles;
 using IAM.Domain.Entities.Users;
 using Microsoft.AspNetCore.Identity;
 
-namespace IAM.Business;
+namespace IAM.Business.Helper;
 
 public class DataContributor
 {

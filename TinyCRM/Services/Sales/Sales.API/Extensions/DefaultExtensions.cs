@@ -1,4 +1,6 @@
 using System.Text.Json.Serialization;
+using BuildingBlock.Presentation.Authentication;
+using BuildingBlock.Presentation.Authorization;
 using BuildingBlock.Presentation.Extensions;
 using Sales.Application;
 using Sales.Infrastructure.EFCore;
@@ -23,7 +25,8 @@ public static class DefaultExtensions
             .AddMapper<Mapper>()
             .AddDatabase<SaleDbContext>(configuration)
             .AddDependencyInjection()
-            ;
+            .AddTinyCRMAuthentication(configuration)
+            .AddAuthorizations();
 
         await services.ApplyMigrationAsync<SaleDbContext>();
 

@@ -7,21 +7,21 @@
     </PropertyGroup>
 
     <ItemGroup>
-        <Protobuf Include="Protos\greet.proto" GrpcServices="Server"/>
+        <Protobuf Include="Protos\AuthGrpc.proto" GrpcServices="Server" />
     </ItemGroup>
 
     <ItemGroup>
-        <PackageReference Include="Grpc.AspNetCore" Version="2.57.0"/>
-        <PackageReference Include="Grpc.AspNetCore.Server" Version="2.57.0"/>
-        <PackageReference Include="Grpc.AspNetCore.Server.Reflection" Version="2.57.0"/>
+        <PackageReference Include="Grpc.AspNetCore" Version="2.57.0" />
+        <PackageReference Include="Grpc.AspNetCore.Server" Version="2.57.0" />
+        <PackageReference Include="Grpc.AspNetCore.Server.Reflection" Version="2.57.0" />
         <PackageReference Include="Grpc.Tools" Version="2.58.0">
-            <PrivateAssets>all</PrivateAssets>
-            <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+          <PrivateAssets>all</PrivateAssets>
+          <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
         </PackageReference>
-        <PackageReference Include="Microsoft.AspNetCore.Grpc.JsonTranscoding" Version="7.0.10"/>
+        <PackageReference Include="Microsoft.AspNetCore.Grpc.JsonTranscoding" Version="7.0.10" />
     </ItemGroup>
 
     <ItemGroup>
-        <ProjectReference Include="..\IAM.Business\IAM.Business.csproj"/>
+      <ProjectReference Include="..\IAM.Business\IAM.Business.csproj" />
     </ItemGroup>
 </Project>

@@ -19,13 +19,12 @@ public static class CustomExceptionMiddleware
             async Task Handler(HttpContext context)
             {
                 var ex = context.Features.Get<IExceptionHandlerFeature>()?.Error;
+                var message = ex?.Message;
                 // LoggerService.LogError(ex, "An exception occurred while processing the request");
 
                 var statusCode = GetStatusCode(ex);
-
-                var message = env.IsDevelopment()
-                    ? ex?.Message
-                    : "An error occurred from the system. Please try again";
+                if(!env.IsDevelopment() && statusCode==(int)HttpStatusCode.InternalServerError)
+                    message = "An error occurred from the system. Please try again";
                 context.Response.StatusCode = statusCode;
                 context.Response.ContentType = "application/json";
                 await context.Response.WriteAsJsonAsync(new ExceptionResponse

@@ -1,20 +1,27 @@
-using APIGateway.Authentication;
 using BuildingBlock.Presentation.Extensions;
-using Microsoft.AspNetCore.Authentication;
 using Ocelot.DependencyInjection;
 using Ocelot.Middleware;
 
 var builder = WebApplication.CreateBuilder(args);
 
-builder.Services.AddHttpClient<IamService>();
 
 builder.Services.AddDefaultOpenApi(builder.Configuration);
 builder.Services.AddOcelot();
 builder.Services.AddSwaggerForOcelot(builder.Configuration);
 
-builder.Services.AddAuthentication().AddScheme<AuthenticationSchemeOptions, IamAuthenticationHandler>("Iam", null);
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy("TinyCRM", policyBuilder =>
+    {
+        policyBuilder.WithOrigins("*")
+            .AllowAnyMethod()
+            .AllowAnyHeader();
+    });
+} );
+
 
 var app = builder.Build();
+app.UseCors("TinyCRM");
 
 app.UseSwagger();
 app.UseSwaggerForOcelotUI().UseOcelot();

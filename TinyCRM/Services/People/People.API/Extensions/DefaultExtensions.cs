@@ -1,5 +1,8 @@
 using System.Text.Json.Serialization;
 using AutoMapper;
+using BuildingBlock.Application.Identity;
+using BuildingBlock.Presentation.Authentication;
+using BuildingBlock.Presentation.Authorization;
 using BuildingBlock.Presentation.Extensions;
 using People.Application;
 using People.Infrastructure.EFCore;
@@ -25,8 +28,12 @@ public static class DefaultExtensions
             .AddMapper<Mapper>()
             .AddDatabase<PeopleDbContext>(configuration)
             .AddDependencyInjection()
-            ;
+            .AddTinyCRMAuthentication(configuration)
+            .AddAuthorizations();
 
+        services.AddHttpContextAccessor();
+        services.AddScoped<ICurrentUser, CurrentUser>();
+        
         await services.ApplyMigrationAsync<PeopleDbContext>();
 
         return services;

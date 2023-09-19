@@ -1,0 +1,27 @@
+syntax = "proto3";
+
+option csharp_namespace = "IAM.Infrastructure.Grpc";
+package AuthGrpc;
+
+service AuthGrpcService {
+  rpc GetClaims(Empty) returns (stream ClaimResponse);
+  rpc GetPermissions (PermissionRequest) returns (PermissionResponse);
+}
+
+
+message Empty {
+
+}
+
+message ClaimResponse {
+  string type = 1;
+  string value = 2;
+}
+
+message PermissionRequest {
+  string userId = 1;
+}
+
+message PermissionResponse {
+  repeated string permissions = 1;
+}

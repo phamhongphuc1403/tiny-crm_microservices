@@ -1,4 +1,4 @@
-using IAM.Business.Models.Dto.Users;
+using IAM.Business.Models.Users;
 
 namespace IAM.Business.Services.IServices;
 

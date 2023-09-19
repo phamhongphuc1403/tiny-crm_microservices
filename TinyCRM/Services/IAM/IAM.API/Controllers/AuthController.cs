@@ -1,5 +1,5 @@
 ﻿using IAM.Business.Models;
-using IAM.Business.Models.Dto.Users;
+using IAM.Business.Models.Users;
 using IAM.Business.Services.IServices;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -22,14 +22,5 @@ public class AuthController : ControllerBase
     {
         var result = await _authService.SignInAsync(signInDto);
         return Ok(new { Token = result });
-    }
-
-    [HttpGet]
-    [Authorize]
-    public IActionResult AuthenticateAsync()
-    {
-        var claims = User.Claims.Select(x => new AuthenticationClaim(x.Type, x.Value));
-        var user = User.Identity?.Name;
-        return Ok(claims);
     }
 }

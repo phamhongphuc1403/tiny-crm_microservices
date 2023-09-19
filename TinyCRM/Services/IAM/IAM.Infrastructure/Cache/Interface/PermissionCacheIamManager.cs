@@ -22,7 +22,7 @@ public class PermissionCacheIamManager : PermissionCacheManager, IPermissionCach
     {
         return _cacheIamService.RemoveRecordAsync(KeyGenerator.Generate(CacheTarget.PermissionRole, role));
     }
-
+    
     public Task SetRolesUserAsync(string userId, IEnumerable<string> roles, TimeSpan expireTime)
     {
         return _cacheIamService.SetRecordAsync(KeyGenerator.Generate(CacheTarget.RoleUser, userId),

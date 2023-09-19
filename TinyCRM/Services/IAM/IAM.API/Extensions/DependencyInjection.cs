@@ -4,6 +4,7 @@ using BuildingBlock.Infrastructure.EFCore;
 using BuildingBlock.Infrastructure.RedisCache;
 using BuildingBlock.Infrastructure.RedisCache.Cache.Interface;
 using IAM.Business;
+using IAM.Business.Helper;
 using IAM.Business.Services;
 using IAM.Business.Services.IServices;
 using IAM.Infrastructure.Cache;
@@ -24,7 +25,7 @@ public static class DependencyInjection
             }
         );
         services.AddScoped<DataContributor>();
-        // services.AddScoped<PermissionContributor>();
+        services.AddScoped<PermissionContributor>();
 
         services.AddScoped<Func<IdentityDataContext>>(provider => () => provider.GetService<IdentityDataContext>()
                                                                         ?? throw new InvalidOperationException());
@@ -44,12 +45,11 @@ public static class DependencyInjection
 
         services.AddSingleton<IConnectionMultiplexer>(multiplexer);
         services.AddTransient<ICacheService, RedisCacheService>();
-        services.AddTransient<ICacheIamService, RedisCacheIamService>();
+        services.AddTransient<ICacheIamService,RedisCacheIamService>();
         services.AddTransient<IPermissionCacheManager, PermissionCacheManager>();
         services.AddTransient<IPermissionCacheIamManager, PermissionCacheIamManager>();
         return services;
     }
-
     public static IServiceCollection AddMapper(this IServiceCollection services)
     {
         services.AddAutoMapper(Assembly.GetAssembly(typeof(IdentityBusinessAssemblyReference)));
