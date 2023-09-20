@@ -12,10 +12,11 @@ public class AccountNamePartialMatchSpecification : Specification<Account>
     {
         _name = name;
     }
+
     public override Expression<Func<Account, bool>> ToExpression()
     {
         if (string.IsNullOrWhiteSpace(_name)) return account => true;
-        
+
         return account => account.Name.Contains(_name);
     }
 }

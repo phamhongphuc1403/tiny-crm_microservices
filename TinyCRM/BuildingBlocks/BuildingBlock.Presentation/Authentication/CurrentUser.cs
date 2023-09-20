@@ -7,6 +7,7 @@ namespace BuildingBlock.Presentation.Authentication;
 public class CurrentUser : ICurrentUser
 {
     private readonly IHttpContextAccessor _httpContextAccessor;
+
     public CurrentUser(IHttpContextAccessor httpContextAccessor)
     {
         _httpContextAccessor = httpContextAccessor;

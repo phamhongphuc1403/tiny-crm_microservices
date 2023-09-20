@@ -1,7 +1,5 @@
-﻿using IAM.Business.Models;
-using IAM.Business.Models.Users;
+﻿using IAM.Business.Models.Users;
 using IAM.Business.Services.IServices;
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace IAM.API.Controllers;

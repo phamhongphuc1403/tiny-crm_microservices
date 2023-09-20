@@ -23,7 +23,7 @@ public static class CustomExceptionMiddleware
                 // LoggerService.LogError(ex, "An exception occurred while processing the request");
 
                 var statusCode = GetStatusCode(ex);
-                if(!env.IsDevelopment() && statusCode==(int)HttpStatusCode.InternalServerError)
+                if (!env.IsDevelopment() && statusCode == (int)HttpStatusCode.InternalServerError)
                     message = "An error occurred from the system. Please try again";
                 context.Response.StatusCode = statusCode;
                 context.Response.ContentType = "application/json";

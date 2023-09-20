@@ -32,25 +32,22 @@ public class ReadOnlyRepository<TDbContext, TEntity> : IReadOnlyRepository<TEnti
         return query.FirstOrDefaultAsync();
     }
 
-    public Task<List<TEntity>> GetAllAsync(ISpecification<TEntity> specification,
+    public Task<List<TEntity>> GetAllAsync(ISpecification<TEntity>? specification = null,
         string? includeTables = null)
     {
         var query = DbSet.AsNoTracking();
 
-        query = Filter(query, specification);
+        if (specification != null) query = Filter(query, specification);
 
         query = Include(query, includeTables);
 
         return query.ToListAsync();
     }
 
-    public Task<bool> CheckIfExistAsync(ISpecification<TEntity> specification)
+    public Task<bool> CheckIfExistAsync(ISpecification<TEntity>? specification = null)
     {
-        return DbSet.AsNoTracking().AnyAsync(specification.ToExpression());
-    }
+        if (specification != null) return DbSet.AsNoTracking().AnyAsync(specification.ToExpression());
 
-    public Task<bool> CheckIfExistAsync()
-    {
         return DbSet.AsNoTracking().AnyAsync();
     }
 

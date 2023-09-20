@@ -4,7 +4,7 @@ using People.Domain.Entities;
 
 namespace People.Infrastructure.EFCore;
 
-public class PeopleDbContext: BaseDbContext
+public class PeopleDbContext : BaseDbContext
 {
     public PeopleDbContext(DbContextOptions options) : base(options)
     {

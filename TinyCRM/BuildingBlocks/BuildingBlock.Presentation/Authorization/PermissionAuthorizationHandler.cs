@@ -8,7 +8,8 @@ public class PermissionAuthorizationHandler : AuthorizationHandler<PermissionReq
 {
     private readonly AuthGrpcService.AuthGrpcServiceClient _authGrpcService;
 
-    public PermissionAuthorizationHandler(AuthGrpcService.AuthGrpcServiceClient authGrpcService, IHttpContextAccessor httpContextAccessor)
+    public PermissionAuthorizationHandler(AuthGrpcService.AuthGrpcServiceClient authGrpcService,
+        IHttpContextAccessor httpContextAccessor)
     {
         _authGrpcService = authGrpcService;
     }

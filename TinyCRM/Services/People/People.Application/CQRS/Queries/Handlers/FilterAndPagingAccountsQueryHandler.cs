@@ -9,28 +9,36 @@ using People.Domain.Specifications;
 
 namespace People.Application.CQRS.Queries.Handlers;
 
-public class FilterAndPagingAccountsQueryHandler : IQueryHandler<FilterAndPagingAccountsQuery, FilterAndPagingResultDto<AccountSummaryDto>>
+public class
+    FilterAndPagingAccountsQueryHandler : IQueryHandler<FilterAndPagingAccountsQuery,
+        FilterAndPagingResultDto<AccountSummaryDto>>
 {
-    private readonly IReadOnlyRepository<Account> _repository;
     private readonly IMapper _mapper;
-    public FilterAndPagingAccountsQueryHandler(
+    private readonly IReadOnlyRepository<Account> _repository;
+
+    public FilterAndPagingAccountsQueryHandler
+    (
         IReadOnlyRepository<Account> repository,
         IMapper mapper
-        )
+    )
     {
         _repository = repository;
         _mapper = mapper;
     }
-    public async Task<FilterAndPagingResultDto<AccountSummaryDto>> Handle(FilterAndPagingAccountsQuery request, CancellationToken cancellationToken)
+
+    public async Task<FilterAndPagingResultDto<AccountSummaryDto>> Handle(FilterAndPagingAccountsQuery request,
+        CancellationToken cancellationToken)
     {
         var accountNamePartialMatchSpecification = new AccountNamePartialMatchSpecification(request.Keyword);
-        
+
         var accountEmailPartialMatchSpecification = new AccountEmailPartialMatchSpecification(request.Keyword);
-        
+
         var specification = accountNamePartialMatchSpecification.Or(accountEmailPartialMatchSpecification);
-        
-        var (accounts, totalCount) = await _repository.GetFilterAndPagingAsync(specification, request.Sort, request.PageIndex, request.PageSize);
-        
-        return new FilterAndPagingResultDto<AccountSummaryDto>(_mapper.Map<List<AccountSummaryDto>>(accounts), request.PageIndex, request.PageSize, totalCount);
+
+        var (accounts, totalCount) =
+            await _repository.GetFilterAndPagingAsync(specification, request.Sort, request.PageIndex, request.PageSize);
+
+        return new FilterAndPagingResultDto<AccountSummaryDto>(_mapper.Map<List<AccountSummaryDto>>(accounts),
+            request.PageIndex, request.PageSize, totalCount);
     }
 }

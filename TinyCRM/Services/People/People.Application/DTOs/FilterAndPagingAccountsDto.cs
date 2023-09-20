@@ -5,5 +5,4 @@ namespace People.Application.DTOs;
 
 public class FilterAndPagingAccountsDto : FilterAndPagingDto<AccountSortProperty>
 {
-    
 }

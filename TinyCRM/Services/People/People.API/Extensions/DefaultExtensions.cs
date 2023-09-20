@@ -31,7 +31,7 @@ public static class DefaultExtensions
 
         services.AddHttpContextAccessor();
         services.AddScoped<ICurrentUser, CurrentUser>();
-        
+
         await services.ApplyMigrationAsync<PeopleDbContext>();
 
         return services;

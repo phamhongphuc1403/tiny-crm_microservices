@@ -10,8 +10,8 @@
     <ItemGroup>
         <PackageReference Include="Microsoft.AspNetCore.OpenApi" Version="7.0.5"/>
         <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="7.0.10">
-          <PrivateAssets>all</PrivateAssets>
-          <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+            <PrivateAssets>all</PrivateAssets>
+            <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
         </PackageReference>
         <PackageReference Include="Swashbuckle.AspNetCore" Version="6.4.0"/>
     </ItemGroup>
@@ -24,9 +24,9 @@
 
 
     <ItemGroup>
-      <ProjectReference Include="..\..\..\BuildingBlocks\BuildingBlock.Presentation\BuildingBlock.Presentation.csproj" />
-      <ProjectReference Include="..\People.Application\People.Application.csproj" />
-      <ProjectReference Include="..\People.Infrastructure.EFCore\People.Infrastructure.EFCore.csproj" />
+        <ProjectReference Include="..\..\..\BuildingBlocks\BuildingBlock.Presentation\BuildingBlock.Presentation.csproj"/>
+        <ProjectReference Include="..\People.Application\People.Application.csproj"/>
+        <ProjectReference Include="..\People.Infrastructure.EFCore\People.Infrastructure.EFCore.csproj"/>
     </ItemGroup>
 
 </Project>

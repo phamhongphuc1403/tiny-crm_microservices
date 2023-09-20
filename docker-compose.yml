@@ -73,7 +73,7 @@ services:
       - Kestrel__Endpoints__gRPC__Url=http://+:50051
     restart: always
     depends_on:
-      - tinycrm.db  
+      - tinycrm.db
       - tinycrm.redis
   tinycrm.db:
     image: mcr.microsoft.com/azure-sql-edge:latest

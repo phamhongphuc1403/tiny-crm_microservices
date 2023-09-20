@@ -21,6 +21,7 @@ public static class AuthenticationExtensions
 
         return services;
     }
+
     public static IServiceCollection AddAuthentication(this IServiceCollection services, IConfiguration configuration)
     {
         var jwtSetting = GetJwtSetting(configuration);

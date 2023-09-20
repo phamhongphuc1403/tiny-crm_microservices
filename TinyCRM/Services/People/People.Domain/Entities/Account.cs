@@ -4,17 +4,13 @@ namespace People.Domain.Entities;
 
 public class Account : GuidEntity
 {
-    public Account(string name, string email, string phone, string address, double totalSales)
+    private Account(string name, string email, string phone, string address, double totalSales)
     {
         Name = name;
         Email = email;
         Phone = phone;
         Address = address;
         TotalSales = totalSales;
-    }
-
-    public Account()
-    {
     }
 
     public string Name { get; private set; }

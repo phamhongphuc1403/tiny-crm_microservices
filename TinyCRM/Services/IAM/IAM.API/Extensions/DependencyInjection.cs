@@ -45,11 +45,12 @@ public static class DependencyInjection
 
         services.AddSingleton<IConnectionMultiplexer>(multiplexer);
         services.AddTransient<ICacheService, RedisCacheService>();
-        services.AddTransient<ICacheIamService,RedisCacheIamService>();
+        services.AddTransient<ICacheIamService, RedisCacheIamService>();
         services.AddTransient<IPermissionCacheManager, PermissionCacheManager>();
         services.AddTransient<IPermissionCacheIamManager, PermissionCacheIamManager>();
         return services;
     }
+
     public static IServiceCollection AddMapper(this IServiceCollection services)
     {
         services.AddAutoMapper(Assembly.GetAssembly(typeof(IdentityBusinessAssemblyReference)));

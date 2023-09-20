@@ -14,5 +14,4 @@ public class IamAccountController : Controller
     {
         return Ok("Day la list account");
     }
-    
 }

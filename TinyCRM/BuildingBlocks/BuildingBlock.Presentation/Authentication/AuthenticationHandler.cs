@@ -28,7 +28,7 @@ public class AuthenticationHandler : AuthenticationHandler<AuthenticationSchemeO
 
         var accessToken = Context.Request.Headers["Authorization"].ToString();
 
-        var headers = new Metadata()
+        var headers = new Metadata
         {
             { "Authorization", accessToken }
         };
@@ -38,9 +38,7 @@ public class AuthenticationHandler : AuthenticationHandler<AuthenticationSchemeO
         {
             using var response = _authGrpcServiceClient.GetClaims(new Empty(), new CallOptions(headers));
             await foreach (var claim in response.ResponseStream.ReadAllAsync())
-            {
                 claims.Add(new Claim(claim.Type, claim.Value));
-            }
         }
         catch (RpcException ex)
         {
