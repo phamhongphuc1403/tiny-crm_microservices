@@ -15,15 +15,13 @@ public class AccountConfiguration : IEntityTypeConfiguration<Account>
         builder.Property(account => account.Email)
             .IsRequired()
             .HasMaxLength(320);
-        builder.HasIndex(a => a.Phone).IsUnique();
         builder.Property(account => account.Phone)
-            .IsRequired()
             .HasMaxLength(30);
         builder.Property(account => account.Address)
-            .IsRequired()
             .HasMaxLength(255);
         builder.Property(e => e.TotalSales)
             .IsRequired()
-            .HasPrecision(10, 2);
+            .HasPrecision(10, 2)
+            .HasDefaultValue(0);
     }
 }

@@ -18,8 +18,8 @@ public class EntityNotFoundException : Exception
     {
     }
 
-    protected EntityNotFoundException(string entity, string value, Guid id) : base(
-        $"{entity} with {value}: {id} not found")
+    protected EntityNotFoundException(string entity, string column, object value) : base(
+        $"{entity} with {column}: {value} not found")
     {
     }
 }

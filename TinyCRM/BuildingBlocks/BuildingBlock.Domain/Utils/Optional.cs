@@ -1,4 +1,4 @@
-namespace BuildingBlock.Application.Utils;
+namespace BuildingBlock.Domain.Utils;
 
 public class Optional<T>
 {

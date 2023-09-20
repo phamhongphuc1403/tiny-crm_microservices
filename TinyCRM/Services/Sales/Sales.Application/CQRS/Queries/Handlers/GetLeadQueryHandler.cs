@@ -1,6 +1,6 @@
 using AutoMapper;
 using BuildingBlock.Application.CQRS.Query;
-using BuildingBlock.Application.Utils;
+using BuildingBlock.Domain.Utils;
 using Sales.Application.CQRS.Queries.Requests;
 using Sales.Application.DTOs;
 using Sales.Domain.Entities;

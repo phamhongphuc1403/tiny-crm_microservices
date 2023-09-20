@@ -1,7 +1,7 @@
 using AutoMapper;
 using BuildingBlock.Application.CQRS.Query;
-using BuildingBlock.Application.Utils;
 using BuildingBlock.Domain.Repositories;
+using BuildingBlock.Domain.Utils;
 using People.Application.CQRS.Queries.Requests;
 using People.Application.DTOs;
 using People.Domain.Entities;

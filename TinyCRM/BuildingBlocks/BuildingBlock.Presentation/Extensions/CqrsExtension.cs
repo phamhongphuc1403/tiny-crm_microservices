@@ -1,3 +1,4 @@
+using BuildingBlock.Application.PipelineBehaviors;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace BuildingBlock.Presentation.Extensions;
@@ -10,6 +11,7 @@ public static class CqrsExtension
         services.AddMediatR(cfg =>
         {
             cfg.RegisterServicesFromAssemblyContaining(typeof(TApplicationAssemblyReference));
+            cfg.AddOpenBehavior(typeof(ValidationBehavior<,>));
         });
 
         return services;

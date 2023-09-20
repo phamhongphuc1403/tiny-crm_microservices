@@ -1,6 +1,7 @@
 using BuildingBlock.Application.DTOs;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
+using People.Application.CQRS.Commands.Requests;
 using People.Application.CQRS.Queries.Requests;
 using People.Application.DTOs;
 
@@ -27,10 +28,19 @@ public class AccountController : ControllerBase
     }
 
     [HttpGet("{id:guid}")]
+    [ActionName(nameof(GetByIdAsync))]
     public async Task<ActionResult<AccountDetailDto>> GetByIdAsync(Guid id)
     {
         var account = await _mediator.Send(new GetAccountByIdQuery(id));
 
         return Ok(account);
+    }
+
+    [HttpPost]
+    public async Task<ActionResult<AccountDetailDto>> CreateAsync(CreateAccountDto dto)
+    {
+        var account = await _mediator.Send(new CreateAccountCommand(dto));
+
+        return CreatedAtAction(nameof(GetByIdAsync), new { id = account.Id }, account);
     }
 }

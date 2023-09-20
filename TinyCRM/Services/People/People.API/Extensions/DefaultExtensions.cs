@@ -3,6 +3,7 @@ using BuildingBlock.Application.Identity;
 using BuildingBlock.Presentation.Authentication;
 using BuildingBlock.Presentation.Authorization;
 using BuildingBlock.Presentation.Extensions;
+using FluentValidation;
 using People.Application;
 using People.Infrastructure.EFCore;
 
@@ -27,6 +28,7 @@ public static class DefaultExtensions
             .AddDatabase<PeopleDbContext>(configuration)
             .AddDependencyInjection()
             .AddTinyCRMAuthentication(configuration)
+            .AddValidatorsFromAssembly(typeof(PeopleApplicationAssemblyReference).Assembly)
             .AddAuthorizations();
 
         services.AddHttpContextAccessor();
