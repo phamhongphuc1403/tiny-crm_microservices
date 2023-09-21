@@ -17,6 +17,6 @@ public class AccountEmailPartialMatchSpecification : Specification<Account>
     {
         if (string.IsNullOrWhiteSpace(_email)) return account => true;
 
-        return account => account.Email.Contains(_email);
+        return account => account.Email != null && account.Email.Contains(_email);
     }
 }

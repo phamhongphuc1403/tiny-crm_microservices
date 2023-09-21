@@ -15,6 +15,6 @@ public class AccountEmailExactMatchSpecification : Specification<Account>
 
     public override Expression<Func<Account, bool>> ToExpression()
     {
-        return account => account.Email.ToUpper() == _email.ToUpper();
+        return account => account.Email != null && account.Email.ToUpper() == _email.ToUpper();
     }
 }

@@ -37,10 +37,18 @@ public class AccountController : ControllerBase
     }
 
     [HttpPost]
-    public async Task<ActionResult<AccountDetailDto>> CreateAsync(CreateAccountDto dto)
+    public async Task<ActionResult<AccountDetailDto>> CreateAsync(CreateOrEditAccountDto dto)
     {
         var account = await _mediator.Send(new CreateAccountCommand(dto));
 
         return CreatedAtAction(nameof(GetByIdAsync), new { id = account.Id }, account);
+    }
+
+    [HttpPut("{id:guid}")]
+    public async Task<ActionResult<AccountDetailDto>> UpdateAsync(Guid id, CreateOrEditAccountDto dto)
+    {
+        var account = await _mediator.Send(new EditAccountCommand(id, dto));
+
+        return Ok(account);
     }
 }

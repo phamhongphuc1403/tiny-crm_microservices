@@ -29,16 +29,45 @@ public class Account : GuidEntity
     public static async Task<Account> CreateAsync(string name, string? email, string? phone, string? address,
         IReadOnlyRepository<Account> repository)
     {
-        if (email != null) await CheckIfExistAsync(email, repository);
+        if (email != null) await CheckValidOnCreateExistAsync(email, repository);
 
         return new Account(name, email, phone, address);
     }
 
-    private static async Task CheckIfExistAsync(string email, IReadOnlyRepository<Account> repository)
+    public static async Task<Account> EditAsync(Guid id, string name, string? email, string? phone, string? address,
+        IReadOnlyRepository<Account> repository)
+    {
+        if (email != null) await CheckValidOnEditExistAsync(id, email, repository);
+
+        var account = new Account(name, email, phone, address);
+
+        account.Id = id;
+
+        return account;
+    }
+
+    private static async Task CheckValidOnCreateExistAsync(string email, IReadOnlyRepository<Account> repository)
     {
         var accountEmailSpecification = new AccountEmailExactMatchSpecification(email);
 
         Optional<bool>.Of(await repository.CheckIfExistAsync(accountEmailSpecification))
+            .ThrowIfPresent(new AccountDuplicatedException(nameof(email), email));
+    }
+
+    private static async Task CheckValidOnEditExistAsync(Guid id, string email, IReadOnlyRepository<Account> repository)
+    {
+        var accountIdSpecification = new AccountIdSpecification(id);
+
+        Optional<bool>.Of(await repository.CheckIfExistAsync(accountIdSpecification))
+            .ThrowIfNotPresent(new AccountNotFoundException(id));
+
+        var accountEmailSpecification = new AccountEmailExactMatchSpecification(email);
+
+        var accountIdNotEqualSpecification = new AccountIdNotEqualSpecification(id);
+
+        var specification = accountEmailSpecification.And(accountIdNotEqualSpecification);
+
+        Optional<bool>.Of(await repository.CheckIfExistAsync(specification))
             .ThrowIfPresent(new AccountDuplicatedException(nameof(email), email));
     }
 }

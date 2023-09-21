@@ -38,7 +38,7 @@ public class OperationRepository<TDbContext, TEntity> : IOperationRepository<TEn
         DbSet.Remove(entity);
     }
 
-    public virtual void Update(TEntity entity)
+    public void Update(TEntity entity)
     {
         entity.UpdatedDate = DateTime.UtcNow;
         DbSet.Update(entity);
