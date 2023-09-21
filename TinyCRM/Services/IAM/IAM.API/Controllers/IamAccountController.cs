@@ -27,4 +27,37 @@ public class IamAccountController : Controller
         var users = await _iamAccountService.FilterAndPagingUsersAsync(dto);
         return Ok(users);
     }
+    
+    [HttpPost]
+    [Authorize(Policy = TinyCrmPermissions.Users.Create)]
+    public async Task<ActionResult<UserDetailDto>> CreateAsync([FromBody] UserCreateDto userCreateDto)
+    {
+        var user = await _iamAccountService.CreateUserAsync(userCreateDto);
+        return CreatedAtAction(nameof(GetDetailUser), new {id = user.Id}, user);
+    }
+    
+    [HttpGet("{id:guid}")]
+    [Authorize(Policy= TinyCrmPermissions.Users.Read)]
+    public async Task<ActionResult<UserDetailDto>> GetDetailUser(Guid id)
+    {
+        var user = await _iamAccountService.GetDetailUserAsync(id);
+        return Ok(user);
+    }
+    
+    [HttpPut("{id:guid}")]
+    [Authorize(Policy = TinyCrmPermissions.Users.Edit)]
+    public async Task<ActionResult<UserEditDto>> UpdateUser(Guid id,[FromBody] UserEditDto userEditDto)
+    {
+        var user = await _iamAccountService.UpdateUserAsync(id, userEditDto);
+        return Ok(user);
+    }
+    
+    
+    [HttpPost("{id:guid}/change-password")]
+    [Authorize(Policy = TinyCrmPermissions.Users.Edit)]
+    public async Task<ActionResult> ChangePassword(Guid id, [FromBody] UserChangePasswordDto userChangePasswordDto)
+    {
+        await _iamAccountService.ChangePasswordAsync(id, userChangePasswordDto);
+        return Ok("Change password successfully");
+    }
 }

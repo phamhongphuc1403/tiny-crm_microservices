@@ -37,7 +37,7 @@ public class AuthService : IAuthService
     public async Task<string> SignInAsync(SignInDto signInDto)
     {
         var user = await _userManager.FindByEmailAsync(signInDto.Email)
-                   ?? throw new EntityNotFoundException($"User with Email{signInDto.Email}] not found");
+                   ?? throw new EntityNotFoundException($"User with Email[{signInDto.Email}] not found");
 
         var result = await _signInManager.PasswordSignInAsync(user, signInDto.Password, false, true);
         if (!result.Succeeded) throw new InvalidPasswordException("Invalid password");

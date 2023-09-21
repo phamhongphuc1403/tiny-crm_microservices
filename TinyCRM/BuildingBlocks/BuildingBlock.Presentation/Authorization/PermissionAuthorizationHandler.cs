@@ -6,12 +6,12 @@ namespace BuildingBlock.Presentation.Authorization;
 
 public class PermissionAuthorizationHandler : AuthorizationHandler<PermissionRequirement>
 {
-    private readonly AuthGrpcService.AuthGrpcServiceClient _authGrpcService;
+    private readonly AuthGrpcService.AuthGrpcServiceClient _authGrpcServiceClient;
 
-    public PermissionAuthorizationHandler(AuthGrpcService.AuthGrpcServiceClient authGrpcService,
+    public PermissionAuthorizationHandler(AuthGrpcService.AuthGrpcServiceClient authGrpcServiceClient,
         IHttpContextAccessor httpContextAccessor)
     {
-        _authGrpcService = authGrpcService;
+        _authGrpcServiceClient = authGrpcServiceClient;
     }
 
     protected override async Task HandleRequirementAsync(AuthorizationHandlerContext context,
@@ -22,7 +22,7 @@ public class PermissionAuthorizationHandler : AuthorizationHandler<PermissionReq
         Console.WriteLine($"User Id: {userId}");
         if (userId != null)
         {
-            var permissions = await _authGrpcService.GetPermissionsAsync(new PermissionRequest
+            var permissions = await _authGrpcServiceClient.GetPermissionsAsync(new PermissionRequest
             {
                 UserId = userId
             });

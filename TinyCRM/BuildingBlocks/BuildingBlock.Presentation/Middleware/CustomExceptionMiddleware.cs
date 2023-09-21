@@ -36,7 +36,7 @@ public static class CustomExceptionMiddleware
 
                 var pd = new ProblemDetails
                 {
-                    Title = isDevelopment ? message : "An error occurred on the server.",
+                    Title = statusCode == 500 && !isDevelopment ? "An error occurred on the server.": message,
                     Status = statusCode,
                     Detail = isDevelopment ? ex?.StackTrace : null
                 };

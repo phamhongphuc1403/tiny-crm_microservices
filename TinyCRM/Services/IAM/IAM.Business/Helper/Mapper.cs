@@ -9,5 +9,10 @@ public class Mapper:Profile
     public Mapper()
     {
         CreateMap<ApplicationUser,UserSummaryDto>();
+        CreateMap<ApplicationUser,UserDetailDto>();
+        CreateMap<UserCreateDto,ApplicationUser>()
+            .ForMember(dest => dest.UserName, opt => opt.MapFrom(src => src.Email));;
+        CreateMap<UserEditDto, ApplicationUser>()
+            .ForMember(dest => dest.UserName, opt => opt.MapFrom(src => src.Email));;
     }
 }

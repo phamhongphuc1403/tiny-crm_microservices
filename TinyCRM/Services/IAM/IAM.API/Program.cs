@@ -2,10 +2,13 @@ using BuildingBlock.Application.Identity;
 using BuildingBlock.Presentation.Authentication;
 using BuildingBlock.Presentation.Extensions;
 using BuildingBlock.Presentation.Middleware;
+using FluentValidation;
 using IAM.API.Extensions;
+using IAM.Business;
 using IAM.Infrastructure.Grpc.Services;
 
 var builder = WebApplication.CreateBuilder(args);
+
 builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddDatabase(builder.Configuration)
@@ -13,8 +16,10 @@ builder.Services.AddDatabase(builder.Configuration)
     .AddAuthorizations()
     .AddDefaultOpenApi(builder.Configuration)
     .AddMapper()
+    .AddValidatorsFromAssembly(typeof(IdentityBusinessAssemblyReference).Assembly)
     .AddServices()
     .AddRedisCache(builder.Configuration);
+
 builder.Services.AddScoped<ICurrentUser, CurrentUser>();
 builder.Services.AddGrpc();
 var app = builder.Build();
