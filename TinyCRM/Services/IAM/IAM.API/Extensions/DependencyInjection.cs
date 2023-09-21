@@ -36,7 +36,10 @@ public static class DependencyInjection
 
     public static IServiceCollection AddServices(this IServiceCollection services)
     {
-        return services.AddScoped<IAuthService, AuthService>();
+        return services
+            .AddScoped<IAuthService, AuthService>()
+            .AddScoped<IIamAccountService,IamAccountService>()
+            ;
     }
 
     public static IServiceCollection AddRedisCache(this IServiceCollection services, IConfiguration configuration)

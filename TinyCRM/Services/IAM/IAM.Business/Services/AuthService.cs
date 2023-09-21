@@ -4,6 +4,7 @@ using System.Text;
 using BuildingBlock.Domain.Exceptions;
 using IAM.Business.Models;
 using IAM.Business.Models.Users;
+using IAM.Business.Models.Users.Dto;
 using IAM.Business.Services.IServices;
 using IAM.Domain.Entities.Roles;
 using IAM.Domain.Entities.Users;

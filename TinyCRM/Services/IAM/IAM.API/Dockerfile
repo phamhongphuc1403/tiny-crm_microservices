@@ -9,10 +9,11 @@ COPY ["TinyCRM/Services/IAM/IAM.API/IAM.API.csproj", "TinyCRM/Services/IAM/IAM.A
 COPY ["TinyCRM/BuildingBlocks/BuildingBlock.Presentation/BuildingBlock.Presentation.csproj", "TinyCRM/BuildingBlocks/BuildingBlock.Presentation/"]
 COPY ["TinyCRM/BuildingBlocks/BuildingBlock.Application/BuildingBlock.Application.csproj", "TinyCRM/BuildingBlocks/BuildingBlock.Application/"]
 COPY ["TinyCRM/BuildingBlocks/BuildingBlock.Domain/BuildingBlock.Domain.csproj", "TinyCRM/BuildingBlocks/BuildingBlock.Domain/"]
+COPY ["TinyCRM/BuildingBlocks/BuildingBlock.Infrastructure.EFCore/BuildingBlock.Infrastructure.EFCore.csproj", "TinyCRM/BuildingBlocks/BuildingBlock.Infrastructure.EFCore/"]
+COPY ["TinyCRM/BuildingBlocks/BuildingBlock.RabbitMQ/BuildingBlock.RabbitMQ.csproj", "TinyCRM/BuildingBlocks/BuildingBlock.RabbitMQ/"]
 COPY ["TinyCRM/Services/IAM/IAM.Business/IAM.Business.csproj", "TinyCRM/Services/IAM/IAM.Business/"]
 COPY ["TinyCRM/Services/IAM/IAM.Domain/IAM.Domain.csproj", "TinyCRM/Services/IAM/IAM.Domain/"]
 COPY ["TinyCRM/Services/IAM/IAM.Infrastructure/IAM.Infrastructure.csproj", "TinyCRM/Services/IAM/IAM.Infrastructure/"]
-COPY ["TinyCRM/BuildingBlocks/BuildingBlock.Infrastructure.EFCore/BuildingBlock.Infrastructure.EFCore.csproj", "TinyCRM/BuildingBlocks/BuildingBlock.Infrastructure.EFCore/"]
 COPY ["TinyCRM/BuildingBlocks/BuildingBlock.Infrastructure.RedisCache/BuildingBlock.Infrastructure.RedisCache.csproj", "TinyCRM/BuildingBlocks/BuildingBlock.Infrastructure.RedisCache/"]
 COPY ["TinyCRM/Services/IAM/IAM.Infrastructure.Grpc/IAM.Infrastructure.Grpc.csproj", "TinyCRM/Services/IAM/IAM.Infrastructure.Grpc/"]
 RUN dotnet restore "TinyCRM/Services/IAM/IAM.API/IAM.API.csproj"
