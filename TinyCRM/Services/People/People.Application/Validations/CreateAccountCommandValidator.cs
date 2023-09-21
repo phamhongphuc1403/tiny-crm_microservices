@@ -9,18 +9,18 @@ public partial class CreateAccountCommandValidator : AbstractValidator<CreateAcc
     public CreateAccountCommandValidator()
     {
         RuleFor(account => account.Email)
-            .NotEmpty()
+            .Empty().When(model => string.IsNullOrWhiteSpace(model.Email))
             .EmailAddress();
 
         RuleFor(p => p.Phone)
             .Empty().When(model => string.IsNullOrWhiteSpace(model.Phone))
             .MinimumLength(10)
             .MaximumLength(30)
-            .Matches(MyRegex());
+            .Matches(MyRegex())
+            ;
 
         RuleFor(account => account.Name)
             .NotEmpty()
-            .MinimumLength(2)
             .MaximumLength(255);
 
         RuleFor(account => account.Address)

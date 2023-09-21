@@ -8,7 +8,7 @@ namespace People.Domain.Entities;
 
 public class Account : GuidEntity
 {
-    private Account(string name, string email, string? phone, string? address)
+    private Account(string name, string? email, string? phone, string? address)
     {
         Name = name;
         Email = email;
@@ -21,15 +21,15 @@ public class Account : GuidEntity
     }
 
     public string Name { get; private set; } = null!;
-    public string Email { get; private set; } = null!;
+    public string? Email { get; private set; }
     public string? Phone { get; private set; }
     public string? Address { get; private set; }
     public double TotalSales { get; private set; } = 0;
 
-    public static async Task<Account> CreateAsync(string name, string email, string? phone, string? address,
+    public static async Task<Account> CreateAsync(string name, string? email, string? phone, string? address,
         IReadOnlyRepository<Account> repository)
     {
-        await CheckIfExistAsync(email, repository);
+        if (email != null) await CheckIfExistAsync(email, repository);
 
         return new Account(name, email, phone, address);
     }
