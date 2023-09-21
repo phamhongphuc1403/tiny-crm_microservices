@@ -1,10 +1,11 @@
 using System.Security.Claims;
+using BuildingBlock.Application;
 using IAM.Domain.Entities.Roles;
 using Microsoft.AspNetCore.Identity;
 
 namespace IAM.Business.Helper;
 
-public class PermissionContributor
+public class PermissionContributor:IDataSeeder
 {
     private readonly RoleManager<ApplicationRole> _roleManager;
 
@@ -13,7 +14,7 @@ public class PermissionContributor
         _roleManager = roleManager;
     }
 
-    public async Task SeedPermissionsAsync()
+    public async Task SeedDataAsync()
     {
         await SeedRolesAsync();
         var admin = await _roleManager.FindByNameAsync(Role.Admin);
@@ -67,9 +68,9 @@ public class PermissionContributor
         var roles = new[] { Role.Admin, Role.User };
 
         foreach (var role in roles)
-        {
+        {   
             var roleExist = await _roleManager.RoleExistsAsync(role);
             if (!roleExist) await _roleManager.CreateAsync(new ApplicationRole(role));
-        }
+        }   
     }
 }

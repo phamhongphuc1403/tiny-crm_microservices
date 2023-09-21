@@ -1,4 +1,5 @@
 using System.Reflection;
+using BuildingBlock.Application;
 using BuildingBlock.Domain.Interfaces;
 using BuildingBlock.Infrastructure.EFCore;
 using BuildingBlock.Infrastructure.RedisCache;
@@ -24,9 +25,8 @@ public static class DependencyInjection
                 options.UseSqlServer(configuration.GetConnectionString("Default"));
             }
         );
-        services.AddScoped<DataContributor>();
-        services.AddScoped<PermissionContributor>();
-
+        services.AddScoped<IDataSeeder,DataContributor>();
+        services.AddScoped<IDataSeeder,PermissionContributor>();
         services.AddScoped<Func<IdentityDataContext>>(provider => () => provider.GetService<IdentityDataContext>()
                                                                         ?? throw new InvalidOperationException());
         services.AddScoped<IUnitOfWork, UnitOfWork<IdentityDataContext>>();

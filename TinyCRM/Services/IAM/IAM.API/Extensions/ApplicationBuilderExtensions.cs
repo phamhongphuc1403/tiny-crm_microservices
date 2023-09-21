@@ -6,15 +6,6 @@ namespace IAM.API.Extensions;
 
 public static class ApplicationBuilderExtensions
 {
-    public static async Task SeedIamDataAsync(this IApplicationBuilder app)
-    {
-        using var scope = app.ApplicationServices.CreateScope();
-        var seedData = scope.ServiceProvider.GetRequiredService<DataContributor>();
-        var seedPermissions = scope.ServiceProvider.GetRequiredService<PermissionContributor>();
-        await seedData.SeedAsync();
-        await seedPermissions.SeedPermissionsAsync();
-    }
-
     public static async Task ApplyMigrationAsync(this IApplicationBuilder app)
     {
         using var scope = app.ApplicationServices.CreateScope();

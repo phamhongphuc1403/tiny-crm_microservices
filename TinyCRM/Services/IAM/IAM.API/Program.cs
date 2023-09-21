@@ -36,5 +36,5 @@ app.UseAuthorization();
 app.MapGrpcService<AuthServer>();
 app.MapControllers();
 await app.ApplyMigrationAsync();
-await app.SeedIamDataAsync();
+await app.SeedDataAsync();
 app.Run();

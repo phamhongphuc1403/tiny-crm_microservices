@@ -1,11 +1,12 @@
 ﻿using Bogus;
+using BuildingBlock.Application;
 using IAM.Domain.Entities.Roles;
 using IAM.Domain.Entities.Users;
 using Microsoft.AspNetCore.Identity;
 
 namespace IAM.Business.Helper;
 
-public class DataContributor
+public class DataContributor:IDataSeeder
 {
     private readonly RoleManager<ApplicationRole> _roleManager;
     private readonly UserManager<ApplicationUser> _userManager;
@@ -16,7 +17,7 @@ public class DataContributor
         _roleManager = roleManager;
     }
 
-    public async Task SeedAsync()
+    public async Task SeedDataAsync()
     {
         if (!_roleManager.Roles.Any() && !_userManager.Users.Any())
         {
