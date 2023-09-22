@@ -1,10 +1,10 @@
-using System.Text.RegularExpressions;
 using FluentValidation;
 using People.Application.CQRS.Commands.Requests;
+using People.Domain.Constants;
 
 namespace People.Application.Validations;
 
-public partial class EditAccountCommandValidator : AbstractValidator<EditAccountCommand>
+public class EditAccountCommandValidator : AbstractValidator<EditAccountCommand>
 {
     public EditAccountCommandValidator()
     {
@@ -16,7 +16,7 @@ public partial class EditAccountCommandValidator : AbstractValidator<EditAccount
             .Empty().When(model => string.IsNullOrWhiteSpace(model.Phone))
             .MinimumLength(10)
             .MaximumLength(30)
-            .Matches(MyRegex())
+            .Matches(RegexPatterns.PhoneNumber)
             ;
 
         RuleFor(account => account.Name)
@@ -28,7 +28,4 @@ public partial class EditAccountCommandValidator : AbstractValidator<EditAccount
             .MinimumLength(2)
             .MaximumLength(255);
     }
-
-    [GeneratedRegex(@"((\(\d{3}\) ?)|(\d{3}-))?\d{3}-\d{4}")]
-    private static partial Regex MyRegex();
 }

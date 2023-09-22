@@ -1,8 +1,6 @@
 using System.Security.Claims;
-using BuildingBlock.Infrastructure.RedisCache;
 using BuildingBlock.Infrastructure.RedisCache.Cache.Interface;
 using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Http;
 
 namespace BuildingBlock.Presentation.Authorization;
 

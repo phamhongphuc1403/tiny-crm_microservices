@@ -3,9 +3,10 @@ using BuildingBlock.Application;
 using BuildingBlock.Domain.Interfaces;
 using BuildingBlock.Domain.Repositories;
 using Microsoft.Extensions.Logging;
+using People.Domain.Constants;
 using People.Domain.Entities;
 
-namespace People.Application;
+namespace People.Application.Seeders;
 
 public class AccountSeeder : IDataSeeder
 {
@@ -52,6 +53,6 @@ public class AccountSeeder : IDataSeeder
             .RuleFor(account => account.TotalSales, f => Math.Round(f.Random.Double(0, 1000000), 2))
             .RuleFor(account => account.CreatedDate, f => f.Date.Between(DateTime.Now, DateTime.Now.AddMonths(1)));
 
-        _operationRepository.AddRangeAsync(faker.Generate(10));
+        _operationRepository.AddRangeAsync(faker.Generate(15));
     }
 }

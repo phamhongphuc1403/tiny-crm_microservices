@@ -11,6 +11,7 @@ public class PeopleDbContext : BaseDbContext
     }
 
     public DbSet<Account> Accounts { get; set; } = null!;
+    public DbSet<Contact> Contacts { get; set; } = null!;
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {

@@ -1,10 +1,10 @@
-using System.Text.RegularExpressions;
 using FluentValidation;
 using People.Application.CQRS.Commands.Requests;
+using People.Domain.Constants;
 
 namespace People.Application.Validations;
 
-public partial class CreateAccountCommandValidator : AbstractValidator<CreateAccountCommand>
+public class CreateAccountCommandValidator : AbstractValidator<CreateAccountCommand>
 {
     public CreateAccountCommandValidator()
     {
@@ -16,7 +16,7 @@ public partial class CreateAccountCommandValidator : AbstractValidator<CreateAcc
             .Empty().When(model => string.IsNullOrWhiteSpace(model.Phone))
             .MinimumLength(10)
             .MaximumLength(30)
-            .Matches(MyRegex())
+            .Matches(RegexPatterns.PhoneNumber)
             ;
 
         RuleFor(account => account.Name)
@@ -28,7 +28,4 @@ public partial class CreateAccountCommandValidator : AbstractValidator<CreateAcc
             .MinimumLength(2)
             .MaximumLength(255);
     }
-
-    [GeneratedRegex(@"(84|0[3|5|7|8|9])+([0-9]{8})\b")]
-    private static partial Regex MyRegex();
 }

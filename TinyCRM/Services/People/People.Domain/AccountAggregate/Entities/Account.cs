@@ -16,7 +16,7 @@ public class Account : GuidEntity
         Address = address;
     }
 
-    public Account()
+    private Account()
     {
     }
 
@@ -24,7 +24,9 @@ public class Account : GuidEntity
     public string? Email { get; private set; }
     public string? Phone { get; private set; }
     public string? Address { get; private set; }
-    public double TotalSales { get; private set; } = 0;
+    public double TotalSales { get; private set; }
+
+    public ICollection<Contact> Contacts { get; private set; } = null!;
 
     public static async Task<Account> CreateAsync(string name, string? email, string? phone, string? address,
         IReadOnlyRepository<Account> repository)
