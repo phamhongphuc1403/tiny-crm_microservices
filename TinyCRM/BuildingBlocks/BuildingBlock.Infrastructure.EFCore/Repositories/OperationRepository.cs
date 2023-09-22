@@ -43,4 +43,9 @@ public class OperationRepository<TDbContext, TEntity> : IOperationRepository<TEn
         entity.UpdatedDate = DateTime.UtcNow;
         DbSet.Update(entity);
     }
+
+    public void RemoveRange(IEnumerable<TEntity> entities)
+    {
+        DbSet.RemoveRange(entities);
+    }
 }

@@ -1,5 +1,4 @@
-﻿using IAM.Business.Models.Users;
-using IAM.Business.Models.Users.Dto;
+﻿using IAM.Business.Models.Users.Dto;
 using IAM.Business.Services.IServices;
 using Microsoft.AspNetCore.Mvc;
 

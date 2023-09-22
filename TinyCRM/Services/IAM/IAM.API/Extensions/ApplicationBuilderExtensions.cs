@@ -1,5 +1,4 @@
-﻿using IAM.Business.Helper;
-using IAM.Infrastructure.EFCore;
+﻿using IAM.Infrastructure.EFCore;
 using Microsoft.EntityFrameworkCore;
 
 namespace IAM.API.Extensions;

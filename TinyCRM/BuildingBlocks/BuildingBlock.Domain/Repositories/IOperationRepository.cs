@@ -11,4 +11,6 @@ public interface IOperationRepository<TEntity> where TEntity : GuidEntity
     void Remove(TEntity entity);
 
     void Update(TEntity entity);
+
+    void RemoveRange(IEnumerable<TEntity> entities);
 }

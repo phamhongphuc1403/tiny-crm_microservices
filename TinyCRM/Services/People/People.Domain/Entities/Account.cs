@@ -70,4 +70,22 @@ public class Account : GuidEntity
         Optional<bool>.Of(await repository.CheckIfExistAsync(specification))
             .ThrowIfPresent(new AccountDuplicatedException(nameof(email), email));
     }
+
+    public static async Task<IEnumerable<Account>> DeleteManyAsync(IEnumerable<Guid> ids,
+        IReadOnlyRepository<Account> readonlyRepository)
+    {
+        List<Account> accounts = new();
+
+        foreach (var id in ids)
+        {
+            var accountIdSpecification = new AccountIdSpecification(id);
+
+            var account = Optional<Account>.Of(await readonlyRepository.GetAnyAsync(accountIdSpecification))
+                .ThrowIfNotPresent(new AccountNotFoundException(id)).Get();
+
+            accounts.Add(account);
+        }
+
+        return accounts;
+    }
 }

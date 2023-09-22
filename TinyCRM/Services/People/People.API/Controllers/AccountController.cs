@@ -51,4 +51,12 @@ public class AccountController : ControllerBase
 
         return Ok(account);
     }
+
+    [HttpDelete]
+    public async Task<ActionResult> DeleteAsync(DeleteManyAccountsDto dto)
+    {
+        await _mediator.Send(new DeleteManyAccountsCommand(dto));
+
+        return NoContent();
+    }
 }

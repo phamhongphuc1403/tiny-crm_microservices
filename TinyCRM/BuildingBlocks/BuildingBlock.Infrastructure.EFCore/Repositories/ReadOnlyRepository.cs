@@ -59,7 +59,7 @@ public class ReadOnlyRepository<TDbContext, TEntity> : IReadOnlyRepository<TEnti
 
         query = Filter(query, specification);
 
-        var totalCount = query.CountAsync();
+        var totalCount = await query.CountAsync();
 
         query = Include(query, includeTables);
 
@@ -67,7 +67,7 @@ public class ReadOnlyRepository<TDbContext, TEntity> : IReadOnlyRepository<TEnti
 
         query = query.Skip(pageSize * (pageIndex - 1)).Take(pageSize);
 
-        return (await query.ToListAsync(), await totalCount);
+        return (await query.ToListAsync(), totalCount);
     }
 
     private static IQueryable<TEntity> Filter(IQueryable<TEntity> query, ISpecification<TEntity> specification)
