@@ -1,8 +1,8 @@
 using FluentValidation;
-using People.Application.CQRS.Commands.Requests;
+using People.Application.CQRS.Commands.AccountCommands.Requests;
 using People.Domain.Constants;
 
-namespace People.Application.Validations;
+namespace People.Application.Validators.AccountValidators;
 
 public class CreateAccountCommandValidator : AbstractValidator<CreateAccountCommand>
 {

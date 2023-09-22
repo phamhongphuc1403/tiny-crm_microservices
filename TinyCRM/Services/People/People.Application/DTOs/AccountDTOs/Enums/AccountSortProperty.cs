@@ -1,4 +1,4 @@
-namespace People.Application.DTOs.Enums;
+namespace People.Application.DTOs.AccountDTOs.Enums;
 
 public enum AccountSortProperty
 {

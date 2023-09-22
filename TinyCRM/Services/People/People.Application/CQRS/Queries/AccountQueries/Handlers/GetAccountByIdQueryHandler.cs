@@ -2,13 +2,13 @@ using AutoMapper;
 using BuildingBlock.Application.CQRS.Query;
 using BuildingBlock.Domain.Repositories;
 using BuildingBlock.Domain.Utils;
-using People.Application.CQRS.Queries.Requests;
-using People.Application.DTOs;
-using People.Domain.Entities;
-using People.Domain.Exceptions;
-using People.Domain.Specifications;
+using People.Application.CQRS.Queries.AccountQueries.Requests;
+using People.Application.DTOs.AccountDTOs;
+using People.Domain.AccountAggregate.Entities;
+using People.Domain.AccountAggregate.Exceptions;
+using People.Domain.AccountAggregate.Specifications;
 
-namespace People.Application.CQRS.Queries.Handlers;
+namespace People.Application.CQRS.Queries.AccountQueries.Handlers;
 
 public class GetAccountByIdQueryHandler : IQueryHandler<GetAccountByIdQuery, AccountDetailDto>
 {

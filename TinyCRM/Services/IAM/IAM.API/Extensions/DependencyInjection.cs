@@ -25,8 +25,8 @@ public static class DependencyInjection
                 options.UseSqlServer(configuration.GetConnectionString("Default"));
             }
         );
-        services.AddScoped<IDataSeeder,DataContributor>();
-        services.AddScoped<IDataSeeder,PermissionContributor>();
+        services.AddScoped<IDataSeeder, DataContributor>();
+        services.AddScoped<IDataSeeder, PermissionContributor>();
         services.AddScoped<Func<IdentityDataContext>>(provider => () => provider.GetService<IdentityDataContext>()
                                                                         ?? throw new InvalidOperationException());
         services.AddScoped<IUnitOfWork, UnitOfWork<IdentityDataContext>>();
@@ -37,8 +37,8 @@ public static class DependencyInjection
     public static IServiceCollection AddServices(this IServiceCollection services)
     {
         return services
-            .AddScoped<IAuthService, AuthService>()
-            .AddScoped<IIamAccountService,IamAccountService>()
+                .AddScoped<IAuthService, AuthService>()
+                .AddScoped<IIamAccountService, IamAccountService>()
             ;
     }
 

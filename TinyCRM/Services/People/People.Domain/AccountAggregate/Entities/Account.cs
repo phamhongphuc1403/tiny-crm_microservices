@@ -1,10 +1,10 @@
 using BuildingBlock.Domain.Model;
 using BuildingBlock.Domain.Repositories;
 using BuildingBlock.Domain.Utils;
-using People.Domain.Exceptions;
-using People.Domain.Specifications;
+using People.Domain.AccountAggregate.Exceptions;
+using People.Domain.AccountAggregate.Specifications;
 
-namespace People.Domain.Entities;
+namespace People.Domain.AccountAggregate.Entities;
 
 public class Account : GuidEntity
 {
@@ -24,7 +24,7 @@ public class Account : GuidEntity
     public string? Email { get; private set; }
     public string? Phone { get; private set; }
     public string? Address { get; private set; }
-    public double TotalSales { get; private set; }
+    public double TotalSales { get; }
 
     public ICollection<Contact> Contacts { get; private set; } = null!;
 

@@ -1,6 +1,6 @@
 ﻿using BuildingBlock.Infrastructure.EFCore;
 using Microsoft.EntityFrameworkCore;
-using People.Domain.Entities;
+using People.Domain.AccountAggregate.Entities;
 
 namespace People.Infrastructure.EFCore;
 

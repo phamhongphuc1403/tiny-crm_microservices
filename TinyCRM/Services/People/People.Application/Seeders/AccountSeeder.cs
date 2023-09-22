@@ -3,8 +3,7 @@ using BuildingBlock.Application;
 using BuildingBlock.Domain.Interfaces;
 using BuildingBlock.Domain.Repositories;
 using Microsoft.Extensions.Logging;
-using People.Domain.Constants;
-using People.Domain.Entities;
+using People.Domain.AccountAggregate.Entities;
 
 namespace People.Application.Seeders;
 

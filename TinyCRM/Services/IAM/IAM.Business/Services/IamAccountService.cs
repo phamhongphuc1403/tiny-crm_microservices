@@ -1,24 +1,24 @@
+using System.Linq.Dynamic.Core;
+using AutoMapper;
 using BuildingBlock.Application.DTOs;
+using BuildingBlock.Domain.Exceptions;
+using BuildingBlock.Domain.Interfaces;
 using IAM.Business.Models.Users;
 using IAM.Business.Models.Users.Dto;
 using IAM.Business.Services.IServices;
+using IAM.Domain.Entities.Roles;
 using IAM.Domain.Entities.Users;
 using Microsoft.AspNetCore.Identity;
-using System.Linq.Dynamic.Core;
-using AutoMapper;
-using BuildingBlock.Domain.Exceptions;
-using BuildingBlock.Domain.Interfaces;
-using IAM.Domain.Entities.Roles;
 using Microsoft.EntityFrameworkCore;
 
 namespace IAM.Business.Services;
 
 public class IamAccountService : IIamAccountService
 {
-    private readonly UserManager<ApplicationUser> _userManager;
     private readonly IMapper _mapper;
     private readonly RoleManager<ApplicationRole> _roleManager;
     private readonly IUnitOfWork _unitOfWork;
+    private readonly UserManager<ApplicationUser> _userManager;
 
     public IamAccountService(UserManager<ApplicationUser> userManager, IMapper mapper,
         RoleManager<ApplicationRole> roleManager, IUnitOfWork unitOfWork)

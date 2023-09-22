@@ -23,7 +23,7 @@ public class PermissionAuthorizationHandler : AuthorizationHandler<PermissionReq
         if (userId != null)
         {
             bool isAuthorized;
-            
+
             var permissionsCache = await GetPermissionsAsync(userId);
             if (permissionsCache != null)
             {
@@ -31,7 +31,7 @@ public class PermissionAuthorizationHandler : AuthorizationHandler<PermissionReq
                 if (isAuthorized) context.Succeed(requirement);
                 return;
             }
-            
+
             var permissions = await _authGrpcServiceClient.GetPermissionsAsync(new PermissionRequest
             {
                 UserId = userId
@@ -44,10 +44,7 @@ public class PermissionAuthorizationHandler : AuthorizationHandler<PermissionReq
     private async Task<List<string>?> GetPermissionsAsync(string userId)
     {
         var roles = await _permissionCacheManager.GetRolesUserAsync(userId);
-        if (roles == null)
-        {
-            return null;
-        }
+        if (roles == null) return null;
 
         var permissions = new List<string>();
         foreach (var role in roles)

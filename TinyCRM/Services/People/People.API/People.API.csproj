@@ -31,4 +31,5 @@
         <ProjectReference Include="..\People.Infrastructure.EFCore\People.Infrastructure.EFCore.csproj"/>
     </ItemGroup>
 
+
 </Project>

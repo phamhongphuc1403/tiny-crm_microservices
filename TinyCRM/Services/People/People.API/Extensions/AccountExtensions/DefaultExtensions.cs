@@ -7,7 +7,7 @@ using FluentValidation;
 using People.Application;
 using People.Infrastructure.EFCore;
 
-namespace People.API.Extensions;
+namespace People.API.Extensions.AccountExtensions;
 
 public static class DefaultExtensions
 {

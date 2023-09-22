@@ -1,7 +1,7 @@
 using BuildingBlock.Domain.Exceptions;
-using People.Domain.Entities;
+using People.Domain.AccountAggregate.Entities;
 
-namespace People.Domain.Exceptions;
+namespace People.Domain.AccountAggregate.Exceptions;
 
 public class AccountNotFoundException : EntityNotFoundException
 {

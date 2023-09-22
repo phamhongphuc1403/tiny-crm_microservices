@@ -1,9 +1,9 @@
 using BuildingBlock.Application.DTOs;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
-using People.Application.CQRS.Commands.Requests;
-using People.Application.CQRS.Queries.Requests;
-using People.Application.DTOs;
+using People.Application.CQRS.Commands.AccountCommands.Requests;
+using People.Application.CQRS.Queries.AccountQueries.Requests;
+using People.Application.DTOs.AccountDTOs;
 
 namespace People.API.Controllers;
 

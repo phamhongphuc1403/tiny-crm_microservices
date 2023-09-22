@@ -7,7 +7,7 @@ using People.Application.Seeders;
 using People.Domain.AccountAggregate.Entities;
 using People.Infrastructure.EFCore;
 
-namespace People.API.Extensions;
+namespace People.API.Extensions.AccountExtensions;
 
 public static class DependencyInjectionExtensions
 {

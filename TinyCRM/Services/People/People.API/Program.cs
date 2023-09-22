@@ -1,5 +1,5 @@
 using BuildingBlock.Presentation.Middleware;
-using People.API.Extensions;
+using People.API.Extensions.AccountExtensions;
 
 var builder = WebApplication.CreateBuilder(args);
 

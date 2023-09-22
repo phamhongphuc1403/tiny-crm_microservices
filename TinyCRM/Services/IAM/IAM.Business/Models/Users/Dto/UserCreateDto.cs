@@ -15,8 +15,9 @@ public class UserCreateDto
     [Required(ErrorMessage = "The Password field is required.")]
     [MinLength(6, ErrorMessage = "The Password must be at least {1} characters long.")]
     [MaxLength(255, ErrorMessage = "The Password must not exceed {1} characters.")]
-    [RegularExpression(@"^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@#$%^&+=]).{6,}$", 
-        ErrorMessage = "The Password must contain at least one lowercase letter, one uppercase letter, one digit, and one special character (@#$%^&+=), and be at least 6 characters long.")]
+    [RegularExpression(@"^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@#$%^&+=]).{6,}$",
+        ErrorMessage =
+            "The Password must contain at least one lowercase letter, one uppercase letter, one digit, and one special character (@#$%^&+=), and be at least 6 characters long.")]
     public string Password { get; set; } = null!;
 
     [Required(ErrorMessage = "The Confirm Password field is required.")]

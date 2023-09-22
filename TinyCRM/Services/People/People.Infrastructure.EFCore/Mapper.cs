@@ -1,6 +1,6 @@
 using AutoMapper;
-using People.Application.DTOs;
-using People.Domain.Entities;
+using People.Application.DTOs.AccountDTOs;
+using People.Domain.AccountAggregate.Entities;
 
 namespace People.Infrastructure.EFCore;
 

@@ -1,10 +1,10 @@
 using BuildingBlock.Application.CQRS.Command;
 using BuildingBlock.Domain.Interfaces;
 using BuildingBlock.Domain.Repositories;
-using People.Application.CQRS.Commands.Requests;
-using People.Domain.Entities;
+using People.Application.CQRS.Commands.AccountCommands.Requests;
+using People.Domain.AccountAggregate.Entities;
 
-namespace People.Application.CQRS.Commands.Handlers;
+namespace People.Application.CQRS.Commands.AccountCommands.Handlers;
 
 public class DeleteAccountCommandHandler : ICommandHandler<DeleteManyAccountsCommand>
 {

@@ -1,8 +1,8 @@
 using System.Linq.Expressions;
 using BuildingBlock.Domain.Specifications;
-using People.Domain.Entities;
+using People.Domain.AccountAggregate.Entities;
 
-namespace People.Domain.Specifications;
+namespace People.Domain.AccountAggregate.Specifications;
 
 public class AccountNamePartialMatchSpecification : Specification<Account>
 {

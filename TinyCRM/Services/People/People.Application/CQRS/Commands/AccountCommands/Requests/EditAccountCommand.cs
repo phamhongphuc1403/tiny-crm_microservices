@@ -1,7 +1,7 @@
 using BuildingBlock.Application.CQRS.Command;
-using People.Application.DTOs;
+using People.Application.DTOs.AccountDTOs;
 
-namespace People.Application.CQRS.Commands.Requests;
+namespace People.Application.CQRS.Commands.AccountCommands.Requests;
 
 public class EditAccountCommand : CreateOrEditAccountDto, ICommand<AccountDetailDto>
 {

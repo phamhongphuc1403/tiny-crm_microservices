@@ -2,11 +2,11 @@ using AutoMapper;
 using BuildingBlock.Application.CQRS.Command;
 using BuildingBlock.Domain.Interfaces;
 using BuildingBlock.Domain.Repositories;
-using People.Application.CQRS.Commands.Requests;
-using People.Application.DTOs;
-using People.Domain.Entities;
+using People.Application.CQRS.Commands.AccountCommands.Requests;
+using People.Application.DTOs.AccountDTOs;
+using People.Domain.AccountAggregate.Entities;
 
-namespace People.Application.CQRS.Commands.Handlers;
+namespace People.Application.CQRS.Commands.AccountCommands.Handlers;
 
 public class CreateAccountCommandHandler : ICommandHandler<CreateAccountCommand, AccountDetailDto>
 {

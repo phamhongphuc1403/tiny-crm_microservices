@@ -1,7 +1,7 @@
 using BuildingBlock.Application.CQRS.Query;
-using People.Application.DTOs;
+using People.Application.DTOs.AccountDTOs;
 
-namespace People.Application.CQRS.Queries.Requests;
+namespace People.Application.CQRS.Queries.AccountQueries.Requests;
 
 public class GetAccountByIdQuery : IQuery<AccountDetailDto>
 {

@@ -17,7 +17,7 @@
         </PackageReference>
         <PackageReference Include="Microsoft.AspNetCore.Grpc.JsonTranscoding" Version="7.0.10"/>
     </ItemGroup>
-    
+
     <ItemGroup>
         <PackageReference Include="FluentValidation.DependencyInjectionExtensions" Version="11.7.1"/>
         <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="7.0.10">

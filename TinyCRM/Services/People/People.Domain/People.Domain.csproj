@@ -12,4 +12,9 @@
     </ItemGroup>
 
 
+    <ItemGroup>
+        <Folder Include="AccountAggregate\"/>
+    </ItemGroup>
+
+
 </Project>

@@ -5,7 +5,7 @@ using Microsoft.AspNetCore.Identity;
 
 namespace IAM.Business.Helper;
 
-public class PermissionContributor:IDataSeeder
+public class PermissionContributor : IDataSeeder
 {
     private readonly RoleManager<ApplicationRole> _roleManager;
 
@@ -68,9 +68,9 @@ public class PermissionContributor:IDataSeeder
         var roles = new[] { Role.Admin, Role.User };
 
         foreach (var role in roles)
-        {   
+        {
             var roleExist = await _roleManager.RoleExistsAsync(role);
             if (!roleExist) await _roleManager.CreateAsync(new ApplicationRole(role));
-        }   
+        }
     }
 }

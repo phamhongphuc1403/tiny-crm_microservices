@@ -6,7 +6,7 @@ using Microsoft.AspNetCore.Identity;
 
 namespace IAM.Business.Helper;
 
-public class DataContributor:IDataSeeder
+public class DataContributor : IDataSeeder
 {
     private readonly RoleManager<ApplicationRole> _roleManager;
     private readonly UserManager<ApplicationUser> _userManager;

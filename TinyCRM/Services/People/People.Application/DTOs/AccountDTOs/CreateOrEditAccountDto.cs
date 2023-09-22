@@ -1,4 +1,4 @@
-namespace People.Application.DTOs;
+namespace People.Application.DTOs.AccountDTOs;
 
 public class CreateOrEditAccountDto
 {
