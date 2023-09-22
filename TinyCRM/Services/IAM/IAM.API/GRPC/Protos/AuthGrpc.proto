@@ -1,6 +1,6 @@
 syntax = "proto3";
 
-option csharp_namespace = "IAM.Infrastructure.Grpc";
+option csharp_namespace = "IAM.API.GRPC";
 package AuthGrpc;
 
 service AuthGrpcService {

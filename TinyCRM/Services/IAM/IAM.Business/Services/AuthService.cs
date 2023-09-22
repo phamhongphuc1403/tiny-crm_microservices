@@ -98,7 +98,6 @@ public class AuthService : IAuthService
             new(ClaimTypes.Email, email),
             new(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString())
         };
-        authClaims.AddRange(roles.Select(role => new Claim(ClaimTypes.Role, role)));
         return authClaims;
     }
 

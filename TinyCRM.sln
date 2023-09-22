@@ -73,8 +73,6 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "DockerCompose", "DockerComp
 		docker-compose.yml = docker-compose.yml
 	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IAM.Infrastructure.Grpc", "TinyCRM\Services\IAM\IAM.Infrastructure.Grpc\IAM.Infrastructure.Grpc.csproj", "{4D4A3E49-798A-414D-A54B-4044A9E45D18}"
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -157,10 +155,6 @@ Global
 		{725E518B-2ABD-4F05-9784-E38FAB764D07}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{725E518B-2ABD-4F05-9784-E38FAB764D07}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{725E518B-2ABD-4F05-9784-E38FAB764D07}.Release|Any CPU.Build.0 = Release|Any CPU
-		{4D4A3E49-798A-414D-A54B-4044A9E45D18}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{4D4A3E49-798A-414D-A54B-4044A9E45D18}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{4D4A3E49-798A-414D-A54B-4044A9E45D18}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{4D4A3E49-798A-414D-A54B-4044A9E45D18}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -205,7 +199,6 @@ Global
 		{1B0A3586-3C70-4CAC-ACA5-340DF255B91B} = {1FBE68F5-33ED-491B-BF83-282A45B30955}
 		{96AD94F4-1ED1-4955-9324-A8892D98341B} = {092AA6A0-B54C-430E-8A94-D2A51EE78150}
 		{725E518B-2ABD-4F05-9784-E38FAB764D07} = {092AA6A0-B54C-430E-8A94-D2A51EE78150}
-		{4D4A3E49-798A-414D-A54B-4044A9E45D18} = {092AA6A0-B54C-430E-8A94-D2A51EE78150}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {ED4E88BC-28CC-4E52-B707-F67C29CDDD0C}

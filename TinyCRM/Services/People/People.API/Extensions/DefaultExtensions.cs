@@ -26,6 +26,7 @@ public static class DefaultExtensions
             .AddCqrs<PeopleApplicationAssemblyReference>()
             .AddMapper<Mapper>()
             .AddDatabase<PeopleDbContext>(configuration)
+            .AddRedisCache(configuration)
             .AddDependencyInjection()
             .AddTinyCRMAuthentication(configuration)
             .AddValidatorsFromAssembly(typeof(PeopleApplicationAssemblyReference).Assembly)

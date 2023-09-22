@@ -11,5 +11,5 @@ public interface IIamAccountService
     Task<UserDetailDto> GetDetailUserAsync(Guid id);
     Task ChangePasswordAsync(Guid id, UserChangePasswordDto userChangePasswordDto);
     Task<UserDetailDto> UpdateUserAsync(Guid id, UserEditDto userEditDto);
-    Task DeleteUserAsync(List<Guid> ids);
+    Task DeleteUserAsync(DeleteManyUsersDto deleteManyUsersDto);
 }

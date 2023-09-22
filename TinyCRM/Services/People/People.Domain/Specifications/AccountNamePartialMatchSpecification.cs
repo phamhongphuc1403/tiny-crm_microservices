@@ -17,6 +17,6 @@ public class AccountNamePartialMatchSpecification : Specification<Account>
     {
         if (string.IsNullOrWhiteSpace(_name)) return account => true;
 
-        return account => account.Name.Contains(_name);
+        return account => account.Name.ToUpper().Contains(_name.ToUpper());
     }
 }

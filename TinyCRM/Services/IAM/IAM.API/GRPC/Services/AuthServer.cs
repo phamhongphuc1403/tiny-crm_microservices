@@ -4,9 +4,8 @@ using Grpc.Core;
 using IAM.Business.Services.IServices;
 using IAM.Domain.Entities.Users;
 using Microsoft.AspNetCore.Identity;
-using Microsoft.Extensions.Logging;
 
-namespace IAM.Infrastructure.Grpc.Services;
+namespace IAM.API.GRPC.Services;
 
 public class AuthServer : AuthGrpcService.AuthGrpcServiceBase
 {
@@ -29,7 +28,7 @@ public class AuthServer : AuthGrpcService.AuthGrpcServiceBase
     {
         if (!_currentUser.IsAuthenticated)
             throw new RpcException(new Status(StatusCode.Unauthenticated, "User is not authenticated"));
-
+        _logger.LogInformation($"Authentication user: {_currentUser.Id}");
         var userId = _currentUser.Id;
 
         var user = await _userManager.FindByIdAsync(userId!);
@@ -63,6 +62,7 @@ public class AuthServer : AuthGrpcService.AuthGrpcServiceBase
 
     public override async Task<PermissionResponse> GetPermissions(PermissionRequest request, ServerCallContext context)
     {
+        _logger.LogInformation($"Authorization user: {request.UserId} in IAM Server");
         var permissions = await _authService.GetPermissionsAsync(request.UserId);
 
         return await Task.FromResult(new PermissionResponse

@@ -32,8 +32,9 @@ public class IamAccountService : IIamAccountService
     public async Task<FilterAndPagingResultDto<UserSummaryDto>> FilterAndPagingUsersAsync(
         FilterAndPagingUsersDto filterAndPagingUsersDto)
     {
-        var query = _userManager.Users.Where(x => x.Name.Contains(filterAndPagingUsersDto.Keyword)
-                                                  || x.Email!.Contains(filterAndPagingUsersDto.Keyword));
+        var query = _userManager.Users.Where(x => x.Name.ToUpper().Contains(filterAndPagingUsersDto.Keyword.ToUpper())
+                                                  || x.Email!.ToUpper()
+                                                      .Contains(filterAndPagingUsersDto.Keyword.ToUpper()));
         var totalCount = await query.CountAsync();
         query = string.IsNullOrEmpty(filterAndPagingUsersDto.ConvertSort())
             ? query.OrderBy("CreatedDate")
@@ -97,16 +98,16 @@ public class IamAccountService : IIamAccountService
         return _mapper.Map<UserDetailDto>(user);
     }
 
-    public async Task DeleteUserAsync(List<Guid> ids)
+    public async Task DeleteUserAsync(DeleteManyUsersDto deleteManyUsersDto)
     {
-        foreach (var id in ids)
+        foreach (var id in deleteManyUsersDto.Ids)
         {
             var user = await FindUserAsync(id);
             var userRoles = await _userManager.GetRolesAsync(user);
 
             if (userRoles.Contains(Role.Admin))
                 continue;
-            
+
             var result = await _userManager.DeleteAsync(user);
             if (!result.Succeeded)
                 throw new InvalidUpdateException(result.Errors.First().Description);

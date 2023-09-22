@@ -24,6 +24,7 @@ public static class DefaultExtensions
             .AddCqrs<SalesApplicationAssemblyReference>()
             .AddMapper<Mapper>()
             .AddDatabase<SaleDbContext>(configuration)
+            .AddRedisCache(configuration)
             .AddDependencyInjection()
             .AddTinyCRMAuthentication(configuration)
             .AddAuthorizations();

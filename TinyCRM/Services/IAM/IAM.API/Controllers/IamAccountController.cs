@@ -63,9 +63,9 @@ public class IamAccountController : Controller
     
     [HttpDelete]
     [Authorize(Policy = TinyCrmPermissions.Users.Delete)]
-    public async Task<ActionResult> DeleteUser([FromBody] List<Guid> ids)
+    public async Task<ActionResult> DeleteUser([FromBody] DeleteManyUsersDto deleteManyUsersDto)
     {
-        await _iamAccountService.DeleteUserAsync(ids);
+        await _iamAccountService.DeleteUserAsync(deleteManyUsersDto);
         return Ok("Delete users successfully");
     }
 }

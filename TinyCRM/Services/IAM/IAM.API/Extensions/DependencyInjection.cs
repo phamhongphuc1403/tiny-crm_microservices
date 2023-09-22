@@ -42,7 +42,7 @@ public static class DependencyInjection
             ;
     }
 
-    public static IServiceCollection AddRedisCache(this IServiceCollection services, IConfiguration configuration)
+    public static IServiceCollection AddRedisCacheIam(this IServiceCollection services, IConfiguration configuration)
     {
         var multiplexer = ConnectionMultiplexer.Connect(configuration.GetConnectionString("Redis") ?? string.Empty);
 

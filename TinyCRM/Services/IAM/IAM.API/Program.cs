@@ -4,8 +4,8 @@ using BuildingBlock.Presentation.Extensions;
 using BuildingBlock.Presentation.Middleware;
 using FluentValidation;
 using IAM.API.Extensions;
+using IAM.API.GRPC.Services;
 using IAM.Business;
-using IAM.Infrastructure.Grpc.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -18,7 +18,7 @@ builder.Services.AddDatabase(builder.Configuration)
     .AddMapper()
     .AddValidatorsFromAssembly(typeof(IdentityBusinessAssemblyReference).Assembly)
     .AddServices()
-    .AddRedisCache(builder.Configuration);
+    .AddRedisCacheIam(builder.Configuration);
 
 builder.Services.AddScoped<ICurrentUser, CurrentUser>();
 builder.Services.AddGrpc();
