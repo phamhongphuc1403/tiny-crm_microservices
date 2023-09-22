@@ -34,7 +34,7 @@ public class IamAccountController : Controller
     {
         var user = await _iamAccountService.CreateUserAsync(userCreateDto);
         return CreatedAtAction(nameof(GetDetailUser), new {id = user.Id}, user);
-    }
+    } 
     
     [HttpGet("{id:guid}")]
     [Authorize(Policy= TinyCrmPermissions.Users.Read)]
@@ -59,5 +59,13 @@ public class IamAccountController : Controller
     {
         await _iamAccountService.ChangePasswordAsync(id, userChangePasswordDto);
         return Ok("Change password successfully");
+    }
+    
+    [HttpDelete]
+    [Authorize(Policy = TinyCrmPermissions.Users.Delete)]
+    public async Task<ActionResult> DeleteUser([FromBody] List<Guid> ids)
+    {
+        await _iamAccountService.DeleteUserAsync(ids);
+        return Ok("Delete users successfully");
     }
 }
