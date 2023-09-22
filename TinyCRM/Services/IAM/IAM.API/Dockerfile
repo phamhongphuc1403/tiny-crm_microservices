@@ -15,7 +15,6 @@ COPY ["TinyCRM/Services/IAM/IAM.Business/IAM.Business.csproj", "TinyCRM/Services
 COPY ["TinyCRM/Services/IAM/IAM.Domain/IAM.Domain.csproj", "TinyCRM/Services/IAM/IAM.Domain/"]
 COPY ["TinyCRM/Services/IAM/IAM.Infrastructure/IAM.Infrastructure.csproj", "TinyCRM/Services/IAM/IAM.Infrastructure/"]
 COPY ["TinyCRM/BuildingBlocks/BuildingBlock.Infrastructure.RedisCache/BuildingBlock.Infrastructure.RedisCache.csproj", "TinyCRM/BuildingBlocks/BuildingBlock.Infrastructure.RedisCache/"]
-COPY ["TinyCRM/Services/IAM/IAM.Infrastructure.Grpc/IAM.Infrastructure.Grpc.csproj", "TinyCRM/Services/IAM/IAM.Infrastructure.Grpc/"]
 RUN dotnet restore "TinyCRM/Services/IAM/IAM.API/IAM.API.csproj"
 COPY . .
 WORKDIR "/src/TinyCRM/Services/IAM/IAM.API"
