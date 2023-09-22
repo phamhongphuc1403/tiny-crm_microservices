@@ -48,14 +48,14 @@ public class ContactSeeder : IDataSeeder
 
     private void SeedContacts(IEnumerable<Guid> accountIds)
     {
-        var faker = new Faker<Contact>().UseSeed(8675309)
-            .RuleFor(contact => contact.Id, f => Guid.NewGuid())
+        var faker = new Faker<Contact>()
+            .RuleFor(contact => contact.Id, f => f.Random.Guid())
             .RuleFor(contact => contact.Name, f => f.Person.FullName)
             .RuleFor(contact => contact.Phone, f => f.Phone.PhoneNumber())
             .RuleFor(contact => contact.Email, (f, contact) => f.Internet.Email(contact.Name))
             .RuleFor(contact => contact.CreatedDate, f => f.Date.Between(DateTime.Now, DateTime.Now.AddMonths(1)))
             .RuleFor(contact => contact.AccountId, f => f.PickRandom(accountIds));
 
-        _contactOperationRepository.AddRangeAsync(faker.Generate(15));
+        _contactOperationRepository.AddRangeAsync(faker.Generate(50));
     }
 }

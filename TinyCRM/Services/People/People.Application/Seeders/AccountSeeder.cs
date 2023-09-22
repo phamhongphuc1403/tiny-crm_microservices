@@ -43,8 +43,8 @@ public class AccountSeeder : IDataSeeder
 
     private void SeedAccounts()
     {
-        var faker = new Faker<Account>().UseSeed(8675309)
-            .RuleFor(account => account.Id, f => Guid.NewGuid())
+        var faker = new Faker<Account>()
+            .RuleFor(account => account.Id, f => f.Random.Guid())
             .RuleFor(account => account.Name, f => f.Company.CompanyName())
             .RuleFor(account => account.Phone, f => f.Phone.PhoneNumber())
             .RuleFor(account => account.Email, (f, account) => f.Internet.Email(account.Name))
@@ -52,6 +52,6 @@ public class AccountSeeder : IDataSeeder
             .RuleFor(account => account.TotalSales, f => Math.Round(f.Random.Double(0, 1000000), 2))
             .RuleFor(account => account.CreatedDate, f => f.Date.Between(DateTime.Now, DateTime.Now.AddMonths(1)));
 
-        _operationRepository.AddRangeAsync(faker.Generate(15));
+        _operationRepository.AddRangeAsync(faker.Generate(50));
     }
 }

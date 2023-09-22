@@ -16,7 +16,7 @@ public class Account : GuidEntity
         Address = address;
     }
 
-    private Account()
+    public Account()
     {
     }
 
@@ -24,7 +24,7 @@ public class Account : GuidEntity
     public string? Email { get; private set; }
     public string? Phone { get; private set; }
     public string? Address { get; private set; }
-    public double TotalSales { get; }
+    public double TotalSales { get; private set;  }
 
     public ICollection<Contact> Contacts { get; private set; } = null!;
 
