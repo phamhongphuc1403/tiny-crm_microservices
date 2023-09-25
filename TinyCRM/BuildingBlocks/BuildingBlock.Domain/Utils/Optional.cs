@@ -31,6 +31,6 @@ public class Optional<T>
 
     public T Get()
     {
-        return _instance ?? throw new InvalidOperationException("No value present");
+        return _instance!;
     }
 }

@@ -22,7 +22,42 @@ namespace Sales.Infrastructure.EFCore.Migrations
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
 
-            modelBuilder.Entity("Sales.Domain.Entities.Lead", b =>
+            modelBuilder.Entity("Sales.Domain.AccountAggregate.Account", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("CreatedBy")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("CreatedDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("Email")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasMaxLength(255)
+                        .HasColumnType("nvarchar(255)");
+
+                    b.Property<string>("UpdatedBy")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime?>("UpdatedDate")
+                        .HasColumnType("datetime2");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("Email")
+                        .IsUnique()
+                        .HasFilter("[Email] IS NOT NULL");
+
+                    b.ToTable("Accounts");
+                });
+
+            modelBuilder.Entity("Sales.Domain.LeadAggregate.Lead", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
@@ -82,8 +117,8 @@ namespace Sales.Infrastructure.EFCore.Migrations
                             CustomerId = new Guid("20419e47-058b-45ae-adc7-a1da89bb050c"),
                             DisqualificationDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             EstimatedRevenue = 73890m,
-                            Source = 2,
-                            Status = 1,
+                            Source = 1,
+                            Status = 0,
                             Title = "Et voluptatem sunt."
                         },
                         new
@@ -93,8 +128,8 @@ namespace Sales.Infrastructure.EFCore.Migrations
                             CustomerId = new Guid("22d84515-5912-489b-b75c-249964f5a278"),
                             DisqualificationDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             EstimatedRevenue = 81034m,
-                            Source = 2,
-                            Status = 2,
+                            Source = 1,
+                            Status = 1,
                             Title = "Quae et dolorem mollitia repellendus ut."
                         },
                         new
@@ -104,11 +139,23 @@ namespace Sales.Infrastructure.EFCore.Migrations
                             CustomerId = new Guid("20419e47-058b-45ae-adc7-a1da89bb050c"),
                             Description = "While the Panther received knife and fork with a little scream of laughter. 'Oh, hush!' the Rabbit say, 'A barrowful of WHAT?' thought Alice to herself, (not in a moment to think that proved it at.",
                             DisqualificationDate = new DateTime(2023, 9, 16, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            DisqualificationReason = 1,
+                            DisqualificationReason = 0,
                             EstimatedRevenue = 88782m,
-                            Source = 2,
-                            Status = 4,
+                            Source = 1,
+                            Status = 3,
                             Title = "Officia voluptatem et."
+                        },
+                        new
+                        {
+                            Id = new Guid("004a27ca-30b7-4ca0-8178-6dc2b8df5ec7"),
+                            CreatedDate = new DateTime(2023, 9, 15, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            CustomerId = new Guid("22d84515-5912-489b-b75c-249964f5a278"),
+                            Description = "Alice, 'and why it is to-day! And I declare it's too bad, that it was only sobbing,' she thought, 'it's sure to make out what it was: at first was moderate. But the insolence of his.",
+                            DisqualificationDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            EstimatedRevenue = 72346m,
+                            Source = 1,
+                            Status = 2,
+                            Title = "Et voluptatem sunt."
                         });
                 });
 #pragma warning restore 612, 618

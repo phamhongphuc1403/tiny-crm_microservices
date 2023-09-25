@@ -53,3 +53,7 @@ public abstract class AuditEntity<TKey> : EntityBase<TKey>, IAuditEntity
 public abstract class GuidEntity : AuditEntity<Guid>
 {
 }
+
+public abstract class AggregateRoot : GuidEntity
+{
+}

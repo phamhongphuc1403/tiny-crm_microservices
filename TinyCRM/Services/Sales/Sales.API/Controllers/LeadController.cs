@@ -1,8 +1,8 @@
 using BuildingBlock.Application.DTOs;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
-using Sales.Application.CQRS.Queries.Requests;
-using Sales.Application.DTOs;
+using Sales.Application.CQRS.Queries.LeadQueries.Requests;
+using Sales.Application.DTOs.Leads;
 
 namespace Sales.API.Controllers;
 
