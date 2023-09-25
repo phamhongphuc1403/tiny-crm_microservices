@@ -13,7 +13,7 @@ public class FilterAndPagingDto<TEnum>
     [Range(1, int.MaxValue, ErrorMessage = "PageSize must be a positive number.")]
     public int PageSize { get; set; } = 10;
 
-    public bool IsDescending { get; set; } = true;
+    public bool IsDescending { get; set; } = false;
 
     public virtual TEnum? SortBy { get; set; }
 

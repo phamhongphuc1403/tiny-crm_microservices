@@ -12,6 +12,7 @@ public static class CqrsExtension
         {
             cfg.RegisterServicesFromAssemblyContaining(typeof(TApplicationAssemblyReference));
             cfg.AddOpenBehavior(typeof(ValidationBehavior<,>));
+            cfg.AddOpenBehavior(typeof(ConvertToNullBehavior<,>));
         });
 
         return services;

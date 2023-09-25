@@ -46,9 +46,9 @@ public class ReadOnlyRepository<TDbContext, TEntity> : IReadOnlyRepository<TEnti
 
     public Task<bool> CheckIfExistAsync(ISpecification<TEntity>? specification = null)
     {
-        if (specification != null) return DbSet.AsNoTracking().AnyAsync(specification.ToExpression());
-
-        return DbSet.AsNoTracking().AnyAsync();
+        return specification != null
+            ? DbSet.AsNoTracking().AnyAsync(specification.ToExpression())
+            : DbSet.AsNoTracking().AnyAsync();
     }
 
     public async Task<(List<TEntity>, int)> GetFilterAndPagingAsync(ISpecification<TEntity> specification, string sort,
@@ -63,7 +63,7 @@ public class ReadOnlyRepository<TDbContext, TEntity> : IReadOnlyRepository<TEnti
 
         query = Include(query, includeTables);
 
-        query = Sort(query, sort);
+        query = query.OrderBy(sort);
 
         query = query.Skip(pageSize * (pageIndex - 1)).Take(pageSize);
 
@@ -73,11 +73,6 @@ public class ReadOnlyRepository<TDbContext, TEntity> : IReadOnlyRepository<TEnti
     private static IQueryable<TEntity> Filter(IQueryable<TEntity> query, ISpecification<TEntity> specification)
     {
         return query.Where(specification.ToExpression());
-    }
-
-    private static IQueryable<TEntity> Sort(IQueryable<TEntity> query, string? sort)
-    {
-        return string.IsNullOrEmpty(sort) ? query.OrderBy("CreatedDate") : query.OrderBy(sort);
     }
 
     private static IQueryable<TEntity> Include(IQueryable<TEntity> query, string? includeTables = null)

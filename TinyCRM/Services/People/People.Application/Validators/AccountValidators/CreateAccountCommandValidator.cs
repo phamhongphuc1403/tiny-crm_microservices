@@ -9,14 +9,14 @@ public class CreateAccountCommandValidator : AbstractValidator<CreateAccountComm
     public CreateAccountCommandValidator()
     {
         RuleFor(account => account.Email)
-            .Empty().When(model => string.IsNullOrWhiteSpace(model.Email))
-            .EmailAddress();
+            .EmailAddress()
+            .When(model => !string.IsNullOrWhiteSpace(model.Email));
 
         RuleFor(p => p.Phone)
-            .Empty().When(model => string.IsNullOrWhiteSpace(model.Phone))
             .MinimumLength(10)
             .MaximumLength(30)
             .Matches(RegexPatterns.PhoneNumber)
+            .When(model => !string.IsNullOrWhiteSpace(model.Phone))
             ;
 
         RuleFor(account => account.Name)
@@ -24,8 +24,9 @@ public class CreateAccountCommandValidator : AbstractValidator<CreateAccountComm
             .MaximumLength(255);
 
         RuleFor(account => account.Address)
-            .Empty().When(model => string.IsNullOrWhiteSpace(model.Address))
             .MinimumLength(2)
-            .MaximumLength(255);
+            .MaximumLength(255)
+            .When(model => !string.IsNullOrWhiteSpace(model.Address))
+            ;
     }
 }
