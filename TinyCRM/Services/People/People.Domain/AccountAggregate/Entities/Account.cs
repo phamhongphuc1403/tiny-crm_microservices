@@ -3,6 +3,7 @@ using BuildingBlock.Domain.Repositories;
 using BuildingBlock.Domain.Utils;
 using People.Domain.AccountAggregate.Exceptions;
 using People.Domain.AccountAggregate.Specifications;
+using People.Domain.ContactAggregate.Entities;
 
 namespace People.Domain.AccountAggregate.Entities;
 

@@ -1,6 +1,7 @@
 ﻿using BuildingBlock.Infrastructure.EFCore;
 using Microsoft.EntityFrameworkCore;
 using People.Domain.AccountAggregate.Entities;
+using People.Domain.ContactAggregate.Entities;
 
 namespace People.Infrastructure.EFCore;
 

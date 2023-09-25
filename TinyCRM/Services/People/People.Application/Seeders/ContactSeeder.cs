@@ -4,6 +4,7 @@ using BuildingBlock.Domain.Interfaces;
 using BuildingBlock.Domain.Repositories;
 using Microsoft.Extensions.Logging;
 using People.Domain.AccountAggregate.Entities;
+using People.Domain.ContactAggregate.Entities;
 
 namespace People.Application.Seeders;
 

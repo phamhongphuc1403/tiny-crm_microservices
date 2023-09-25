@@ -73,8 +73,6 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "DockerCompose", "DockerComp
 		docker-compose.yml = docker-compose.yml
 	EndProjectSection
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "AccountAggregate", "AccountAggregate", "{8A78B771-A528-48EE-813D-302AE7216012}"
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -201,7 +199,6 @@ Global
 		{1B0A3586-3C70-4CAC-ACA5-340DF255B91B} = {1FBE68F5-33ED-491B-BF83-282A45B30955}
 		{96AD94F4-1ED1-4955-9324-A8892D98341B} = {092AA6A0-B54C-430E-8A94-D2A51EE78150}
 		{725E518B-2ABD-4F05-9784-E38FAB764D07} = {092AA6A0-B54C-430E-8A94-D2A51EE78150}
-		{8A78B771-A528-48EE-813D-302AE7216012} = {92941348-5B6B-4308-990F-B5CE7C17923B}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {ED4E88BC-28CC-4E52-B707-F67C29CDDD0C}

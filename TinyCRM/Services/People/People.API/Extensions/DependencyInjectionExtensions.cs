@@ -5,9 +5,10 @@ using BuildingBlock.Infrastructure.EFCore;
 using BuildingBlock.Infrastructure.EFCore.Repositories;
 using People.Application.Seeders;
 using People.Domain.AccountAggregate.Entities;
+using People.Domain.ContactAggregate.Entities;
 using People.Infrastructure.EFCore;
 
-namespace People.API.Extensions.AccountExtensions;
+namespace People.API.Extensions;
 
 public static class DependencyInjectionExtensions
 {

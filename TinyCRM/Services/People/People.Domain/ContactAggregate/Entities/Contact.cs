@@ -1,6 +1,7 @@
 using BuildingBlock.Domain.Model;
+using People.Domain.AccountAggregate.Entities;
 
-namespace People.Domain.AccountAggregate.Entities;
+namespace People.Domain.ContactAggregate.Entities;
 
 public class Contact : GuidEntity
 {

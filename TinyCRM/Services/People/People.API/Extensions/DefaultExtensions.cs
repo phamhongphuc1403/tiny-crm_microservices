@@ -6,8 +6,9 @@ using BuildingBlock.Presentation.Extensions;
 using FluentValidation;
 using People.Application;
 using People.Infrastructure.EFCore;
+using People.Infrastructure.EFCore.Profiles;
 
-namespace People.API.Extensions.AccountExtensions;
+namespace People.API.Extensions;
 
 public static class DefaultExtensions
 {
