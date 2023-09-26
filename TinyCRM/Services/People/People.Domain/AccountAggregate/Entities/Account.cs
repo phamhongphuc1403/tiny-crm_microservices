@@ -25,7 +25,7 @@ public class Account : GuidEntity
     public string? Email { get; private set; }
     public string? Phone { get; private set; }
     public string? Address { get; private set; }
-    public double TotalSales { get; private set;  }
+    public double TotalSales { get; private set; }
 
     public ICollection<Contact> Contacts { get; private set; } = null!;
 
@@ -40,11 +40,25 @@ public class Account : GuidEntity
     public static async Task<Account> EditAsync(Guid id, string name, string? email, string? phone, string? address,
         IReadOnlyRepository<Account> repository)
     {
-        if (email != null) await CheckValidOnEditExistAsync(id, email, repository);
+        var account = await CheckValidOnEditExistAsync(id, email, repository);
 
-        var account = new Account(name, email, phone, address);
+        account.Name = name;
+        account.Email = email;
+        account.Phone = phone;
+        account.Address = address;
+        
+        return account;
+    }
 
-        account.Id = id;
+    private static async Task<Account> CheckValidOnEditExistAsync(Guid id, string? email,
+        IReadOnlyRepository<Account> repository)
+    {
+        var accountIdSpecification = new AccountIdSpecification(id);
+
+        var account = Optional<Account>.Of(await repository.GetAnyAsync(accountIdSpecification))
+            .ThrowIfNotPresent(new AccountNotFoundException(id)).Get();
+
+        if (email != null) await CheckEmailValidOnEditExistAsync(id, email, repository);
 
         return account;
     }
@@ -57,13 +71,9 @@ public class Account : GuidEntity
             .ThrowIfPresent(new AccountDuplicatedException(nameof(email), email));
     }
 
-    private static async Task CheckValidOnEditExistAsync(Guid id, string email, IReadOnlyRepository<Account> repository)
+    private static async Task CheckEmailValidOnEditExistAsync(Guid id, string email,
+        IReadOnlyRepository<Account> repository)
     {
-        var accountIdSpecification = new AccountIdSpecification(id);
-
-        Optional<bool>.Of(await repository.CheckIfExistAsync(accountIdSpecification))
-            .ThrowIfNotPresent(new AccountNotFoundException(id));
-
         var accountEmailSpecification = new AccountEmailExactMatchSpecification(email);
 
         var accountIdNotEqualSpecification = new AccountIdNotEqualSpecification(id);
