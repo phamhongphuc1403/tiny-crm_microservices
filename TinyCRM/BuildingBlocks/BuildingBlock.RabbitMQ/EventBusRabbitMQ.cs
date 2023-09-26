@@ -6,18 +6,19 @@ using BuildingBlock.Application.IntegrationEvents.Events;
 using BuildingBlock.Application.IntegrationEvents.Handlers;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Serialization;
 using Polly;
 using RabbitMQ.Client;
 using RabbitMQ.Client.Events;
 using RabbitMQ.Client.Exceptions;
+using JsonSerializer = System.Text.Json.JsonSerializer;
 
 namespace BuildingBlock.RabbitMQ;
 
 public class EventBusRabbitMQ : IEventBus
 {
     private const string BrokerName = "tinycrm_event_bus";
-
-    private static readonly JsonSerializerOptions SIndentedOptions = new() { WriteIndented = true };
 
     private static readonly JsonSerializerOptions SCaseInsensitiveOptions =
         new() { PropertyNameCaseInsensitive = true };
@@ -69,8 +70,14 @@ public class EventBusRabbitMQ : IEventBus
 
         channel.ExchangeDeclare(BrokerName, "direct");
 
-        var body = JsonSerializer.SerializeToUtf8Bytes(@event, @event.GetType(), SIndentedOptions);
+        var json = JsonConvert.SerializeObject(@event, @event.GetType(), new JsonSerializerSettings
+        {
+            ContractResolver = new CamelCasePropertyNamesContractResolver()
+        });
 
+        var body = Encoding.UTF8.GetBytes(json);
+
+        _logger.LogInformation(Encoding.UTF8.GetString(body));
         policy.Execute(() =>
         {
             var properties = channel.CreateBasicProperties();

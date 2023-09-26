@@ -25,7 +25,7 @@ public class Account : GuidEntity
     public string? Email { get; private set; }
     public string? Phone { get; private set; }
     public string? Address { get; private set; }
-    public double TotalSales { get; private set; }
+    public double TotalSales { get; }
 
     public ICollection<Contact> Contacts { get; private set; } = null!;
 
@@ -40,17 +40,17 @@ public class Account : GuidEntity
     public static async Task<Account> EditAsync(Guid id, string name, string? email, string? phone, string? address,
         IReadOnlyRepository<Account> repository)
     {
-        var account = await CheckValidOnEditExistAsync(id, email, repository);
+        var account = await CheckValidOnEditAsync(id, email, repository);
 
         account.Name = name;
         account.Email = email;
         account.Phone = phone;
         account.Address = address;
-        
+
         return account;
     }
 
-    private static async Task<Account> CheckValidOnEditExistAsync(Guid id, string? email,
+    private static async Task<Account> CheckValidOnEditAsync(Guid id, string? email,
         IReadOnlyRepository<Account> repository)
     {
         var accountIdSpecification = new AccountIdSpecification(id);
@@ -58,7 +58,7 @@ public class Account : GuidEntity
         var account = Optional<Account>.Of(await repository.GetAnyAsync(accountIdSpecification))
             .ThrowIfNotPresent(new AccountNotFoundException(id)).Get();
 
-        if (email != null) await CheckEmailValidOnEditExistAsync(id, email, repository);
+        if (email != null) await CheckEmailValidOnEditAsync(id, email, repository);
 
         return account;
     }
@@ -71,7 +71,7 @@ public class Account : GuidEntity
             .ThrowIfPresent(new AccountDuplicatedException(nameof(email), email));
     }
 
-    private static async Task CheckEmailValidOnEditExistAsync(Guid id, string email,
+    private static async Task CheckEmailValidOnEditAsync(Guid id, string email,
         IReadOnlyRepository<Account> repository)
     {
         var accountEmailSpecification = new AccountEmailExactMatchSpecification(email);
@@ -84,7 +84,7 @@ public class Account : GuidEntity
             .ThrowIfPresent(new AccountDuplicatedException(nameof(email), email));
     }
 
-    public static async Task<IEnumerable<Account>> DeleteManyAsync(IEnumerable<Guid> ids,
+    public static async Task<IList<Account>> DeleteManyAsync(IEnumerable<Guid> ids,
         IReadOnlyRepository<Account> readonlyRepository)
     {
         List<Account> accounts = new();

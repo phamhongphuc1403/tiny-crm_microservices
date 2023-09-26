@@ -48,12 +48,13 @@ public class AccountSeeder : IDataSeeder
 
         await _unitOfWork.SaveChangesAsync();
 
-        _eventBus.Publish(new AccountsSeededIntegrationEvent(accounts));
+        foreach (var account in accounts)
+            _eventBus.Publish(new AccountCreatedOrUpdatedIntegrationEvent(account.Id, account.Name, account.Email));
 
         _logger.LogInformation("Account data seeded successfully!");
     }
 
-    private IList<Account> GenerateAccounts()
+    private static List<Account> GenerateAccounts()
     {
         var faker = new Faker<Account>()
             .RuleFor(account => account.Id, f => f.Random.Guid())
