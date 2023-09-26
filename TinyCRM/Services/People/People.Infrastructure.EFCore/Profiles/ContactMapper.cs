@@ -9,6 +9,7 @@ public class ContactMapper : Profile
     public ContactMapper()
     {
         CreateMap<Contact, ContactSummaryDto>();
-        // CreateMap<Contact, ContactDetailDto>();
+        CreateMap<Contact, ContactDetailDto>()
+            .ForMember(dest => dest.AccountName, opt => opt.MapFrom(src => src.Account.Name));
     }
 }

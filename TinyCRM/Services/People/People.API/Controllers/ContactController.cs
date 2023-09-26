@@ -21,8 +21,17 @@ public class ContactController : ControllerBase
     public async Task<ActionResult<FilterAndPagingResultDto<ContactSummaryDto>>> GetFilteredAndPagedAsync(
         [FromQuery] FilterAndPagingContactsDto dto)
     {
-        var accounts = await _mediator.Send(new FilterAndPagingContactQuery(dto));
+        var contacts = await _mediator.Send(new FilterAndPagingContactQuery(dto));
 
-        return Ok(accounts);
+        return Ok(contacts);
+    }
+
+    [HttpGet("{id:guid}")]
+    [ActionName(nameof(GetByIdAsync))]
+    public async Task<ActionResult<ContactDetailDto>> GetByIdAsync(Guid id)
+    {
+        var contact = await _mediator.Send(new GetContactByIdQuery(id));
+
+        return Ok(contact);
     }
 }
