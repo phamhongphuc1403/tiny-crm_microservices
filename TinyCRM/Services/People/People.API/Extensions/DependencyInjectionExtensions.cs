@@ -5,6 +5,7 @@ using BuildingBlock.Infrastructure.EFCore;
 using BuildingBlock.Infrastructure.EFCore.Repositories;
 using People.Application.Seeders;
 using People.Domain.AccountAggregate.Entities;
+using People.Domain.AccountAggregate.Services;
 using People.Domain.ContactAggregate.Entities;
 using People.Infrastructure.EFCore;
 
@@ -24,6 +25,8 @@ public static class DependencyInjectionExtensions
 
         services.AddScoped<IDataSeeder, AccountSeeder>();
         services.AddScoped<IDataSeeder, ContactSeeder>();
+
+        services.AddScoped<IAccountService, AccountService>();
         return services;
     }
 }
