@@ -1,14 +1,19 @@
 using Bogus;
 using BuildingBlock.Application;
+using BuildingBlock.Application.EventBus.Interfaces;
 using BuildingBlock.Domain.Interfaces;
 using BuildingBlock.Domain.Repositories;
+using Fare;
 using Microsoft.Extensions.Logging;
+using People.Application.IntegrationEvents.Events;
 using People.Domain.AccountAggregate.Entities;
+using People.Domain.Constants;
 
 namespace People.Application.Seeders;
 
 public class AccountSeeder : IDataSeeder
 {
+    private readonly IEventBus _eventBus;
     private readonly ILogger<AccountSeeder> _logger;
     private readonly IOperationRepository<Account> _operationRepository;
     private readonly IReadOnlyRepository<Account> _readonlyRepository;
@@ -18,12 +23,14 @@ public class AccountSeeder : IDataSeeder
         IOperationRepository<Account> operationRepository,
         IReadOnlyRepository<Account> readonlyRepository,
         IUnitOfWork unitOfWork,
-        ILogger<AccountSeeder> logger
+        ILogger<AccountSeeder> logger,
+        IEventBus eventBus
     )
     {
         _operationRepository = operationRepository;
         _unitOfWork = unitOfWork;
         _logger = logger;
+        _eventBus = eventBus;
         _readonlyRepository = readonlyRepository;
     }
 
@@ -35,23 +42,32 @@ public class AccountSeeder : IDataSeeder
             return;
         }
 
-        SeedAccounts();
+        var accounts = GenerateAccounts();
+
+        await _operationRepository.AddRangeAsync(accounts);
+
         await _unitOfWork.SaveChangesAsync();
+
+        _eventBus.Publish(new AccountsSeededIntegrationEvent(accounts));
 
         _logger.LogInformation("Account data seeded successfully!");
     }
 
-    private void SeedAccounts()
+    private IList<Account> GenerateAccounts()
     {
         var faker = new Faker<Account>()
             .RuleFor(account => account.Id, f => f.Random.Guid())
             .RuleFor(account => account.Name, f => f.Company.CompanyName())
-            .RuleFor(account => account.Phone, f => f.Phone.PhoneNumber())
+            .RuleFor(account => account.Phone, f =>
+            {
+                var xeger = new Xeger(RegexPatterns.PhoneNumber);
+                return xeger.Generate();
+            })
             .RuleFor(account => account.Email, (f, account) => f.Internet.Email(account.Name))
             .RuleFor(account => account.Address, f => f.Address.FullAddress())
             .RuleFor(account => account.TotalSales, f => Math.Round(f.Random.Double(0, 1000000), 2))
             .RuleFor(account => account.CreatedDate, f => f.Date.Between(DateTime.Now, DateTime.Now.AddMonths(1)));
 
-        _operationRepository.AddRangeAsync(faker.Generate(50));
+        return faker.Generate(50).ToList();
     }
 }

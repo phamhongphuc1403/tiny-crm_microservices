@@ -2,8 +2,10 @@ using Bogus;
 using BuildingBlock.Application;
 using BuildingBlock.Domain.Interfaces;
 using BuildingBlock.Domain.Repositories;
+using Fare;
 using Microsoft.Extensions.Logging;
 using People.Domain.AccountAggregate.Entities;
+using People.Domain.Constants;
 using People.Domain.ContactAggregate.Entities;
 
 namespace People.Application.Seeders;
@@ -52,7 +54,11 @@ public class ContactSeeder : IDataSeeder
         var faker = new Faker<Contact>()
             .RuleFor(contact => contact.Id, f => f.Random.Guid())
             .RuleFor(contact => contact.Name, f => f.Person.FullName)
-            .RuleFor(contact => contact.Phone, f => f.Phone.PhoneNumber())
+            .RuleFor(contact => contact.Phone, _ =>
+            {
+                var xeger = new Xeger(RegexPatterns.PhoneNumber);
+                return xeger.Generate();
+            })
             .RuleFor(contact => contact.Email, (f, contact) => f.Internet.Email(contact.Name))
             .RuleFor(contact => contact.CreatedDate, f => f.Date.Between(DateTime.Now, DateTime.Now.AddMonths(1)))
             .RuleFor(contact => contact.AccountId, f => f.PickRandom(accountIds));

@@ -31,7 +31,9 @@ public static class DefaultExtensions
             .AddDependencyInjection()
             .AddTinyCRMAuthentication(configuration)
             .AddValidatorsFromAssembly(typeof(PeopleApplicationAssemblyReference).Assembly)
-            .AddAuthorizations();
+            .AddAuthorizations()
+            .AddEventBus(configuration)
+            ;
 
         services.AddHttpContextAccessor();
         services.AddScoped<ICurrentUser, CurrentUser>();
