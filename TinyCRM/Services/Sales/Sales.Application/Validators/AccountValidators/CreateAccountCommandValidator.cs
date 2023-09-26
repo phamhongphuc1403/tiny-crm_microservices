@@ -8,8 +8,9 @@ public class CreateAccountCommandValidator : AbstractValidator<CreateAccountComm
     public CreateAccountCommandValidator()
     {
         RuleFor(account => account.Email)
-            .Empty().When(model => string.IsNullOrWhiteSpace(model.Email))
-            .EmailAddress();
+            .EmailAddress()
+            .When(model => !string.IsNullOrWhiteSpace(model.Email))
+            .WithMessage("'{PropertyValue}' is not a valid email address.");
 
         RuleFor(account => account.Name)
             .NotEmpty()

@@ -11,6 +11,7 @@ public class EditAccountCommandValidator : AbstractValidator<EditAccountCommand>
         RuleFor(account => account.Email)
             .EmailAddress()
             .When(model => !string.IsNullOrWhiteSpace(model.Email))
+            .WithMessage("'{PropertyValue}' is not a valid email address.")
             ;
 
         RuleFor(p => p.Phone)
