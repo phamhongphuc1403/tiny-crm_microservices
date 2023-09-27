@@ -18,9 +18,9 @@ public class AccountV2Controller : ControllerBase
 
 
     [HttpGet]
-    public async Task<ActionResult<IEnumerable<AccountSummaryDto>>> GetAll()
+    public async Task<ActionResult<IEnumerable<AccountSummaryDto>>> GetFilteredAsync([FromQuery] FilterAccountsDto dto)
     {
-        var accounts = await _mediator.Send(new GetAllAccountsQuery());
+        var accounts = await _mediator.Send(new FilterAccountsQuery(dto));
 
         return Ok(accounts);
     }
