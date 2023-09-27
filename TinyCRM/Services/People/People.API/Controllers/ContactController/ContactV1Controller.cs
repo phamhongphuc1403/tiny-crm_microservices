@@ -8,11 +8,11 @@ namespace People.API.Controllers;
 
 [ApiController]
 [Route("api/contacts")]
-public class ContactController : ControllerBase
+public class ContactV1Controller : ControllerBase
 {
     private readonly IMediator _mediator;
 
-    public ContactController(IMediator mediator)
+    public ContactV1Controller(IMediator mediator)
     {
         _mediator = mediator;
     }

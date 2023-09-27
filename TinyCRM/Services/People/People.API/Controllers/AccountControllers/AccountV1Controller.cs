@@ -8,12 +8,12 @@ using People.Application.DTOs.AccountDTOs;
 namespace People.API.Controllers;
 
 [ApiController]
-[Route("api/accounts")]
-public class AccountController : ControllerBase
+[Route("api/v1/accounts")]
+public class AccountV1Controller : ControllerBase
 {
     private readonly IMediator _mediator;
 
-    public AccountController(IMediator mediator)
+    public AccountV1Controller(IMediator mediator)
     {
         _mediator = mediator;
     }
