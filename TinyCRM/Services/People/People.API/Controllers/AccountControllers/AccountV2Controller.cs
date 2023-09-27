@@ -3,7 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using People.Application.CQRS.Queries.AccountQueries.Requests;
 using People.Application.DTOs.AccountDTOs;
 
-namespace People.API.Controllers;
+namespace People.API.Controllers.AccountControllers;
 
 [ApiController]
 [Route("api/v2/accounts")]

@@ -31,7 +31,7 @@ public class CreateAccountCommandHandler : ICommandHandler<CreateAccountCommand,
 
     public async Task<AccountDetailDto> Handle(CreateAccountCommand request, CancellationToken cancellationToken)
     {
-        var account = await _accountService.CreateAsync(request.Name!, request.Email, request.Phone, request.Address);
+        var account = await _accountService.CreateAsync(request.Name, request.Email, request.Phone, request.Address);
 
         await _operationRepository.AddAsync(account);
 

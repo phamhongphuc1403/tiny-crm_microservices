@@ -7,6 +7,7 @@ using People.Application.Seeders;
 using People.Domain.AccountAggregate.Entities;
 using People.Domain.AccountAggregate.Services;
 using People.Domain.ContactAggregate.Entities;
+using People.Domain.ContactAggregate.Services;
 using People.Infrastructure.EFCore;
 
 namespace People.API.Extensions;
@@ -27,6 +28,7 @@ public static class DependencyInjectionExtensions
         services.AddScoped<IDataSeeder, ContactSeeder>();
 
         services.AddScoped<IAccountService, AccountService>();
+        services.AddScoped<IContactService, ContactService>();
         return services;
     }
 }

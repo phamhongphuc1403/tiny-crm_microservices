@@ -5,7 +5,7 @@ using People.Application.CQRS.Commands.AccountCommands.Requests;
 using People.Application.CQRS.Queries.AccountQueries.Requests;
 using People.Application.DTOs.AccountDTOs;
 
-namespace People.API.Controllers;
+namespace People.API.Controllers.AccountControllers;
 
 [ApiController]
 [Route("api/v1/accounts")]

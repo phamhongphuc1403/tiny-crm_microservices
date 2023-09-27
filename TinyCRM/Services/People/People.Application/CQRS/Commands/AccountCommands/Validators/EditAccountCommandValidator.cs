@@ -2,11 +2,11 @@ using FluentValidation;
 using People.Application.CQRS.Commands.AccountCommands.Requests;
 using People.Domain.Constants;
 
-namespace People.Application.Validators.AccountValidators;
+namespace People.Application.CQRS.Commands.AccountCommands.Validators;
 
-public class CreateAccountCommandValidator : AbstractValidator<CreateAccountCommand>
+public class EditAccountCommandValidator : AbstractValidator<EditAccountCommand>
 {
-    public CreateAccountCommandValidator()
+    public EditAccountCommandValidator()
     {
         RuleFor(account => account.Email)
             .EmailAddress()
@@ -23,7 +23,9 @@ public class CreateAccountCommandValidator : AbstractValidator<CreateAccountComm
 
         RuleFor(account => account.Name)
             .NotEmpty()
-            .MaximumLength(255);
+            .MaximumLength(255)
+            .When(model => !string.IsNullOrWhiteSpace(model.Name))
+            ;
 
         RuleFor(account => account.Address)
             .MinimumLength(2)
