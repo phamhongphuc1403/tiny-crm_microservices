@@ -26,7 +26,7 @@ public class AccountEditedIntegrationEventHandler : IIntegrationEventHandler<Acc
 
     public async Task Handle(AccountEditedIntegrationEvent @event)
     {
-        var account = await CheckValidOnEditExistAsync(@event.Id);
+        var account = await CheckValidOnEditExistAsync(@event.AccountId);
         var result = await _accountDomainService.UpdateAsync(account, @event.Name, @event.Email);
         _logger.LogInformation($"Updated account {result.Id}");
     }

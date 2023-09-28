@@ -27,7 +27,7 @@ public class AccountCreatedIntegrationEventHandler : IIntegrationEventHandler<Ac
 
     public async Task Handle(AccountCreatedIntegrationEvent @event)
     {
-        var account = await _accountDomainService.CreateAsync(@event.Id, @event.Name, @event.Email);
+        var account = await _accountDomainService.CreateAsync(@event.AccountId, @event.Name, @event.Email);
         await _operationRepository.AddAsync(account);
         await _unitOfWork.SaveChangesAsync();
         _logger.LogInformation($"Created account {account.Id}");
