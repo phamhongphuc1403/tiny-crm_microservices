@@ -13,6 +13,7 @@ public class SaleDbContext : BaseDbContext
 
     public DbSet<Lead> Leads { get; set; } = null!;
     public DbSet<Account> Accounts { get; set; } = null!;
+
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         base.OnModelCreating(modelBuilder);

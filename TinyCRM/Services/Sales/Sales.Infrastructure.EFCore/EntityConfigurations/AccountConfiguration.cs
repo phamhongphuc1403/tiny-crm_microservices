@@ -4,7 +4,7 @@ using Sales.Domain.AccountAggregate;
 
 namespace Sales.Infrastructure.EFCore.EntityConfigurations;
 
-public class AccountConfiguration:IEntityTypeConfiguration<Account>
+public class AccountConfiguration : IEntityTypeConfiguration<Account>
 {
     public void Configure(EntityTypeBuilder<Account> builder)
     {

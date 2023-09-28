@@ -55,6 +55,7 @@ services:
       - GrpcUrls__Identity=http://tinycrm.iam.api:50051
       - ConnectionStrings__Default=Server=tinycrm.db,1433;Database=TinyCrm.Sales;User=sa;Password=Admin123;TrustServerCertificate=false;Encrypt=false;
       - ConnectionStrings__Redis=tinycrm.redis:6379
+      - EventBus__HostName=tinycrm.rabbitmq
     depends_on:
       tinycrm.rabbitmq:
         condition: service_healthy

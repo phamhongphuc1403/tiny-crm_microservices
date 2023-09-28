@@ -1,4 +1,3 @@
-using BuildingBlock.Application.DTOs;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using Sales.Application.CQRS.Commands.AccountCommands.Requests;
@@ -19,14 +18,14 @@ public class AccountController : ControllerBase
     }
 
     [HttpGet]
-    public async Task<ActionResult<FilterResultDto<AccountResultDto>>> GetAllAsync(
+    public async Task<ActionResult<IEnumerable<AccountResultDto>>> FilteredAsync(
         [FromQuery] FilterAccountDto dto)
     {
         var accounts = await _mediator.Send(new FilterAccountsQuery(dto));
 
         return Ok(accounts);
     }
-    
+
     [HttpPost]
     public async Task<ActionResult<AccountResultDto>> CreateAsync(CreateAccountDto dto)
     {

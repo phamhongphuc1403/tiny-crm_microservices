@@ -13,11 +13,11 @@ public static class DependencyInjectionExtensions
 {
     public static IServiceCollection AddDependencyInjection(this IServiceCollection services)
     {
-        services.AddScoped<IReadOnlyRepository<Lead>, ReadOnlyRepository<SaleDbContext,Lead>>();
+        services.AddScoped<IReadOnlyRepository<Lead>, ReadOnlyRepository<SaleDbContext, Lead>>();
         services.AddScoped<IReadOnlyRepository<Account>, ReadOnlyRepository<SaleDbContext, Account>>();
-        services.AddScoped<IOperationRepository<Account>, OperationRepository<SaleDbContext,Account>>();
+        services.AddScoped<IOperationRepository<Account>, OperationRepository<SaleDbContext, Account>>();
         services.AddScoped<IAccountDomainService, AccountDomainService>();
-        
+
         services.AddScoped<Func<BaseDbContext>>(provider => () => provider.GetService<SaleDbContext>()!);
         services.AddScoped<IUnitOfWork, UnitOfWork<SaleDbContext>>();
 

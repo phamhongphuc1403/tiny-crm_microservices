@@ -1,6 +1,4 @@
-using BuildingBlock.Application.DTOs;
 using BuildingBlock.Application.Identity.Permissions;
-using IAM.Business.Models.Users;
 using IAM.Business.Models.Users.Dto;
 using IAM.Business.Services.IServices;
 using Microsoft.AspNetCore.Authorization;
@@ -21,11 +19,10 @@ public class IamAccountV2Controller : Controller
 
     [HttpGet]
     [Authorize(Policy = TinyCrmPermissions.Users.Read)]
-    public async Task<ActionResult<IEnumerable<UserSummaryDto>>>FilteredAsync(
+    public async Task<ActionResult<IEnumerable<UserSummaryDto>>> FilteredAsync(
         [FromQuery] FilterUsersDto dto)
     {
         var users = await _iamAccountService.FilterUsersAsync(dto);
         return Ok(users);
     }
-
 }

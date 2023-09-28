@@ -67,7 +67,7 @@ public class PermissionContributor : IDataSeeder
     {
         var roles = new[]
         {
-            Role.Admin, 
+            Role.Admin
             // Role.User
         };
 

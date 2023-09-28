@@ -16,12 +16,12 @@ namespace Sales.Application.CQRS.Commands.AccountCommands.Handlers;
 
 public class CreateAccountCommandHandler : ICommandHandler<CreateAccountCommand, AccountResultDto>
 {
-    private readonly IMapper _mapper;
-    private readonly IReadOnlyRepository<Account> _readOnlyRepository;
-    private readonly IOperationRepository<Account> _operationRepository;
     private readonly IAccountDomainService _accountDomainService;
-    private readonly IUnitOfWork _unitOfWork;
     private readonly IEventBus _eventBus;
+    private readonly IMapper _mapper;
+    private readonly IOperationRepository<Account> _operationRepository;
+    private readonly IReadOnlyRepository<Account> _readOnlyRepository;
+    private readonly IUnitOfWork _unitOfWork;
 
     public CreateAccountCommandHandler(IMapper mapper, IUnitOfWork unitOfWork,
         IAccountDomainService accountDomainService, IReadOnlyRepository<Account> readOnlyRepository,
@@ -42,12 +42,13 @@ public class CreateAccountCommandHandler : ICommandHandler<CreateAccountCommand,
         await _unitOfWork.SaveChangesAsync();
 
         var accountIdSpecification = new AccountIdSpecification(account.Id);
-        
+
         var accountResult = Optional<Account>.Of(await _readOnlyRepository.GetAnyAsync(accountIdSpecification))
             .ThrowIfNotPresent(new AccountNotFoundException(account.Id)).Get();
-        
-        var createAccountEvent = new AccountCreatedIntegrationEvent(accountResult.Id, accountResult.Name, accountResult.Email);
-        
+
+        var createAccountEvent =
+            new AccountCreatedIntegrationEvent(accountResult.Id, accountResult.Name, accountResult.Email);
+
         _eventBus.Publish(createAccountEvent);
 
         return _mapper.Map<AccountResultDto>(accountResult);
