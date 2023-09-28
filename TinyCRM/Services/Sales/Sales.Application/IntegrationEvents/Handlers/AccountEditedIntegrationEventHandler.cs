@@ -1,4 +1,5 @@
 using BuildingBlock.Application.IntegrationEvents.Handlers;
+using BuildingBlock.Domain.Interfaces;
 using BuildingBlock.Domain.Repositories;
 using BuildingBlock.Domain.Utils;
 using Microsoft.Extensions.Logging;
@@ -15,19 +16,24 @@ public class AccountEditedIntegrationEventHandler : IIntegrationEventHandler<Acc
     private readonly ILogger<AccountEditedIntegrationEventHandler> _logger;
     private readonly IAccountDomainService _accountDomainService;
     private readonly IReadOnlyRepository<Account> _readOnlyRepository;
-
+    private readonly IOperationRepository<Account> _operationRepository;
+    private readonly IUnitOfWork _unitOfWork;
     public AccountEditedIntegrationEventHandler(ILogger<AccountEditedIntegrationEventHandler> logger,
-        IAccountDomainService accountDomainService, IReadOnlyRepository<Account> readOnlyRepository)
+        IAccountDomainService accountDomainService, IReadOnlyRepository<Account> readOnlyRepository, IOperationRepository<Account> operationRepository, IUnitOfWork unitOfWork)
     {
         _logger = logger;
         _accountDomainService = accountDomainService;
         _readOnlyRepository = readOnlyRepository;
+        _operationRepository = operationRepository;
+        _unitOfWork = unitOfWork;
     }
 
     public async Task Handle(AccountEditedIntegrationEvent @event)
     {
         var account = await CheckValidOnEditExistAsync(@event.AccountId);
         var result = await _accountDomainService.UpdateAsync(account, @event.Name, @event.Email);
+        _operationRepository.Update(account);
+        await _unitOfWork.SaveChangesAsync();
         _logger.LogInformation($"Updated account {result.Id}");
     }
     
