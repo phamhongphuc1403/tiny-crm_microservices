@@ -47,6 +47,23 @@ public class ContactService : IContactService
         return contact;
     }
 
+    public async Task<IEnumerable<Contact>> DeleteManyAsync(IEnumerable<Guid> ids)
+    {
+        List<Contact> contacts = new();
+
+        foreach (var id in ids)
+        {
+            var contactIdSpecification = new ContactIdSpecification(id);
+
+            var account = Optional<Contact>.Of(await _contactReadOnlyRepository.GetAnyAsync(contactIdSpecification))
+                .ThrowIfNotPresent(new AccountNotFoundException(id)).Get();
+
+            contacts.Add(account);
+        }
+
+        return contacts;
+    }
+
     private async Task<Contact> CheckValidOnEditAsync(Guid id, string name, string email, Guid accountId)
     {
         var contact = await CheckContactExist(id);

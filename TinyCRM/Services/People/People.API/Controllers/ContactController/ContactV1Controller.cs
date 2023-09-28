@@ -51,4 +51,12 @@ public class ContactV1Controller : ControllerBase
 
         return Ok(contact);
     }
+    
+    [HttpDelete]
+    public async Task<ActionResult> DeleteAsync(DeleteManyContactsDto dto)
+    {
+        await _mediator.Send(new DeleteManyContactsCommand(dto));
+
+        return NoContent();
+    }
 }

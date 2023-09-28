@@ -9,14 +9,14 @@ using People.Domain.AccountAggregate.Services;
 
 namespace People.Application.CQRS.Commands.AccountCommands.Handlers;
 
-public class DeleteAccountCommandHandler : ICommandHandler<DeleteManyAccountsCommand>
+public class DeleteManyAccountsCommandHandler : ICommandHandler<DeleteManyAccountsCommand>
 {
     private readonly IAccountService _accountService;
     private readonly IEventBus _eventBus;
     private readonly IOperationRepository<Account> _operationRepository;
     private readonly IUnitOfWork _unitOfWork;
 
-    public DeleteAccountCommandHandler(IUnitOfWork unitOfWork, IOperationRepository<Account> operationRepository,
+    public DeleteManyAccountsCommandHandler(IUnitOfWork unitOfWork, IOperationRepository<Account> operationRepository,
         IEventBus eventBus, IAccountService accountService)
     {
         _unitOfWork = unitOfWork;
