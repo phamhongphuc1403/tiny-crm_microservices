@@ -33,6 +33,7 @@ public class AccountEditedIntegrationEventHandler : IIntegrationEventHandler<Acc
     
     private async Task<Account> CheckValidOnEditExistAsync(Guid id)
     {
+        _logger.LogError(id.ToString());
         var accountIdSpecification = new AccountIdSpecification(id);
 
         var account = Optional<Account>.Of(await _readOnlyRepository.GetAnyAsync(accountIdSpecification))
