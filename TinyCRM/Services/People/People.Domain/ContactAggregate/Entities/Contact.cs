@@ -23,4 +23,12 @@ public class Contact : GuidEntity
 
     public Guid AccountId { get; set; }
     public Account Account { get; set; } = null!;
+
+    public void Edit(string name, string email, string? phone, Guid accountId)
+    {
+        Name = name;
+        Email = email;
+        Phone = phone;
+        AccountId = accountId;
+    }
 }

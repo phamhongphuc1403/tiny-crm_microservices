@@ -43,4 +43,12 @@ public class ContactV1Controller : ControllerBase
 
         return CreatedAtAction(nameof(GetByIdAsync), new { id = contact.Id }, contact);
     }
+
+    [HttpPut("{id:guid}")]
+    public async Task<ActionResult<ContactDetailDto>> UpdateAsync(Guid id, CreateOrEditContactDto dto)
+    {
+        var contact = await _mediator.Send(new EditContactCommand(id, dto));
+
+        return Ok(contact);
+    }
 }

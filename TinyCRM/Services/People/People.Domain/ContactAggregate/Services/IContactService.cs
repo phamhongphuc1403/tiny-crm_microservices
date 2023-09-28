@@ -1,4 +1,3 @@
-using People.Domain.AccountAggregate.Entities;
 using People.Domain.ContactAggregate.Entities;
 
 namespace People.Domain.ContactAggregate.Services;
@@ -6,5 +5,6 @@ namespace People.Domain.ContactAggregate.Services;
 public interface IContactService
 {
     Task<Contact> CreateAsync(string name, string email, string? phone, Guid accountId);
-    void AddAccount(Contact contact, Account account);
+    Task AddAccount(Contact contact, Guid accountId);
+    Task<Contact> EditAsync(Guid id, string name, string email, string? phone, Guid accountId);
 }

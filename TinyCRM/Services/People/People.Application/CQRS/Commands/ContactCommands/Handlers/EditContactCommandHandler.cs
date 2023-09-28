@@ -10,30 +10,31 @@ using People.Domain.ContactAggregate.Services;
 
 namespace People.Application.CQRS.Commands.ContactCommands.Handlers;
 
-public class CreateContactCommandHandler : ICommandHandler<CreateContactCommand, ContactDetailDto>
+public class EditContactCommandHandler : ICommandHandler<EditContactCommand, ContactDetailDto>
 {
-    private readonly IReadOnlyRepository<Account> _accountReadOnlyRepository;
     private readonly IOperationRepository<Contact> _contactOperationRepository;
-    private readonly IContactService _contactService;
+    private readonly IReadOnlyRepository<Account> _accountReadOnlyRepository;
     private readonly IMapper _mapper;
     private readonly IUnitOfWork _unitOfWork;
+    private readonly IContactService _contactService;
 
-    public CreateContactCommandHandler(IContactService contactService, IMapper mapper,
-        IOperationRepository<Contact> contactOperationRepository, IUnitOfWork unitOfWork,
-        IReadOnlyRepository<Account> accountReadOnlyRepository)
+    public EditContactCommandHandler(IOperationRepository<Contact> contactOperationRepository,
+        IReadOnlyRepository<Account> accountReadOnlyRepository, IMapper mapper, IUnitOfWork unitOfWork,
+        IContactService contactService)
     {
-        _contactService = contactService;
-        _mapper = mapper;
         _contactOperationRepository = contactOperationRepository;
-        _unitOfWork = unitOfWork;
         _accountReadOnlyRepository = accountReadOnlyRepository;
+        _mapper = mapper;
+        _unitOfWork = unitOfWork;
+        _contactService = contactService;
     }
 
-    public async Task<ContactDetailDto> Handle(CreateContactCommand request, CancellationToken cancellationToken)
+    public async Task<ContactDetailDto> Handle(EditContactCommand request, CancellationToken cancellationToken)
     {
-        var contact = await _contactService.CreateAsync(request.Name, request.Email, request.Phone, request.AccountId);
+        var contact =
+            await _contactService.EditAsync(request.Id, request.Name, request.Email, request.Phone, request.AccountId);
 
-        await _contactOperationRepository.AddAsync(contact);
+        _contactOperationRepository.Update(contact);
 
         await _unitOfWork.SaveChangesAsync();
 
