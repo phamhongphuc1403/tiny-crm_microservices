@@ -58,9 +58,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "People.Domain", "TinyCRM\Se
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "People.Application", "TinyCRM\Services\People\People.Application\People.Application.csproj", "{A3DBF825-ABD6-4C7B-B3E6-DC3D9219AF20}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Business", "Business", "{1FBE68F5-33ED-491B-BF83-282A45B30955}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "BusinessLogic", "BusinessLogic", "{1FBE68F5-33ED-491B-BF83-282A45B30955}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Data", "Data", "{092AA6A0-B54C-430E-8A94-D2A51EE78150}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "DataAccess", "DataAccess", "{092AA6A0-B54C-430E-8A94-D2A51EE78150}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "IAM.Business", "TinyCRM\Services\IAM\IAM.Business\IAM.Business.csproj", "{1B0A3586-3C70-4CAC-ACA5-340DF255B91B}"
 EndProject

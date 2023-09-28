@@ -22,13 +22,13 @@ public class DataContributor : IDataSeeder
         if (!_roleManager.Roles.Any() && !_userManager.Users.Any())
         {
             await _roleManager.CreateAsync(new ApplicationRole(Role.Admin));
-            await _roleManager.CreateAsync(new ApplicationRole(Role.User));
+            // await _roleManager.CreateAsync(new ApplicationRole(Role.User));
 
             var user = new ApplicationUser
             {
                 UserName = "superadmin@gmail.com",
                 Email = "superadmin@gmail.com",
-                Name = "superAdmin"
+                Name = "SuperAdmin"
             };
 
             await _userManager.CreateAsync(user, "@Admin123");
@@ -38,12 +38,14 @@ public class DataContributor : IDataSeeder
                 .RuleFor(u => u.Email, (f, u) => f.Internet.Email(u.UserName))
                 .RuleFor(u => u.Name, f => f.Name.FullName());
 
-            var users = faker.Generate(10);
+            var users = faker.Generate(50);
 
             foreach (var applicationUser in users)
             {
-                await _userManager.CreateAsync(applicationUser, "@User123");
-                await _userManager.AddToRoleAsync(applicationUser, Role.User);
+                await _userManager.CreateAsync(applicationUser, "@Admin123");
+                await _userManager.AddToRoleAsync(applicationUser, Role.Admin);
+                // await _userManager.CreateAsync(applicationUser, "@User123");
+                // await _userManager.AddToRoleAsync(applicationUser, Role.User);
             }
         }
     }

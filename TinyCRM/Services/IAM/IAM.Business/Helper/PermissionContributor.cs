@@ -18,29 +18,29 @@ public class PermissionContributor : IDataSeeder
     {
         await SeedRolesAsync();
         var admin = await _roleManager.FindByNameAsync(Role.Admin);
-        var user = await _roleManager.FindByNameAsync(Role.User);
+        // var user = await _roleManager.FindByNameAsync(Role.User);
 
-        await SeedUserPermissionsAsync(user!);
+        // await SeedUserPermissionsAsync(user!);
         await SeedAdminPermissionsAsync(admin!);
     }
 
-    private async Task SeedUserPermissionsAsync(ApplicationRole user)
-    {
-        var permissionsUsers = PermissionHandler.GetPermissionClaims()
-            .Where(claim => claim.Value.Contains("Read")).ToList();
-        var userClaimsExisting = (await _roleManager.GetClaimsAsync(user)).Any();
-
-        if (userClaimsExisting)
-        {
-            var userClaims = await _roleManager.GetClaimsAsync(user);
-            foreach (var claim in userClaims)
-                if (!permissionsUsers.Contains(claim))
-                    await _roleManager.RemoveClaimAsync(user, claim);
-        }
-
-        foreach (var claim in permissionsUsers)
-            await _roleManager.AddClaimAsync(user, claim);
-    }
+    // private async Task SeedUserPermissionsAsync(ApplicationRole user)
+    // {
+    //     var permissionsUsers = PermissionHandler.GetPermissionClaims()
+    //         .Where(claim => claim.Value.Contains("Read")).ToList();
+    //     var userClaimsExisting = (await _roleManager.GetClaimsAsync(user)).Any();
+    //
+    //     if (userClaimsExisting)
+    //     {
+    //         var userClaims = await _roleManager.GetClaimsAsync(user);
+    //         foreach (var claim in userClaims)
+    //             if (!permissionsUsers.Contains(claim))
+    //                 await _roleManager.RemoveClaimAsync(user, claim);
+    //     }
+    //
+    //     foreach (var claim in permissionsUsers)
+    //         await _roleManager.AddClaimAsync(user, claim);
+    // }
 
     private async Task SeedAdminPermissionsAsync(ApplicationRole admin)
     {
@@ -65,7 +65,11 @@ public class PermissionContributor : IDataSeeder
 
     private async Task SeedRolesAsync()
     {
-        var roles = new[] { Role.Admin, Role.User };
+        var roles = new[]
+        {
+            Role.Admin, 
+            // Role.User
+        };
 
         foreach (var role in roles)
         {

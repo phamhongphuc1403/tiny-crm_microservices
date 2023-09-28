@@ -54,8 +54,7 @@ public class AuthServer : AuthGrpcService.AuthGrpcServiceBase
             new(ClaimTypes.Email, user.Email!)
         };
 
-        // Todo: caching
-        foreach (var role in await _userManager.GetRolesAsync(user)) claims.Add(new Claim(ClaimTypes.Role, role));
+        // foreach (var role in await _userManager.GetRolesAsync(user)) claims.Add(new Claim(ClaimTypes.Role, role));
 
         return claims;
     }

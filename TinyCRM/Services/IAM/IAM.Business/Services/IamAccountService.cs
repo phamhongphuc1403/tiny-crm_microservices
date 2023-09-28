@@ -49,10 +49,34 @@ public class IamAccountService : IIamAccountService
             totalCount);
     }
 
+    // public async Task<UserDetailDto> CreateUserAsync(UserCreateDto userCreateDto)
+    // {
+    //     if (!await _roleManager.RoleExistsAsync(Role.User))
+    //         await _roleManager.CreateAsync(new ApplicationRole(Role.User));
+    //
+    //     var user = _mapper.Map<ApplicationUser>(userCreateDto);
+    //     _unitOfWork.BeginTransaction();
+    //     try
+    //     {
+    //         var result = await _userManager.CreateAsync(user, userCreateDto.Password);
+    //         if (!result.Succeeded)
+    //             throw new InvalidUpdateException(result.Errors.First().Description);
+    //         await _userManager.AddToRoleAsync(user, Role.User);
+    //         _unitOfWork.Commit();
+    //     }
+    //     catch
+    //     {
+    //         _unitOfWork.Rollback();
+    //         throw;
+    //     }
+    //
+    //     return _mapper.Map<UserDetailDto>(user);
+    // }
+
     public async Task<UserDetailDto> CreateUserAsync(UserCreateDto userCreateDto)
     {
-        if (!await _roleManager.RoleExistsAsync(Role.User))
-            await _roleManager.CreateAsync(new ApplicationRole(Role.User));
+        if (!await _roleManager.RoleExistsAsync(Role.Admin))
+            await _roleManager.CreateAsync(new ApplicationRole(Role.Admin));
 
         var user = _mapper.Map<ApplicationUser>(userCreateDto);
         _unitOfWork.BeginTransaction();
@@ -61,7 +85,7 @@ public class IamAccountService : IIamAccountService
             var result = await _userManager.CreateAsync(user, userCreateDto.Password);
             if (!result.Succeeded)
                 throw new InvalidUpdateException(result.Errors.First().Description);
-            await _userManager.AddToRoleAsync(user, Role.User);
+            await _userManager.AddToRoleAsync(user, Role.Admin);
             _unitOfWork.Commit();
         }
         catch
@@ -72,7 +96,7 @@ public class IamAccountService : IIamAccountService
 
         return _mapper.Map<UserDetailDto>(user);
     }
-
+    
     public async Task<UserDetailDto> GetDetailUserAsync(Guid id)
     {
         var user = await FindUserAsync(id);
