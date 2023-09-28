@@ -58,14 +58,14 @@ public class IamAccountV1Controller : Controller
     public async Task<ActionResult> ChangePassword(Guid id, [FromBody] UserChangePasswordDto userChangePasswordDto)
     {
         await _iamAccountService.ChangePasswordAsync(id, userChangePasswordDto);
-        return Ok("Change password successfully");
+        return NoContent();
     }
 
     [HttpDelete]
     [Authorize(Policy = TinyCrmPermissions.Users.Delete)]
-    public async Task<ActionResult> DeleteUser([FromBody] DeleteManyUsersDto deleteManyUsersDto)
+    public async Task<ActionResult> DeleteManyUsers([FromBody] DeleteManyUsersDto deleteManyUsersDto)
     {
-        await _iamAccountService.DeleteUserAsync(deleteManyUsersDto);
-        return Ok("Delete users successfully");
+        await _iamAccountService.DeleteManyUsersAsync(deleteManyUsersDto);
+        return NoContent();
     }
 }

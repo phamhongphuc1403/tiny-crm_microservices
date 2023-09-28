@@ -122,16 +122,11 @@ public class IamAccountService : IIamAccountService
         return _mapper.Map<UserDetailDto>(user);
     }
 
-    public async Task DeleteUserAsync(DeleteManyUsersDto deleteManyUsersDto)
+    public async Task DeleteManyUsersAsync(DeleteManyUsersDto deleteManyUsersDto)
     {
         foreach (var id in deleteManyUsersDto.Ids)
         {
             var user = await FindUserAsync(id);
-            var userRoles = await _userManager.GetRolesAsync(user);
-
-            if (userRoles.Contains(Role.Admin))
-                continue;
-
             var result = await _userManager.DeleteAsync(user);
             if (!result.Succeeded)
                 throw new InvalidUpdateException(result.Errors.First().Description);
