@@ -96,7 +96,7 @@ public class IamAccountService : IIamAccountService
 
         return _mapper.Map<UserDetailDto>(user);
     }
-    
+
     public async Task<UserDetailDto> GetDetailUserAsync(Guid id)
     {
         var user = await FindUserAsync(id);
@@ -136,6 +136,14 @@ public class IamAccountService : IIamAccountService
             if (!result.Succeeded)
                 throw new InvalidUpdateException(result.Errors.First().Description);
         }
+    }
+
+    public async Task<IEnumerable<UserSummaryDto>> FilterUsersAsync(FilterUsersDto dto)
+    {
+        var users = await _userManager.Users
+            .Where(u => u.Name.ToUpper().Contains(dto.Keyword.ToUpper()))
+            .ToListAsync();
+        return _mapper.Map<IEnumerable<UserSummaryDto>>(users);
     }
 
     private async Task<ApplicationUser> FindUserAsync(Guid id)

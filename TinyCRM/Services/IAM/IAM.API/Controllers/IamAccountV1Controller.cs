@@ -9,12 +9,12 @@ using Microsoft.AspNetCore.Mvc;
 namespace IAM.API.Controllers;
 
 [ApiController]
-[Route("api/iam-accounts")]
-public class IamAccountController : Controller
+[Route("api/v1/iam-accounts/")]
+public class IamAccountV1Controller : Controller
 {
     private readonly IIamAccountService _iamAccountService;
 
-    public IamAccountController(IIamAccountService iamAccountService)
+    public IamAccountV1Controller(IIamAccountService iamAccountService)
     {
         _iamAccountService = iamAccountService;
     }
