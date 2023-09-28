@@ -33,7 +33,6 @@ public class DeleteAccountCommandHandler : ICommandHandler<DeleteManyAccountsCom
 
         await _unitOfWork.SaveChangesAsync();
 
-        foreach (var account in accounts)
-            _eventBus.Publish(new AccountDeletedIntegrationEvent(account.Id));
+        _eventBus.Publish(new AccountsDeletedIntegrationEvent(request.Ids));
     }
 }
