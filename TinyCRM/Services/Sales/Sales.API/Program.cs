@@ -15,8 +15,8 @@ builder.Services.AddHttpContextAccessor();
 builder.Services.AddScoped<ICurrentUser, CurrentUser>();
 
 builder.Services
-    .AddScoped<IIntegrationEventHandler<AccountCreatedIntegrationEvent>,
-        AccountCreatedIntegrationEventHandler>();
+    .AddScoped<IIntegrationEventHandler<AccountPeopleCreatedIntegrationEvent>,
+        AccountPeopleCreatedIntegrationEventHandler>();
 builder.Services
     .AddScoped<IIntegrationEventHandler<AccountEditedIntegrationEvent>,
         AccountEditedIntegrationEventHandler>();
@@ -31,8 +31,8 @@ var environment = app.Services.GetRequiredService<IWebHostEnvironment>();
 app.UseCustomerExceptionHandler(environment);
 
 var eventBus = app.Services.GetRequiredService<IEventBus>();
-eventBus.Subscribe<AccountCreatedIntegrationEvent,
-    IIntegrationEventHandler<AccountCreatedIntegrationEvent>>();
+eventBus.Subscribe<AccountPeopleCreatedIntegrationEvent,
+    IIntegrationEventHandler<AccountPeopleCreatedIntegrationEvent>>();
 eventBus.Subscribe<AccountEditedIntegrationEvent,
     IIntegrationEventHandler<AccountEditedIntegrationEvent>>();
 eventBus.Subscribe<AccountsDeletedIntegrationEvent,

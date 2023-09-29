@@ -8,14 +8,14 @@ using Sales.Domain.AccountAggregate.DomainService;
 
 namespace Sales.Application.IntegrationEvents.Handlers;
 
-public class AccountCreatedIntegrationEventHandler : IIntegrationEventHandler<AccountCreatedIntegrationEvent>
+public class AccountPeopleCreatedIntegrationEventHandler : IIntegrationEventHandler<AccountPeopleCreatedIntegrationEvent>
 {
-    private readonly ILogger<AccountCreatedIntegrationEventHandler> _logger;
+    private readonly ILogger<AccountPeopleCreatedIntegrationEventHandler> _logger;
     private readonly IAccountDomainService _accountDomainService;
     private readonly IUnitOfWork _unitOfWork;
     private readonly IOperationRepository<Account> _operationRepository;
 
-    public AccountCreatedIntegrationEventHandler(ILogger<AccountCreatedIntegrationEventHandler> logger,
+    public AccountPeopleCreatedIntegrationEventHandler(ILogger<AccountPeopleCreatedIntegrationEventHandler> logger,
         IAccountDomainService accountDomainService, IUnitOfWork unitOfWork,
         IOperationRepository<Account> operationRepository)
     {
@@ -25,7 +25,7 @@ public class AccountCreatedIntegrationEventHandler : IIntegrationEventHandler<Ac
         _operationRepository = operationRepository;
     }
 
-    public async Task Handle(AccountCreatedIntegrationEvent @event)
+    public async Task Handle(AccountPeopleCreatedIntegrationEvent @event)
     {
         var account = await _accountDomainService.CreateAsync(@event.AccountId, @event.Name, @event.Email);
         await _operationRepository.AddAsync(account);

@@ -41,16 +41,8 @@ public class CreateAccountCommandHandler : ICommandHandler<CreateAccountCommand,
         await _operationRepository.AddAsync(account);
         await _unitOfWork.SaveChangesAsync();
 
-        var accountIdSpecification = new AccountIdSpecification(account.Id);
+        _eventBus.Publish(new AccountSaleCreatedIntegrationEvent(account.Id, account.Email, account.Name));
 
-        var accountResult = Optional<Account>.Of(await _readOnlyRepository.GetAnyAsync(accountIdSpecification))
-            .ThrowIfNotPresent(new AccountNotFoundException(account.Id)).Get();
-
-        var createAccountEvent =
-            new AccountCreatedIntegrationEvent(accountResult.Id, accountResult.Name, accountResult.Email);
-
-        _eventBus.Publish(createAccountEvent);
-
-        return _mapper.Map<AccountResultDto>(accountResult);
+        return _mapper.Map<AccountResultDto>(account);
     }
 }
