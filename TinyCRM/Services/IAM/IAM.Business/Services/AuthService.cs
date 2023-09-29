@@ -41,9 +41,7 @@ public class AuthService : IAuthService
         var result = await _signInManager.PasswordSignInAsync(user, signInDto.Password, false, true);
         if (!result.Succeeded) throw new InvalidPasswordException("Invalid password");
 
-        var roles = await _userManager.GetRolesAsync(user);
-
-        var token = GenerateToken(user.Id, user.Email!, roles);
+        var token = GenerateToken(user.Id, user.Email!,signInDto.RememberMe);
         return token;
     }
 
@@ -90,7 +88,7 @@ public class AuthService : IAuthService
         return (IList<string>)roles;
     }
 
-    private static IEnumerable<Claim> GenerateAuthClaims(string id, string email, IEnumerable<string> roles)
+    private static IEnumerable<Claim> GenerateAuthClaims(string id, string email)
     {
         var authClaims = new List<Claim>
         {
@@ -101,20 +99,21 @@ public class AuthService : IAuthService
         return authClaims;
     }
 
-    private string GenerateToken(string id, string email, IEnumerable<string> roles)
+    private string GenerateToken(string id, string email, bool rememberMe)
     {
-        var authClaims = GenerateAuthClaims(id, email, roles);
+        var authClaims = GenerateAuthClaims(id, email);
         var authKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_jwtSettings.SecretKey));
-        var token = GenerateJwtToken(authClaims, authKey);
+        var token = GenerateJwtToken(authClaims, authKey,rememberMe);
         return WriteJwtToken(token);
     }
 
-    private JwtSecurityToken GenerateJwtToken(IEnumerable<Claim> authClaims, SecurityKey authKey)
+    private JwtSecurityToken GenerateJwtToken(IEnumerable<Claim> authClaims, SecurityKey authKey,bool rememberMe)
     {
+        var expiryInMinutes = rememberMe ? _jwtSettings.RememberExpiryInMinutes : _jwtSettings.ExpiryInMinutes;
         return new JwtSecurityToken(
             _jwtSettings.ValidIssuer,
             _jwtSettings.ValidAudience,
-            expires: DateTime.UtcNow.AddMinutes(_jwtSettings.ExpiryInMinutes),
+            expires: DateTime.UtcNow.AddMinutes(expiryInMinutes),
             claims: authClaims,
             signingCredentials: new SigningCredentials(authKey, SecurityAlgorithms.HmacSha256)
         );
