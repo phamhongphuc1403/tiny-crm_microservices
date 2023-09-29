@@ -32,9 +32,9 @@ public class
         var specification = contactNamePartialMatchSpecification.Or(contactEmailPartialMatchSpecification);
 
         var (contacts, totalCount) =
-            await _repository.GetFilterAndPagingAsync(specification, request.Sort, request.PageIndex, request.PageSize);
+            await _repository.GetFilterAndPagingAsync(specification, request.Sort, request.Skip, request.Take);
 
         return new FilterAndPagingResultDto<ContactSummaryDto>(_mapper.Map<List<ContactSummaryDto>>(contacts),
-            request.PageIndex, request.PageSize, totalCount);
+            request.Skip, request.Take, totalCount);
     }
 }

@@ -7,11 +7,11 @@ public class FilterAndPagingDto<TEnum>
     [StringLength(100, ErrorMessage = "Keyword cannot exceed 100 characters.")]
     public string Keyword { get; set; } = string.Empty;
 
-    [Range(1, int.MaxValue, ErrorMessage = "PageIndex must be a non-negative number.")]
-    public int PageIndex { get; set; } = 1;
+    [Range(0, int.MaxValue, ErrorMessage = "PageIndex must be a non-negative number.")]
+    public int Skip { get; set; } = 0;
 
     [Range(1, int.MaxValue, ErrorMessage = "PageSize must be a positive number.")]
-    public int PageSize { get; set; } = 10;
+    public int Take { get; set; } = 10;
 
     public bool IsDescending { get; set; } = false;
 

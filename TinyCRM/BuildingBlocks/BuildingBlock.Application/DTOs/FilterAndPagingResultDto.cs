@@ -2,10 +2,10 @@ namespace BuildingBlock.Application.DTOs;
 
 public class FilterAndPagingResultDto<TDto>
 {
-    public FilterAndPagingResultDto(List<TDto> data, int page, int take, int totalCount)
+    public FilterAndPagingResultDto(List<TDto> data, int skip, int take, int totalCount)
     {
         Data = data;
-        Meta = new MetaDto(page, take, totalCount);
+        Meta = new MetaDto(skip, take, totalCount);
     }
 
     public MetaDto Meta { get; private set; }
@@ -14,16 +14,16 @@ public class FilterAndPagingResultDto<TDto>
 
 public class MetaDto
 {
-    public MetaDto(int pageIndex, int pageSize, int totalCount)
+    public MetaDto(int skip, int take, int totalCount)
     {
-        PageIndex = pageIndex;
-        PageSize = pageSize;
+        Skip = skip;
+        Take = take;
         TotalCount = totalCount;
-        TotalPages = (int)Math.Ceiling(totalCount / (double)PageSize);
+        TotalPages = (int)Math.Ceiling(totalCount / (double)Take);
     }
 
-    public int PageIndex { get; private set; }
+    public int Skip { get; private set; }
+    public int Take { get; }
     public int TotalPages { get; private set; }
     public int TotalCount { get; private set; }
-    public int PageSize { get; }
 }

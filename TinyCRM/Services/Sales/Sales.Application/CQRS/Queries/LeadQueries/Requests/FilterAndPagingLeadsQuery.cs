@@ -9,8 +9,8 @@ public class FilterAndPagingLeadsQuery : FilterAndPagingLeadsDto, IQuery<FilterA
     public FilterAndPagingLeadsQuery(FilterAndPagingLeadsDto dto)
     {
         Keyword = dto.Keyword;
-        PageIndex = dto.PageIndex;
-        PageSize = dto.PageSize;
+        Skip = dto.Skip;
+        Take = dto.Take;
         IsDescending = dto.IsDescending;
         Sort = dto.ConvertSort();
         Status = dto.Status;

@@ -52,8 +52,8 @@ public class ReadOnlyRepository<TDbContext, TEntity> : IReadOnlyRepository<TEnti
     }
 
     public async Task<(List<TEntity>, int)> GetFilterAndPagingAsync(ISpecification<TEntity> specification, string sort,
-        int pageIndex,
-        int pageSize, string? includeTables = null)
+        int skip,
+        int take, string? includeTables = null)
     {
         var query = DbSet.AsNoTracking();
 
@@ -65,7 +65,7 @@ public class ReadOnlyRepository<TDbContext, TEntity> : IReadOnlyRepository<TEnti
 
         query = query.OrderBy(sort);
 
-        query = query.Skip(pageSize * (pageIndex - 1)).Take(pageSize);
+        query = query.Skip(skip).Take(take);
 
         return (await query.ToListAsync(), totalCount);
     }

@@ -36,9 +36,9 @@ public class
         var specification = accountNamePartialMatchSpecification.Or(accountEmailPartialMatchSpecification);
 
         var (accounts, totalCount) =
-            await _repository.GetFilterAndPagingAsync(specification, request.Sort, request.PageIndex, request.PageSize);
+            await _repository.GetFilterAndPagingAsync(specification, request.Sort, request.Skip, request.Take);
 
         return new FilterAndPagingResultDto<AccountSummaryDto>(_mapper.Map<List<AccountSummaryDto>>(accounts),
-            request.PageIndex, request.PageSize, totalCount);
+            request.Skip, request.Take, totalCount);
     }
 }

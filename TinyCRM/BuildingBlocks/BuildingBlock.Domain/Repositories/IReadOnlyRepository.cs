@@ -13,5 +13,5 @@ public interface IReadOnlyRepository<TEntity> where TEntity : GuidEntity
     Task<bool> CheckIfExistAsync(ISpecification<TEntity>? specification = null);
 
     Task<(List<TEntity>, int)> GetFilterAndPagingAsync(ISpecification<TEntity> specification,
-        string sort, int pageIndex, int pageSize, string? includeTables = null);
+        string sort, int skip, int take, string? includeTables = null);
 }

@@ -40,12 +40,12 @@ public class IamAccountService : IIamAccountService
             ? query.OrderBy("CreatedDate")
             : query.OrderBy(filterAndPagingUsersDto.ConvertSort());
 
-        var users = await query.Skip(filterAndPagingUsersDto.PageSize * (filterAndPagingUsersDto.PageIndex - 1))
-            .Take(filterAndPagingUsersDto.PageSize).ToListAsync();
+        var users = await query.Skip(filterAndPagingUsersDto.Skip )
+            .Take(filterAndPagingUsersDto.Take).ToListAsync();
 
         return new FilterAndPagingResultDto<UserSummaryDto>(_mapper.Map<List<UserSummaryDto>>(users),
-            filterAndPagingUsersDto.PageIndex,
-            filterAndPagingUsersDto.PageSize,
+            filterAndPagingUsersDto.Skip,
+            filterAndPagingUsersDto.Take,
             totalCount);
     }
 

@@ -10,8 +10,8 @@ public class FilterAndPagingContactQuery : FilterAndPagingContactsDto,
     public FilterAndPagingContactQuery(FilterAndPagingContactsDto dto)
     {
         Keyword = dto.Keyword;
-        PageIndex = dto.PageIndex;
-        PageSize = dto.PageSize;
+        Skip = dto.Skip;
+        Take = dto.Take;
         IsDescending = dto.IsDescending;
         Sort = dto.ConvertSort();
     }
