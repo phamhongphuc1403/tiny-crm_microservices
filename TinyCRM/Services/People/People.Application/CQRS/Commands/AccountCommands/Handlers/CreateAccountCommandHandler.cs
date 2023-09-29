@@ -37,7 +37,7 @@ public class CreateAccountCommandHandler : ICommandHandler<CreateAccountCommand,
 
         await _unitOfWork.SaveChangesAsync();
 
-        _eventBus.Publish(new AccountCreatedIntegrationEvent(account.Id, account.Name, account.Email));
+        _eventBus.Publish(new AccountPeopleCreatedIntegrationEvent(account.Id, account.Name, account.Email));
 
         return _mapper.Map<AccountDetailDto>(account);
     }

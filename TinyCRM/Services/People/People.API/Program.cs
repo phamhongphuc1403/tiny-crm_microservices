@@ -1,5 +1,7 @@
+using BuildingBlock.Application.EventBus.Interfaces;
 using BuildingBlock.Presentation.Middleware;
 using People.API.Extensions;
+using People.API.Middlewares;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -22,6 +24,10 @@ app.UseAuthentication();
 app.UseAuthorization();
 
 app.MapControllers();
+
+var eventBus = app.Services.GetRequiredService<IEventBus>();
+
+app.SubscribeIntegrationEvents(eventBus);
 
 await app.SeedDataAsync();
 

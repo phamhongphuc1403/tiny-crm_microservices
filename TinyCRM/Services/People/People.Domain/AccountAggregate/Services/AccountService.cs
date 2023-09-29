@@ -15,11 +15,18 @@ public class AccountService : IAccountService
         _readOnlyRepository = readOnlyRepository;
     }
 
-    public async Task<Account> CreateAsync(string name, string? email, string? phone, string? address)
+    public async Task<Account> CreateAsync(string name, string? email, string? phone = null, string? address = null)
     {
         if (email != null) await CheckValidOnCreateAsync(email);
 
         return new Account(name, email, phone, address);
+    }
+    
+    public async Task<Account> CreateAsync(Guid accountId, string name, string? email, string? phone = null, string? address = null)
+    {
+        if (email != null) await CheckValidOnCreateAsync(email);
+
+        return new Account(accountId, name, email, phone, address);
     }
 
     public async Task<Account> EditAsync(Guid id, string name, string? email, string? phone, string? address)

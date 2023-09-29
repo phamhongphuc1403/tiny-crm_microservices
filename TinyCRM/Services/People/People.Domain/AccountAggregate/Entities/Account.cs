@@ -3,7 +3,7 @@ using People.Domain.ContactAggregate.Entities;
 
 namespace People.Domain.AccountAggregate.Entities;
 
-public class Account : GuidEntity
+public sealed class Account : AggregateRoot
 {
     public Account(string name, string? email, string? phone, string? address)
     {
@@ -11,6 +11,15 @@ public class Account : GuidEntity
         Email = email;
         Phone = phone;
         Address = address;
+    }
+    
+    public Account(Guid id, string name, string? email, string? phone, string? address)
+    {
+        Name = name;
+        Email = email;
+        Phone = phone;
+        Address = address;
+        Id = id;
     }
 
     public Account()

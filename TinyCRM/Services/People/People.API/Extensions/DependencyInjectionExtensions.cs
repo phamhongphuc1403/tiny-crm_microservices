@@ -1,8 +1,11 @@
 using BuildingBlock.Application;
+using BuildingBlock.Application.IntegrationEvents.Handlers;
 using BuildingBlock.Domain.Interfaces;
 using BuildingBlock.Domain.Repositories;
 using BuildingBlock.Infrastructure.EFCore;
 using BuildingBlock.Infrastructure.EFCore.Repositories;
+using People.Application.IntegrationEvents.Events;
+using People.Application.IntegrationEvents.Handlers;
 using People.Application.Seeders;
 using People.Domain.AccountAggregate.Entities;
 using People.Domain.AccountAggregate.Services;
@@ -29,6 +32,9 @@ public static class DependencyInjectionExtensions
 
         services.AddScoped<IAccountService, AccountService>();
         services.AddScoped<IContactService, ContactService>();
+        
+        services.AddTransient<AccountSaleCreatedIntegrationEventHandler>();
+        
         return services;
     }
 }

@@ -49,7 +49,7 @@ public class AccountSeeder : IDataSeeder
         await _unitOfWork.SaveChangesAsync();
 
         foreach (var account in accounts)
-            _eventBus.Publish(new AccountCreatedIntegrationEvent(account.Id, account.Name, account.Email));
+            _eventBus.Publish(new AccountSaleCreatedIntegrationEvent(account.Id, account.Name, account.Email));
 
         _logger.LogInformation("Account data seeded successfully!");
     }
