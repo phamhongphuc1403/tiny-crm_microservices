@@ -13,13 +13,15 @@ namespace Sales.Application.IntegrationEvents.Handlers;
 
 public class AccountEditedIntegrationEventHandler : IIntegrationEventHandler<AccountEditedIntegrationEvent>
 {
-    private readonly ILogger<AccountEditedIntegrationEventHandler> _logger;
     private readonly IAccountDomainService _accountDomainService;
-    private readonly IReadOnlyRepository<Account> _readOnlyRepository;
+    private readonly ILogger<AccountEditedIntegrationEventHandler> _logger;
     private readonly IOperationRepository<Account> _operationRepository;
+    private readonly IReadOnlyRepository<Account> _readOnlyRepository;
     private readonly IUnitOfWork _unitOfWork;
+
     public AccountEditedIntegrationEventHandler(ILogger<AccountEditedIntegrationEventHandler> logger,
-        IAccountDomainService accountDomainService, IReadOnlyRepository<Account> readOnlyRepository, IOperationRepository<Account> operationRepository, IUnitOfWork unitOfWork)
+        IAccountDomainService accountDomainService, IReadOnlyRepository<Account> readOnlyRepository,
+        IOperationRepository<Account> operationRepository, IUnitOfWork unitOfWork)
     {
         _logger = logger;
         _accountDomainService = accountDomainService;
@@ -36,7 +38,7 @@ public class AccountEditedIntegrationEventHandler : IIntegrationEventHandler<Acc
         await _unitOfWork.SaveChangesAsync();
         _logger.LogInformation($"Updated account {result.Id}");
     }
-    
+
     private async Task<Account> CheckValidOnEditExistAsync(Guid id)
     {
         _logger.LogError(id.ToString());

@@ -1,13 +1,10 @@
 using System.Text.Json.Serialization;
 using BuildingBlock.Application.Identity;
-using BuildingBlock.Application.IntegrationEvents.Handlers;
 using BuildingBlock.Presentation.Authentication;
 using BuildingBlock.Presentation.Authorization;
 using BuildingBlock.Presentation.Extensions;
 using FluentValidation;
 using People.Application;
-using People.Application.IntegrationEvents.Events;
-using People.Application.IntegrationEvents.Handlers;
 using People.Infrastructure.EFCore;
 using People.Infrastructure.EFCore.Profiles;
 

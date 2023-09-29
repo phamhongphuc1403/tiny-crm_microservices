@@ -12,11 +12,11 @@ namespace People.Application.CQRS.Commands.ContactCommands.Handlers;
 
 public class EditContactCommandHandler : ICommandHandler<EditContactCommand, ContactDetailDto>
 {
-    private readonly IOperationRepository<Contact> _contactOperationRepository;
     private readonly IReadOnlyRepository<Account> _accountReadOnlyRepository;
+    private readonly IOperationRepository<Contact> _contactOperationRepository;
+    private readonly IContactService _contactService;
     private readonly IMapper _mapper;
     private readonly IUnitOfWork _unitOfWork;
-    private readonly IContactService _contactService;
 
     public EditContactCommandHandler(IOperationRepository<Contact> contactOperationRepository,
         IReadOnlyRepository<Account> accountReadOnlyRepository, IMapper mapper, IUnitOfWork unitOfWork,

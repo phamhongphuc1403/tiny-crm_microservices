@@ -33,7 +33,7 @@ public class
 
         var (contacts, totalCount) =
             await _repository.GetFilterAndPagingAsync(specification, request.Sort, request.PageIndex, request.PageSize);
-        
+
         return new FilterAndPagingResultDto<ContactSummaryDto>(_mapper.Map<List<ContactSummaryDto>>(contacts),
             request.PageIndex, request.PageSize, totalCount);
     }

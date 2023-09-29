@@ -1,4 +1,6 @@
+using BuildingBlock.Application.Identity.Permissions;
 using MediatR;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using People.Application.CQRS.Queries.AccountQueries.Requests;
 using People.Application.DTOs.AccountDTOs;
@@ -18,6 +20,7 @@ public class AccountV2Controller : ControllerBase
 
 
     [HttpGet]
+    [Authorize(Policy = TinyCrmPermissions.Accounts.Read)]
     public async Task<ActionResult<IEnumerable<AccountSummaryDto>>> GetFilteredAsync([FromQuery] FilterAccountsDto dto)
     {
         var accounts = await _mediator.Send(new FilterAccountsQuery(dto));

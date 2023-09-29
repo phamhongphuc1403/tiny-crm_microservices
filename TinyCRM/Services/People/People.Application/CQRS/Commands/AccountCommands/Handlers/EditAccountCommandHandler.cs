@@ -39,7 +39,7 @@ public class EditAccountCommandHandler : ICommandHandler<EditAccountCommand, Acc
         await _unitOfWork.SaveChangesAsync();
 
         _eventBus.Publish(new AccountEditedIntegrationEvent(account.Id, account.Name, account.Email));
-        
+
         return _mapper.Map<AccountDetailDto>(account);
     }
 }

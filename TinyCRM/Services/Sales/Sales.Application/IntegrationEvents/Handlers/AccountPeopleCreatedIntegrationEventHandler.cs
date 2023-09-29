@@ -8,12 +8,13 @@ using Sales.Domain.AccountAggregate.DomainService;
 
 namespace Sales.Application.IntegrationEvents.Handlers;
 
-public class AccountPeopleCreatedIntegrationEventHandler : IIntegrationEventHandler<AccountPeopleCreatedIntegrationEvent>
+public class
+    AccountPeopleCreatedIntegrationEventHandler : IIntegrationEventHandler<AccountPeopleCreatedIntegrationEvent>
 {
-    private readonly ILogger<AccountPeopleCreatedIntegrationEventHandler> _logger;
     private readonly IAccountDomainService _accountDomainService;
-    private readonly IUnitOfWork _unitOfWork;
+    private readonly ILogger<AccountPeopleCreatedIntegrationEventHandler> _logger;
     private readonly IOperationRepository<Account> _operationRepository;
+    private readonly IUnitOfWork _unitOfWork;
 
     public AccountPeopleCreatedIntegrationEventHandler(ILogger<AccountPeopleCreatedIntegrationEventHandler> logger,
         IAccountDomainService accountDomainService, IUnitOfWork unitOfWork,

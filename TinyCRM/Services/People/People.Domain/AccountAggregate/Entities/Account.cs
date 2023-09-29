@@ -12,7 +12,7 @@ public sealed class Account : AggregateRoot
         Phone = phone;
         Address = address;
     }
-    
+
     public Account(Guid id, string name, string? email, string? phone, string? address)
     {
         Name = name;

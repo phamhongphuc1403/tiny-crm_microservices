@@ -1,5 +1,4 @@
 using BuildingBlock.Application.EventBus.Interfaces;
-using BuildingBlock.Application.IntegrationEvents.Handlers;
 using People.Application.IntegrationEvents.Events;
 using People.Application.IntegrationEvents.Handlers;
 

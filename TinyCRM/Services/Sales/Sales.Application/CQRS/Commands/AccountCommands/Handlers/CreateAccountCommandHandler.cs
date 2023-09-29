@@ -3,14 +3,11 @@ using BuildingBlock.Application.CQRS.Command;
 using BuildingBlock.Application.EventBus.Interfaces;
 using BuildingBlock.Domain.Interfaces;
 using BuildingBlock.Domain.Repositories;
-using BuildingBlock.Domain.Utils;
 using Sales.Application.CQRS.Commands.AccountCommands.Requests;
 using Sales.Application.DTOs.Accounts;
 using Sales.Application.IntegrationEvents.Events;
 using Sales.Domain.AccountAggregate;
 using Sales.Domain.AccountAggregate.DomainService;
-using Sales.Domain.AccountAggregate.Exceptions;
-using Sales.Domain.AccountAggregate.Specifications;
 
 namespace Sales.Application.CQRS.Commands.AccountCommands.Handlers;
 

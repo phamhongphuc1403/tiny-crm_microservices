@@ -21,8 +21,9 @@ public class AccountService : IAccountService
 
         return new Account(name, email, phone, address);
     }
-    
-    public async Task<Account> CreateAsync(Guid accountId, string name, string? email, string? phone = null, string? address = null)
+
+    public async Task<Account> CreateAsync(Guid accountId, string name, string? email, string? phone = null,
+        string? address = null)
     {
         if (email != null) await CheckValidOnCreateAsync(email);
 

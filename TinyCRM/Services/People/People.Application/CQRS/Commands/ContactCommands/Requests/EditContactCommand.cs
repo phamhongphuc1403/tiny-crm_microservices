@@ -5,8 +5,6 @@ namespace People.Application.CQRS.Commands.ContactCommands.Requests;
 
 public class EditContactCommand : CreateOrEditContactDto, ICommand<ContactDetailDto>
 {
-    public Guid Id { get; private init; }
-
     public EditContactCommand(Guid id, CreateOrEditContactDto dto)
     {
         Id = id;
@@ -15,4 +13,6 @@ public class EditContactCommand : CreateOrEditContactDto, ICommand<ContactDetail
         Phone = dto.Phone;
         AccountId = dto.AccountId;
     }
+
+    public Guid Id { get; private init; }
 }

@@ -1,5 +1,7 @@
 using BuildingBlock.Application.DTOs;
+using BuildingBlock.Application.Identity.Permissions;
 using MediatR;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Sales.Application.CQRS.Queries.LeadQueries.Requests;
 using Sales.Application.DTOs.Leads;
@@ -18,6 +20,7 @@ public class LeadController : ControllerBase
     }
 
     [HttpGet]
+    [Authorize(Policy=TinyCrmPermissions.Leads.Read)]
     public async Task<ActionResult<FilterAndPagingResultDto<LeadDto>>> GetAllAsync(
         [FromQuery] FilterAndPagingLeadsDto dto)
     {

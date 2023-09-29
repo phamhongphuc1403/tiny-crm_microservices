@@ -1,5 +1,7 @@
 using BuildingBlock.Application.DTOs;
+using BuildingBlock.Application.Identity.Permissions;
 using MediatR;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using People.Application.CQRS.Commands.AccountCommands.Requests;
 using People.Application.CQRS.Queries.AccountQueries.Requests;
@@ -19,6 +21,7 @@ public class AccountV1Controller : ControllerBase
     }
 
     [HttpGet]
+    [Authorize(Policy = TinyCrmPermissions.Accounts.Read)]
     public async Task<ActionResult<FilterAndPagingResultDto<AccountSummaryDto>>> GetFilteredAndPagedAsync(
         [FromQuery] FilterAndPagingAccountsDto dto)
     {
@@ -29,6 +32,7 @@ public class AccountV1Controller : ControllerBase
 
     [HttpGet("{id:guid}")]
     [ActionName(nameof(GetByIdAsync))]
+    [Authorize(Policy = TinyCrmPermissions.Accounts.Read)]
     public async Task<ActionResult<AccountDetailDto>> GetByIdAsync(Guid id)
     {
         var account = await _mediator.Send(new GetAccountByIdQuery(id));
@@ -37,6 +41,7 @@ public class AccountV1Controller : ControllerBase
     }
 
     [HttpPost]
+    [Authorize(Policy = TinyCrmPermissions.Accounts.Create)]
     public async Task<ActionResult<AccountDetailDto>> CreateAsync(CreateOrEditAccountDto dto)
     {
         var account = await _mediator.Send(new CreateAccountCommand(dto));
@@ -45,6 +50,7 @@ public class AccountV1Controller : ControllerBase
     }
 
     [HttpPut("{id:guid}")]
+    [Authorize(Policy = TinyCrmPermissions.Accounts.Edit)]
     public async Task<ActionResult<AccountDetailDto>> UpdateAsync(Guid id, CreateOrEditAccountDto dto)
     {
         var account = await _mediator.Send(new EditAccountCommand(id, dto));
@@ -53,6 +59,7 @@ public class AccountV1Controller : ControllerBase
     }
 
     [HttpDelete]
+    [Authorize(Policy = TinyCrmPermissions.Accounts.Delete)]
     public async Task<ActionResult> DeleteAsync(DeleteManyAccountsDto dto)
     {
         await _mediator.Send(new DeleteManyAccountsCommand(dto));

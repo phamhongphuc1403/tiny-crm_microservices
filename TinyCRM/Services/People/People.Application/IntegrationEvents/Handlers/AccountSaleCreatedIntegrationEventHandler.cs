@@ -9,9 +9,9 @@ namespace People.Application.IntegrationEvents.Handlers;
 
 public class AccountSaleCreatedIntegrationEventHandler : IIntegrationEventHandler<AccountSaleCreatedIntegrationEvent>
 {
+    private readonly IAccountService _accountService;
     private readonly IOperationRepository<Account> _operationRepository;
     private readonly IUnitOfWork _unitOfWork;
-    private readonly IAccountService _accountService;
 
     public AccountSaleCreatedIntegrationEventHandler(IOperationRepository<Account> operationRepository,
         IUnitOfWork unitOfWork, IAccountService accountService)

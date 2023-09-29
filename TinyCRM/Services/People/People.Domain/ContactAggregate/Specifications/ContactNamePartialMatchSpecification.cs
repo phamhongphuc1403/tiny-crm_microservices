@@ -12,10 +12,11 @@ public class ContactNamePartialMatchSpecification : Specification<Contact>
     {
         _name = name;
     }
+
     public override Expression<Func<Contact, bool>> ToExpression()
     {
         if (string.IsNullOrWhiteSpace(_name)) return contact => true;
-        
+
         return contact => contact.Name.ToUpper().Contains(_name.ToUpper());
     }
 }

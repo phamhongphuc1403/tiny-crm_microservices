@@ -1,5 +1,7 @@
 using BuildingBlock.Application.DTOs;
+using BuildingBlock.Application.Identity.Permissions;
 using MediatR;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using People.Application.CQRS.Commands.ContactCommands.Requests;
 using People.Application.CQRS.Queries.ContactQueries.Requests;
@@ -19,6 +21,7 @@ public class ContactV1Controller : ControllerBase
     }
 
     [HttpGet]
+    [Authorize(Policy = TinyCrmPermissions.Contacts.Read)]
     public async Task<ActionResult<FilterAndPagingResultDto<ContactSummaryDto>>> GetFilteredAndPagedAsync(
         [FromQuery] FilterAndPagingContactsDto dto)
     {
@@ -29,6 +32,7 @@ public class ContactV1Controller : ControllerBase
 
     [HttpGet("{id:guid}")]
     [ActionName(nameof(GetByIdAsync))]
+    [Authorize(Policy = TinyCrmPermissions.Contacts.Read)]
     public async Task<ActionResult<ContactDetailDto>> GetByIdAsync(Guid id)
     {
         var contact = await _mediator.Send(new GetContactByIdQuery(id));
@@ -37,6 +41,7 @@ public class ContactV1Controller : ControllerBase
     }
 
     [HttpPost]
+    [Authorize(Policy = TinyCrmPermissions.Contacts.Create)]
     public async Task<ActionResult<ContactDetailDto>> CreateAsync(CreateOrEditContactDto dto)
     {
         var contact = await _mediator.Send(new CreateContactCommand(dto));
@@ -45,14 +50,16 @@ public class ContactV1Controller : ControllerBase
     }
 
     [HttpPut("{id:guid}")]
+    [Authorize(Policy = TinyCrmPermissions.Contacts.Edit)]
     public async Task<ActionResult<ContactDetailDto>> UpdateAsync(Guid id, CreateOrEditContactDto dto)
     {
         var contact = await _mediator.Send(new EditContactCommand(id, dto));
 
         return Ok(contact);
     }
-    
+
     [HttpDelete]
+    [Authorize(Policy = TinyCrmPermissions.Contacts.Delete)]
     public async Task<ActionResult> DeleteAsync(DeleteManyContactsDto dto)
     {
         await _mediator.Send(new DeleteManyContactsCommand(dto));
