@@ -2,6 +2,7 @@ using BuildingBlock.Application.Identity.Permissions;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using People.Application.CQRS.Commands.AccountCommands.Requests;
 using People.Application.CQRS.Queries.AccountQueries.Requests;
 using People.Application.DTOs.AccountDTOs;
 
@@ -26,5 +27,13 @@ public class AccountV2Controller : ControllerBase
         var accounts = await _mediator.Send(new FilterAccountsQuery(dto));
 
         return Ok(accounts);
+    }
+    
+    [HttpDelete]
+    public async Task<ActionResult> DeleteAllAsync([FromQuery] FilterAccountsDto dto)
+    {
+        await _mediator.Send(new DeleteFilteredAccountsCommand(dto));
+
+        return NoContent();
     }
 }
