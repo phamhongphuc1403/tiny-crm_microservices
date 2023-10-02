@@ -1,6 +1,7 @@
 using System.Linq.Dynamic.Core;
 using AutoMapper;
 using BuildingBlock.Application.DTOs;
+using BuildingBlock.Application.Identity;
 using BuildingBlock.Domain.Exceptions;
 using BuildingBlock.Domain.Interfaces;
 using IAM.Business.Models.Users;
@@ -19,14 +20,16 @@ public class IamAccountService : IIamAccountService
     private readonly RoleManager<ApplicationRole> _roleManager;
     private readonly IUnitOfWork _unitOfWork;
     private readonly UserManager<ApplicationUser> _userManager;
+    private readonly ICurrentUser _currentUser;
 
     public IamAccountService(UserManager<ApplicationUser> userManager, IMapper mapper,
-        RoleManager<ApplicationRole> roleManager, IUnitOfWork unitOfWork)
+        RoleManager<ApplicationRole> roleManager, IUnitOfWork unitOfWork, ICurrentUser currentUser)
     {
         _userManager = userManager;
         _mapper = mapper;
         _roleManager = roleManager;
         _unitOfWork = unitOfWork;
+        _currentUser = currentUser;
     }
 
     public async Task<FilterAndPagingResultDto<UserSummaryDto>> FilterAndPagingUsersAsync(
@@ -126,6 +129,10 @@ public class IamAccountService : IIamAccountService
     {
         foreach (var id in deleteManyUsersDto.Ids)
         {
+            if (_currentUser.Id == id.ToString())
+            {
+                continue;
+            }
             var user = await FindUserAsync(id);
             var result = await _userManager.DeleteAsync(user);
             if (!result.Succeeded)

@@ -1,4 +1,6 @@
 using System.Text;
+using BuildingBlock.Application.Identity;
+using BuildingBlock.Presentation.Authentication;
 using BuildingBlock.Presentation.Authorization;
 using IAM.Business.Models;
 using IAM.Domain.Entities.Roles;
@@ -69,6 +71,9 @@ public static class AuthenticationExtensions
                     jwtSetting.SecretKey))
             };
         });
+
+        services.AddHttpContextAccessor();
+        services.AddScoped<ICurrentUser, CurrentUser>();
         return services;
     }
 
