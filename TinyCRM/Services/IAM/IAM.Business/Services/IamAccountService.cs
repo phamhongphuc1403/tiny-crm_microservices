@@ -43,7 +43,7 @@ public class IamAccountService : IIamAccountService
             ? query.OrderBy("CreatedDate")
             : query.OrderBy(filterAndPagingUsersDto.ConvertSort());
 
-        var users = await query.Skip(filterAndPagingUsersDto.Skip )
+        var users = await query.Skip(filterAndPagingUsersDto.Skip)
             .Take(filterAndPagingUsersDto.Take).ToListAsync();
 
         return new FilterAndPagingResultDto<UserSummaryDto>(_mapper.Map<List<UserSummaryDto>>(users),
@@ -133,6 +133,7 @@ public class IamAccountService : IIamAccountService
             {
                 continue;
             }
+
             var user = await FindUserAsync(id);
             var result = await _userManager.DeleteAsync(user);
             if (!result.Succeeded)
@@ -146,6 +147,20 @@ public class IamAccountService : IIamAccountService
             .Where(u => u.Name.ToUpper().Contains(dto.Keyword.ToUpper()))
             .ToListAsync();
         return _mapper.Map<IEnumerable<UserSummaryDto>>(users);
+    }
+
+    public async Task DeleteFilteredUsersAsync(FilterUsersDto dto)
+    {
+        var users = await _userManager.Users
+            .Where(u => u.Name.ToUpper().Contains(dto.Keyword.ToUpper()))
+            .ToListAsync();
+        foreach (var user in users.Where(user => _currentUser.Id != user.Id.ToString()))
+        {
+            var result = await _userManager.DeleteAsync(user);
+
+            if (!result.Succeeded)
+                throw new InvalidUpdateException(result.Errors.First().Description);
+        }
     }
 
     private async Task<ApplicationUser> FindUserAsync(Guid id)
