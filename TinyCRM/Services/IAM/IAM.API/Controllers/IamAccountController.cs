@@ -9,12 +9,12 @@ using Microsoft.AspNetCore.Mvc;
 namespace IAM.API.Controllers;
 
 [ApiController]
-[Route("api/v1/iam-accounts/")]
-public class IamAccountV1Controller : Controller
+[Route("api/iam-accounts/")]
+public class IamAccountController : Controller
 {
     private readonly IIamAccountService _iamAccountService;
 
-    public IamAccountV1Controller(IIamAccountService iamAccountService)
+    public IamAccountController(IIamAccountService iamAccountService)
     {
         _iamAccountService = iamAccountService;
     }
@@ -66,6 +66,14 @@ public class IamAccountV1Controller : Controller
     public async Task<ActionResult> DeleteManyUsers([FromBody] DeleteManyUsersDto deleteManyUsersDto)
     {
         await _iamAccountService.DeleteManyUsersAsync(deleteManyUsersDto);
+        return NoContent();
+    }
+    
+    [HttpDelete("all")]
+    public async Task<ActionResult> DeleteAllAsync([FromQuery] FilterUsersDto dto)
+    {
+        await _iamAccountService.DeleteFilteredUsersAsync(dto);
+
         return NoContent();
     }
 }

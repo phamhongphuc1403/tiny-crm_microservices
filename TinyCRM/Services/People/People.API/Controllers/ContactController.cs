@@ -7,15 +7,15 @@ using People.Application.CQRS.Commands.ContactCommands.Requests;
 using People.Application.CQRS.Queries.ContactQueries.Requests;
 using People.Application.DTOs.ContactDTOs;
 
-namespace People.API.Controllers.ContactController;
+namespace People.API.Controllers;
 
 [ApiController]
-[Route("api/v1/contacts")]
-public class ContactV1Controller : ControllerBase
+[Route("api/contacts")]
+public class ContactController : ControllerBase
 {
     private readonly IMediator _mediator;
 
-    public ContactV1Controller(IMediator mediator)
+    public ContactController(IMediator mediator)
     {
         _mediator = mediator;
     }

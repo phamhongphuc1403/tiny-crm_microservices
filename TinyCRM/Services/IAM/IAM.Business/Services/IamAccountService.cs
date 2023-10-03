@@ -137,14 +137,6 @@ public class IamAccountService : IIamAccountService
         }
     }
 
-    public async Task<IEnumerable<UserSummaryDto>> FilterUsersAsync(FilterUsersDto dto)
-    {
-        var users = await _userManager.Users
-            .Where(u => u.Name.ToUpper().Contains(dto.Keyword.ToUpper()))
-            .ToListAsync();
-        return _mapper.Map<IEnumerable<UserSummaryDto>>(users);
-    }
-
     public async Task DeleteFilteredUsersAsync(FilterUsersDto dto)
     {
         var users = await _userManager.Users
