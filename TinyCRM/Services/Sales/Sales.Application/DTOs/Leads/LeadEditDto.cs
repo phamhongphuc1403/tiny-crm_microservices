@@ -15,5 +15,7 @@ public class LeadEditDto
     public LeadStatus Status { get; set; }
 
     public LeadSource? Source { get; set; }
+
+    [Range(0, double.MaxValue, ErrorMessage = "EstimatedRevenue must be a non-negative value.")]
     public double? EstimatedRevenue { get; set; }
 }

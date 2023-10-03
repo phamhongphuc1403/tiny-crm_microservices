@@ -12,6 +12,8 @@ public class LeadCreateDto
     [JsonConverter(typeof(JsonStringEnumConverter))]
     public LeadSource? Source { get; set; }
 
+    [Range(0, double.MaxValue, ErrorMessage = "EstimatedRevenue must be a non-negative value.")]
     public double? EstimatedRevenue { get; set; }
+
     public string? Description { get; set; }
 }
