@@ -16,11 +16,11 @@ namespace IAM.Business.Services;
 
 public class IamAccountService : IIamAccountService
 {
+    private readonly ICurrentUser _currentUser;
     private readonly IMapper _mapper;
     private readonly RoleManager<ApplicationRole> _roleManager;
     private readonly IUnitOfWork _unitOfWork;
     private readonly UserManager<ApplicationUser> _userManager;
-    private readonly ICurrentUser _currentUser;
 
     public IamAccountService(UserManager<ApplicationUser> userManager, IMapper mapper,
         RoleManager<ApplicationRole> roleManager, IUnitOfWork unitOfWork, ICurrentUser currentUser)
@@ -129,10 +129,7 @@ public class IamAccountService : IIamAccountService
     {
         foreach (var id in deleteManyUsersDto.Ids)
         {
-            if (_currentUser.Id == id.ToString())
-            {
-                continue;
-            }
+            if (_currentUser.Id == id.ToString()) continue;
             var user = await FindUserAsync(id);
             var result = await _userManager.DeleteAsync(user);
             if (!result.Succeeded)

@@ -25,7 +25,7 @@ public class IamAccountV2Controller : Controller
         var users = await _iamAccountService.FilterUsersAsync(dto);
         return Ok(users);
     }
-    
+
     [HttpDelete]
     public async Task<ActionResult> DeleteAllAsync([FromQuery] FilterUsersDto dto)
     {

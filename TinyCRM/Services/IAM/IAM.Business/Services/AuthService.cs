@@ -41,7 +41,7 @@ public class AuthService : IAuthService
         var result = await _signInManager.PasswordSignInAsync(user, signInDto.Password, false, true);
         if (!result.Succeeded) throw new InvalidPasswordException("Invalid password");
 
-        var token = GenerateToken(user.Id, user.Email!,signInDto.RememberMe);
+        var token = GenerateToken(user.Id, user.Email!, signInDto.RememberMe);
         return token;
     }
 
@@ -103,11 +103,11 @@ public class AuthService : IAuthService
     {
         var authClaims = GenerateAuthClaims(id, email);
         var authKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_jwtSettings.SecretKey));
-        var token = GenerateJwtToken(authClaims, authKey,rememberMe);
+        var token = GenerateJwtToken(authClaims, authKey, rememberMe);
         return WriteJwtToken(token);
     }
 
-    private JwtSecurityToken GenerateJwtToken(IEnumerable<Claim> authClaims, SecurityKey authKey,bool rememberMe)
+    private JwtSecurityToken GenerateJwtToken(IEnumerable<Claim> authClaims, SecurityKey authKey, bool rememberMe)
     {
         var expiryInMinutes = rememberMe ? _jwtSettings.RememberExpiryInMinutes : _jwtSettings.ExpiryInMinutes;
         return new JwtSecurityToken(

@@ -1,7 +1,6 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using Sales.Domain.LeadAggregate;
-using Sales.Domain.LeadAggregate.Enums;
 
 namespace Sales.Infrastructure.EFCore.EntityConfigurations;
 

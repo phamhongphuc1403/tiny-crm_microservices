@@ -3,9 +3,8 @@ using Sales.Application.DTOs.Leads;
 
 namespace Sales.Application.CQRS.Commands.LeadCommands.Requests;
 
-public class CreateLeadCommand:LeadCreateDto,ICommand<LeadDetailDto>
+public class CreateLeadCommand : LeadCreateDto, ICommand<LeadDetailDto>
 {
-    
     public CreateLeadCommand(LeadCreateDto dto)
     {
         Title = dto.Title;

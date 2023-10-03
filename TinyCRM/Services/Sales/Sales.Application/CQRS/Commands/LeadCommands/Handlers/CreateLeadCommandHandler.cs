@@ -12,9 +12,9 @@ namespace Sales.Application.CQRS.Commands.LeadCommands.Handlers;
 public class CreateLeadCommandHandler : ICommandHandler<CreateLeadCommand, LeadDetailDto>
 {
     private readonly ILeadDomainService _leadDomainService;
-    private readonly IUnitOfWork _unitOfWork;
     private readonly IOperationRepository<Lead> _leadOperationRepository;
     private readonly IMapper _mapper;
+    private readonly IUnitOfWork _unitOfWork;
 
 
     public CreateLeadCommandHandler(ILeadDomainService leadDomainService, IUnitOfWork unitOfWork,

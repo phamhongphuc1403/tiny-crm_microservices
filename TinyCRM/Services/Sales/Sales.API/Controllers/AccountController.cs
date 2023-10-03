@@ -20,7 +20,7 @@ public class AccountController : ControllerBase
     }
 
     [HttpGet]
-    [Authorize(Policy=TinyCrmPermissions.Accounts.Read)]
+    [Authorize(Policy = TinyCrmPermissions.Accounts.Read)]
     public async Task<ActionResult<IEnumerable<AccountResultDto>>> FilteredAsync(
         [FromQuery] FilterAccountDto dto)
     {
@@ -30,7 +30,7 @@ public class AccountController : ControllerBase
     }
 
     [HttpPost]
-    [Authorize(Policy=TinyCrmPermissions.Accounts.Create)]
+    [Authorize(Policy = TinyCrmPermissions.Accounts.Create)]
     public async Task<ActionResult<AccountResultDto>> CreateAsync(CreateAccountDto dto)
     {
         var account = await _mediator.Send(new CreateAccountCommand(dto));

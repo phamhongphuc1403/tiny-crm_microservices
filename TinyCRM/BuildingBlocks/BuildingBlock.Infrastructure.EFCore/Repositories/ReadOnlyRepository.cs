@@ -58,7 +58,7 @@ public class ReadOnlyRepository<TDbContext, TEntity> : IReadOnlyRepository<TEnti
         var query = DbSet.AsNoTracking();
 
         query = Include(query, includeTables);
-        
+
         query = Filter(query, specification);
 
         var totalCount = await query.CountAsync();

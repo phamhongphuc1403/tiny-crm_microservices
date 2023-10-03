@@ -11,10 +11,10 @@ namespace People.Application.CQRS.Commands.AccountCommands.Handlers;
 
 public class DeleteFilteredAccountsCommandHandler : ICommandHandler<DeleteFilteredAccountsCommand>
 {
-    private readonly IOperationRepository<Account> _operationRepository;
-    private readonly IUnitOfWork _unitOfWork;
     private readonly IEventBus _eventBus;
+    private readonly IOperationRepository<Account> _operationRepository;
     private readonly IReadOnlyRepository<Account> _readOnlyRepository;
+    private readonly IUnitOfWork _unitOfWork;
 
 
     public DeleteFilteredAccountsCommandHandler(IOperationRepository<Account> operationRepository,
@@ -33,13 +33,13 @@ public class DeleteFilteredAccountsCommandHandler : ICommandHandler<DeleteFilter
         var accountEmailPartialMatchSpecification = new AccountEmailPartialMatchSpecification(request.Keyword);
 
         var specification = accountNamePartialMatchSpecification.Or(accountEmailPartialMatchSpecification);
-        
+
         var accounts = await _readOnlyRepository.GetAllAsync(specification);
-        
+
         _operationRepository.RemoveRange(accounts);
-        
+
         await _unitOfWork.SaveChangesAsync();
-        
+
         _eventBus.Publish(new AccountsDeletedIntegrationEvent(accounts.Select(x => x.Id)));
     }
 }

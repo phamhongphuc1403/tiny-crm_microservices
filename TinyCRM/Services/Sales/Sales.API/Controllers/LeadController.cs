@@ -21,7 +21,7 @@ public class LeadController : ControllerBase
     }
 
     [HttpGet]
-    [Authorize(Policy=TinyCrmPermissions.Leads.Read)]
+    [Authorize(Policy = TinyCrmPermissions.Leads.Read)]
     public async Task<ActionResult<FilterAndPagingResultDto<LeadSummaryDto>>> GetAllAsync(
         [FromQuery] FilterAndPagingLeadsDto dto)
     {
@@ -38,12 +38,20 @@ public class LeadController : ControllerBase
 
         return Ok(lead);
     }
-    
+
     [HttpPost]
     public async Task<ActionResult<LeadDetailDto>> CreateAsync(LeadCreateDto dto)
     {
         var lead = await _mediator.Send(new CreateLeadCommand(dto));
 
-        return CreatedAtAction(nameof(GetByIdAsync), new {id = lead.Id}, lead);
+        return CreatedAtAction(nameof(GetByIdAsync), new { id = lead.Id }, lead);
+    }
+
+    [HttpPut]
+    public async Task<ActionResult<LeadDetailDto>> EditAsync(Guid id, LeadEditDto dto)
+    {
+        var lead = await _mediator.Send(new EditLeadCommand(id, dto));
+
+        return Ok(lead);
     }
 }

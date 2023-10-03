@@ -10,7 +10,8 @@ using Sales.Domain.LeadAggregate.Specifications;
 namespace Sales.Application.CQRS.Queries.LeadQueries.Handlers;
 
 public class
-    FilterAndPagingLeadsQueryHandler : IQueryHandler<FilterAndPagingLeadsQuery, FilterAndPagingResultDto<LeadSummaryDto>>
+    FilterAndPagingLeadsQueryHandler : IQueryHandler<FilterAndPagingLeadsQuery,
+        FilterAndPagingResultDto<LeadSummaryDto>>
 {
     private readonly IMapper _mapper;
     private readonly IReadOnlyRepository<Lead> _repository;
@@ -35,9 +36,10 @@ public class
         var specification = leadStatusSpecification.And(leadTitleSpecification.Or(leadAccountNameSpecification));
 
         var (leads, totalCount) = await _repository.GetFilterAndPagingAsync(specification,
-            query.Sort, query.Skip, query.Take,includes);
+            query.Sort, query.Skip, query.Take, includes);
 
-        return new FilterAndPagingResultDto<LeadSummaryDto>(_mapper.Map<List<LeadSummaryDto>>(leads), query.Skip, query.Take,
+        return new FilterAndPagingResultDto<LeadSummaryDto>(_mapper.Map<List<LeadSummaryDto>>(leads), query.Skip,
+            query.Take,
             totalCount);
     }
 }

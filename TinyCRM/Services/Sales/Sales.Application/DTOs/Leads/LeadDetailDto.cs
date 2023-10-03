@@ -19,8 +19,9 @@ public class LeadDetailDto
     public LeadStatus? Status { get; set; }
 
     public DateTime CreatedDate { get; set; }
-    
+
     public DateTime? DisqualificationDate { get; set; }
+
     [JsonConverter(typeof(JsonStringEnumConverter))]
     public LeadDisqualificationReason? DisqualificationReason { get; set; }
 

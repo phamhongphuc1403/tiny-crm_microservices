@@ -11,8 +11,8 @@ namespace Sales.Domain.LeadAggregate.DomainService;
 
 public class LeadDomainService : ILeadDomainService
 {
-    private readonly IReadOnlyRepository<Lead> _leadReadOnlyRepository;
     private readonly IReadOnlyRepository<Account> _accountReadOnlyRepository;
+    private readonly IReadOnlyRepository<Lead> _leadReadOnlyRepository;
 
     public LeadDomainService(IReadOnlyRepository<Lead> readOnlyRepository,
         IReadOnlyRepository<Account> accountReadOnlyRepository, IReadOnlyRepository<Lead> leadReadOnlyRepository)
@@ -36,19 +36,11 @@ public class LeadDomainService : ILeadDomainService
         string? description, LeadStatus status)
     {
         CheckValidStatus(lead.Status);
-        CheckValidStatus(status);
         Optional<bool>
             .Of(await _accountReadOnlyRepository.CheckIfExistAsync(new AccountIdSpecification(customerId)))
             .ThrowIfNotPresent(new AccountNotFoundException(customerId));
         lead.Update(title, customerId, source, estimatedRevenue, description, status);
         return lead;
-    }
-
-    private static void CheckValidStatus(LeadStatus status)
-    {
-        if (status is LeadStatus.Open or LeadStatus.Prospect)
-            return;
-        throw new LeadValidStatusException(status);
     }
 
     public async Task<IList<Lead>> DeleteManyAsync(IEnumerable<Guid> ids)
@@ -68,20 +60,27 @@ public class LeadDomainService : ILeadDomainService
     public Lead Disqualify(Lead lead, LeadDisqualificationReason reason, string? description = null)
     {
         CheckValidStatus(lead.Status);
-        
+
         lead.Status = LeadStatus.Disqualify;
         lead.DisqualificationReason = reason;
         lead.Description = description;
-        
+
         return lead;
     }
 
     public Lead Qualify(Lead lead)
     {
         CheckValidStatus(lead.Status);
-        
+
         lead.Status = LeadStatus.Qualify;
-        
+
         return lead;
+    }
+
+    private static void CheckValidStatus(LeadStatus status)
+    {
+        if (status is LeadStatus.Open or LeadStatus.Prospect)
+            return;
+        throw new LeadValidStatusException(status);
     }
 }

@@ -12,7 +12,7 @@ public sealed class Lead : GuidEntity
         Title = title;
         CustomerId = customerId;
         Source = source;
-        EstimatedRevenue = estimatedRevenue;
+        EstimatedRevenue = estimatedRevenue ?? 0;
         Description = description;
         Status = LeadStatus.Prospect;
     }
@@ -27,21 +27,21 @@ public sealed class Lead : GuidEntity
 
     public Account Customer { get; set; } = null!;
     public LeadSource? Source { get; set; }
-    public double? EstimatedRevenue { get; set; }
+    public double EstimatedRevenue { get; set; }
     public string? Description { get; set; }
 
     public LeadStatus Status { get; set; }
     public LeadDisqualificationReason? DisqualificationReason { get; set; }
     public string? DisqualificationDescription { get; set; }
     public DateTime? DisqualificationDate { get; set; }
-    
+
     internal void Update(string title, Guid customerId, LeadSource? source, double? estimatedRevenue,
-        string? description,LeadStatus status)
+        string? description, LeadStatus status)
     {
         Title = title;
         CustomerId = customerId;
         Source = source;
-        EstimatedRevenue = estimatedRevenue;
+        EstimatedRevenue = estimatedRevenue ?? 0;
         Description = description;
         Status = status;
     }

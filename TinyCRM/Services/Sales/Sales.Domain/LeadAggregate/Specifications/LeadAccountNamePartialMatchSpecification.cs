@@ -3,7 +3,7 @@ using BuildingBlock.Domain.Specifications;
 
 namespace Sales.Domain.LeadAggregate.Specifications;
 
-public class LeadAccountNamePartialMatchSpecification:Specification<Lead>
+public class LeadAccountNamePartialMatchSpecification : Specification<Lead>
 {
     private readonly string _keyword;
 
