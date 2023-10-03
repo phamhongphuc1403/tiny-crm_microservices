@@ -35,11 +35,19 @@ public class LeadDomainService : ILeadDomainService
         double? estimatedRevenue,
         string? description, LeadStatus status)
     {
-        CheckValidStatus(lead.Status);
-        Optional<bool>
-            .Of(await _accountReadOnlyRepository.CheckIfExistAsync(new AccountIdSpecification(customerId)))
-            .ThrowIfNotPresent(new AccountNotFoundException(customerId));
-        lead.Update(title, customerId, source, estimatedRevenue, description, status);
+        if (CheckValidStatus(lead.Status))
+        {
+            Optional<bool>
+                .Of(await _accountReadOnlyRepository.CheckIfExistAsync(new AccountIdSpecification(customerId)))
+                .ThrowIfNotPresent(new AccountNotFoundException(customerId));
+            lead.Update(title, customerId, source, estimatedRevenue, description, status);
+        }
+        else
+        {
+            lead.Description = description;
+            lead.Source = source;
+        }
+
         return lead;
     }
 
@@ -59,8 +67,7 @@ public class LeadDomainService : ILeadDomainService
 
     public Lead Disqualify(Lead lead, LeadDisqualificationReason reason, string? description = null)
     {
-        CheckValidStatus(lead.Status);
-
+        if (!CheckValidStatus(lead.Status)) throw new LeadValidStatusException(lead.Status);
         lead.Status = LeadStatus.Disqualify;
         lead.DisqualificationReason = reason;
         lead.Description = description;
@@ -70,17 +77,15 @@ public class LeadDomainService : ILeadDomainService
 
     public Lead Qualify(Lead lead)
     {
-        CheckValidStatus(lead.Status);
+        if (!CheckValidStatus(lead.Status)) throw new LeadValidStatusException(lead.Status);
 
         lead.Status = LeadStatus.Qualify;
 
         return lead;
     }
 
-    private static void CheckValidStatus(LeadStatus status)
+    private static bool CheckValidStatus(LeadStatus status)
     {
-        if (status is LeadStatus.Open or LeadStatus.Prospect)
-            return;
-        throw new LeadValidStatusException(status);
+        return status is LeadStatus.Open or LeadStatus.Prospect;
     }
 }
