@@ -25,4 +25,13 @@ public class ProductController : ControllerBase
 
         return Ok(products);
     }
+
+    [HttpGet("{id:guid}")]
+    [ActionName(nameof(GetByIdAsync))]
+    public async Task<ActionResult<ProductDetailDto>> GetByIdAsync(Guid id)
+    {
+        var product = await _mediator.Send(new GetProductQuery(id));
+
+        return Ok(product);
+    }
 }

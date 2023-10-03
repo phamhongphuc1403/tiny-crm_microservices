@@ -47,7 +47,7 @@ public class ProductSeeder : IDataSeeder
             .RuleFor(product => product.Code, f => f.Commerce.Ean13())
             .RuleFor(product => product.Name, f => f.Commerce.ProductName())
             .RuleFor(product => product.Id, f => f.Random.Guid())
-            .RuleFor(product => product.Price, f => Math.Round(f.Random.Double(100, 10000), 2))
+            .RuleFor(product => product.Price, f => f.Random.Double(100, 10000))
             .RuleFor(product => product.IsAvailable, f => f.Random.Bool())
             .RuleFor(product => product.Type, f => f.PickRandom<ProductType>())
             .RuleFor(product => product.CreatedDate, f => f.Date.Past());

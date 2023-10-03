@@ -7,7 +7,7 @@ public class ProductMapper : Mapper
 {
     public ProductMapper()
     {
-        CreateMap<Product, ProductSummaryDto>()
-            .ForMember(dest => dest.Price, opt => opt.MapFrom(src => Math.Round(src.Price, 2)));
+        CreateMap<Product, ProductSummaryDto>();
+        CreateMap<Product, ProductDetailDto>();
     }
 }

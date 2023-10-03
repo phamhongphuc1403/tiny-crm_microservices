@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Sales.Infrastructure.EFCore;
 
@@ -11,9 +12,11 @@ using Sales.Infrastructure.EFCore;
 namespace Sales.Infrastructure.EFCore.Migrations
 {
     [DbContext(typeof(SaleDbContext))]
-    partial class SaleDbContextModelSnapshot : ModelSnapshot
+    [Migration("20231003070748_RemovePricePrecisionInProductsTable")]
+    partial class RemovePricePrecisionInProductsTable
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -76,7 +79,7 @@ namespace Sales.Infrastructure.EFCore.Migrations
                         .HasMaxLength(1024)
                         .HasColumnType("nvarchar(1024)");
 
-                    b.Property<DateTime?>("DisqualificationDate")
+                    b.Property<DateTime>("DisqualificationDate")
                         .HasColumnType("datetime2");
 
                     b.Property<string>("DisqualificationDescription")
@@ -107,20 +110,56 @@ namespace Sales.Infrastructure.EFCore.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("CustomerId");
-
                     b.ToTable("Leads");
-                });
 
-            modelBuilder.Entity("Sales.Domain.LeadAggregate.Lead", b =>
-                {
-                    b.HasOne("Sales.Domain.AccountAggregate.Account", "Customer")
-                        .WithMany()
-                        .HasForeignKey("CustomerId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Customer");
+                    b.HasData(
+                        new
+                        {
+                            Id = new Guid("f90002e7-cb59-49d0-a7ba-3ffef14e1f9a"),
+                            CreatedDate = new DateTime(2023, 9, 15, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            CustomerId = new Guid("20419e47-058b-45ae-adc7-a1da89bb050c"),
+                            DisqualificationDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            EstimatedRevenue = 73890m,
+                            Source = 1,
+                            Status = 0,
+                            Title = "Et voluptatem sunt."
+                        },
+                        new
+                        {
+                            Id = new Guid("004a27ca-30b7-4ca0-8178-6dc2b8df5ec6"),
+                            CreatedDate = new DateTime(2023, 9, 15, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            CustomerId = new Guid("22d84515-5912-489b-b75c-249964f5a278"),
+                            DisqualificationDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            EstimatedRevenue = 81034m,
+                            Source = 1,
+                            Status = 1,
+                            Title = "Quae et dolorem mollitia repellendus ut."
+                        },
+                        new
+                        {
+                            Id = new Guid("f90002e7-cb59-49d0-a7ba-3ffef14e1f9b"),
+                            CreatedDate = new DateTime(2023, 9, 15, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            CustomerId = new Guid("20419e47-058b-45ae-adc7-a1da89bb050c"),
+                            Description = "While the Panther received knife and fork with a little scream of laughter. 'Oh, hush!' the Rabbit say, 'A barrowful of WHAT?' thought Alice to herself, (not in a moment to think that proved it at.",
+                            DisqualificationDate = new DateTime(2023, 9, 16, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            DisqualificationReason = 0,
+                            EstimatedRevenue = 88782m,
+                            Source = 1,
+                            Status = 3,
+                            Title = "Officia voluptatem et."
+                        },
+                        new
+                        {
+                            Id = new Guid("004a27ca-30b7-4ca0-8178-6dc2b8df5ec7"),
+                            CreatedDate = new DateTime(2023, 9, 15, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            CustomerId = new Guid("22d84515-5912-489b-b75c-249964f5a278"),
+                            Description = "Alice, 'and why it is to-day! And I declare it's too bad, that it was only sobbing,' she thought, 'it's sure to make out what it was: at first was moderate. But the insolence of his.",
+                            DisqualificationDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            EstimatedRevenue = 72346m,
+                            Source = 1,
+                            Status = 2,
+                            Title = "Et voluptatem sunt."
+                        });
                 });
 
             modelBuilder.Entity("Sales.Domain.ProductAggregate.Entities.Product", b =>
