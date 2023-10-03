@@ -66,4 +66,12 @@ public class ContactController : ControllerBase
 
         return NoContent();
     }
+
+    [HttpDelete("all")]
+    public async Task<ActionResult> DeleteAllAsync([FromQuery] FilterContactsDto dto)
+    {
+        await _mediator.Send(new DeleteFilteredContactsCommand(dto));
+
+        return NoContent();
+    }
 }
