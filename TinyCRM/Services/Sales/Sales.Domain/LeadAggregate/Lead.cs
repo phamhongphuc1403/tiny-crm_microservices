@@ -1,13 +1,12 @@
 using BuildingBlock.Domain.Model;
+using Sales.Domain.AccountAggregate;
 using Sales.Domain.LeadAggregate.Enums;
 
 namespace Sales.Domain.LeadAggregate;
 
-public class Lead : GuidEntity
+public sealed class Lead : GuidEntity
 {
-    // public virtual Deal? Deal { get; set; }
-
-    private Lead(string title, Guid customerId, LeadSource? source, double? estimatedRevenue,
+    internal Lead(string title, Guid customerId, LeadSource? source, double? estimatedRevenue,
         string? description)
     {
         Title = title;
@@ -18,7 +17,7 @@ public class Lead : GuidEntity
         Status = LeadStatus.Prospect;
     }
 
-    public Lead()
+    internal Lead()
     {
     }
 
@@ -26,7 +25,7 @@ public class Lead : GuidEntity
 
     public Guid CustomerId { get; set; }
 
-    // public virtual AccountEntity Customer { get; set; } = null!;
+    public Account Customer { get; set; } = null!;
     public LeadSource? Source { get; set; }
     public double? EstimatedRevenue { get; set; }
     public string? Description { get; set; }
@@ -34,11 +33,16 @@ public class Lead : GuidEntity
     public LeadStatus Status { get; set; }
     public LeadDisqualificationReason? DisqualificationReason { get; set; }
     public string? DisqualificationDescription { get; set; }
-    public DateTime DisqualificationDate { get; set; }
-
-    public static Lead Create(string title, Guid customerId, LeadSource? source, double? estimatedRevenue,
-        string? description)
+    public DateTime? DisqualificationDate { get; set; }
+    
+    internal void Update(string title, Guid customerId, LeadSource? source, double? estimatedRevenue,
+        string? description,LeadStatus status)
     {
-        return new Lead(title, customerId, source, estimatedRevenue, description);
+        Title = title;
+        CustomerId = customerId;
+        Source = source;
+        EstimatedRevenue = estimatedRevenue;
+        Description = description;
+        Status = status;
     }
 }

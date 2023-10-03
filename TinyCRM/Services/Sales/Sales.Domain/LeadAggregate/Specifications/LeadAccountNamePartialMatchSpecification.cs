@@ -3,11 +3,11 @@ using BuildingBlock.Domain.Specifications;
 
 namespace Sales.Domain.LeadAggregate.Specifications;
 
-public class LeadTitlePartialMatchSpecification : Specification<Lead>
+public class LeadAccountNamePartialMatchSpecification:Specification<Lead>
 {
     private readonly string _keyword;
 
-    public LeadTitlePartialMatchSpecification(string keyword)
+    public LeadAccountNamePartialMatchSpecification(string keyword)
     {
         _keyword = keyword;
     }
@@ -16,6 +16,6 @@ public class LeadTitlePartialMatchSpecification : Specification<Lead>
     {
         if (string.IsNullOrWhiteSpace(_keyword)) return lead => true;
 
-        return lead => lead.Title.ToUpper().Contains(_keyword.ToUpper());
+        return lead => lead.Customer.Name.ToUpper().Contains(_keyword.ToUpper());
     }
 }

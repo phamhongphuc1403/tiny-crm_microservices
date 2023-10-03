@@ -133,7 +133,6 @@ public class IamAccountService : IIamAccountService
             {
                 continue;
             }
-
             var user = await FindUserAsync(id);
             var result = await _userManager.DeleteAsync(user);
             if (!result.Succeeded)

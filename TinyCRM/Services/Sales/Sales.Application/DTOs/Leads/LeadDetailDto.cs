@@ -3,7 +3,7 @@ using Sales.Domain.LeadAggregate.Enums;
 
 namespace Sales.Application.DTOs.Leads;
 
-public class LeadDto
+public class LeadDetailDto
 {
     public Guid Id { get; set; }
     public string Title { get; set; } = null!;
@@ -18,6 +18,9 @@ public class LeadDto
     [JsonConverter(typeof(JsonStringEnumConverter))]
     public LeadStatus? Status { get; set; }
 
+    public DateTime CreatedDate { get; set; }
+    
+    public DateTime? DisqualificationDate { get; set; }
     [JsonConverter(typeof(JsonStringEnumConverter))]
     public LeadDisqualificationReason? DisqualificationReason { get; set; }
 

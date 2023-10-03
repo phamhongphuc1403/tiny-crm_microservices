@@ -4,11 +4,11 @@ using Sales.Domain.LeadAggregate.Enums;
 
 namespace Sales.Domain.LeadAggregate.Specifications;
 
-public class LeadStatusSpecification : Specification<Lead>
+public class LeadStatusFilterSpecification : Specification<Lead>
 {
     private readonly LeadStatus? _status;
 
-    public LeadStatusSpecification(LeadStatus? status)
+    public LeadStatusFilterSpecification(LeadStatus? status)
     {
         _status = status;
     }

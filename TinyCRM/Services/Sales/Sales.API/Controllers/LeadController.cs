@@ -3,6 +3,7 @@ using BuildingBlock.Application.Identity.Permissions;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Sales.Application.CQRS.Commands.LeadCommands.Requests;
 using Sales.Application.CQRS.Queries.LeadQueries.Requests;
 using Sales.Application.DTOs.Leads;
 
@@ -21,7 +22,7 @@ public class LeadController : ControllerBase
 
     [HttpGet]
     [Authorize(Policy=TinyCrmPermissions.Leads.Read)]
-    public async Task<ActionResult<FilterAndPagingResultDto<LeadDto>>> GetAllAsync(
+    public async Task<ActionResult<FilterAndPagingResultDto<LeadSummaryDto>>> GetAllAsync(
         [FromQuery] FilterAndPagingLeadsDto dto)
     {
         var leads = await _mediator.Send(new FilterAndPagingLeadsQuery(dto));
@@ -31,10 +32,18 @@ public class LeadController : ControllerBase
 
     [HttpGet("{id:guid}")]
     [ActionName(nameof(GetByIdAsync))]
-    public async Task<ActionResult<LeadDto>> GetByIdAsync(Guid id)
+    public async Task<ActionResult<LeadDetailDto>> GetByIdAsync(Guid id)
     {
         var lead = await _mediator.Send(new GetLeadQuery(id));
 
         return Ok(lead);
+    }
+    
+    [HttpPost]
+    public async Task<ActionResult<LeadDetailDto>> CreateAsync(LeadCreateDto dto)
+    {
+        var lead = await _mediator.Send(new CreateLeadCommand(dto));
+
+        return CreatedAtAction(nameof(GetByIdAsync), new {id = lead.Id}, lead);
     }
 }

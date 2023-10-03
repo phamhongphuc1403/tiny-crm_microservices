@@ -4,7 +4,7 @@ using Sales.Application.DTOs.Leads;
 
 namespace Sales.Application.CQRS.Queries.LeadQueries.Requests;
 
-public class FilterAndPagingLeadsQuery : FilterAndPagingLeadsDto, IQuery<FilterAndPagingResultDto<LeadDto>>
+public class FilterAndPagingLeadsQuery : FilterAndPagingLeadsDto, IQuery<FilterAndPagingResultDto<LeadSummaryDto>>
 {
     public FilterAndPagingLeadsQuery(FilterAndPagingLeadsDto dto)
     {

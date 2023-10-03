@@ -7,6 +7,8 @@ public class LeadMapper : Mapper
 {
     public LeadMapper()
     {
-        CreateMap<Lead, LeadDto>();
+        CreateMap<Lead, LeadDetailDto>();
+        CreateMap<Lead, LeadSummaryDto>()
+            .ForMember(dest => dest.CustomerName, opt => opt.MapFrom(src => src.Customer.Name));
     }
 }

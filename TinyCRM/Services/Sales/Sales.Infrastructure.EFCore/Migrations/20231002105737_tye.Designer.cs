@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Sales.Infrastructure.EFCore;
 
@@ -11,9 +12,11 @@ using Sales.Infrastructure.EFCore;
 namespace Sales.Infrastructure.EFCore.Migrations
 {
     [DbContext(typeof(SaleDbContext))]
-    partial class SaleDbContextModelSnapshot : ModelSnapshot
+    [Migration("20231002105737_tye")]
+    partial class tye
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -121,53 +124,6 @@ namespace Sales.Infrastructure.EFCore.Migrations
                         .IsRequired();
 
                     b.Navigation("Customer");
-                });
-
-            modelBuilder.Entity("Sales.Domain.ProductAggregate.Entities.Product", b =>
-                {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<string>("Code")
-                        .IsRequired()
-                        .HasMaxLength(255)
-                        .IsUnicode(false)
-                        .HasColumnType("varchar(255)");
-
-                    b.Property<string>("CreatedBy")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<DateTime>("CreatedDate")
-                        .HasColumnType("datetime2");
-
-                    b.Property<bool>("IsAvailable")
-                        .HasColumnType("bit");
-
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasMaxLength(255)
-                        .HasColumnType("nvarchar(255)");
-
-                    b.Property<double>("Price")
-                        .HasPrecision(10, 2)
-                        .HasColumnType("float(10)");
-
-                    b.Property<int>("Type")
-                        .HasColumnType("int");
-
-                    b.Property<string>("UpdatedBy")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<DateTime?>("UpdatedDate")
-                        .HasColumnType("datetime2");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("Code")
-                        .IsUnique();
-
-                    b.ToTable("Product");
                 });
 #pragma warning restore 612, 618
         }

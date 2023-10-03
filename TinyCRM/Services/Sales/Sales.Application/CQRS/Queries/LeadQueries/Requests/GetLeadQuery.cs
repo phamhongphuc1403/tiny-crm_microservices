@@ -3,7 +3,7 @@ using Sales.Application.DTOs.Leads;
 
 namespace Sales.Application.CQRS.Queries.LeadQueries.Requests;
 
-public class GetLeadQuery : IQuery<LeadDto>
+public class GetLeadQuery : IQuery<LeadDetailDto>
 {
     public GetLeadQuery(Guid id)
     {

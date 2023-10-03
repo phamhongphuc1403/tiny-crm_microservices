@@ -10,7 +10,7 @@ using Sales.Domain.LeadAggregate.Specifications;
 namespace Sales.Application.CQRS.Queries.LeadQueries.Handlers;
 
 public class
-    FilterAndPagingLeadsQueryHandler : IQueryHandler<FilterAndPagingLeadsQuery, FilterAndPagingResultDto<LeadDto>>
+    FilterAndPagingLeadsQueryHandler : IQueryHandler<FilterAndPagingLeadsQuery, FilterAndPagingResultDto<LeadSummaryDto>>
 {
     private readonly IMapper _mapper;
     private readonly IReadOnlyRepository<Lead> _repository;
@@ -24,20 +24,20 @@ public class
         _mapper = mapper;
     }
 
-    public async Task<FilterAndPagingResultDto<LeadDto>> Handle(FilterAndPagingLeadsQuery query,
+    public async Task<FilterAndPagingResultDto<LeadSummaryDto>> Handle(FilterAndPagingLeadsQuery query,
         CancellationToken cancellationToken)
     {
+        var includes = "Customer";
         var leadTitleSpecification = new LeadTitlePartialMatchSpecification(query.Keyword);
+        var leadAccountNameSpecification = new LeadAccountNamePartialMatchSpecification(query.Keyword);
+        var leadStatusSpecification = new LeadStatusFilterSpecification(query.Status);
 
-        var leadStatusSpecification = new LeadStatusSpecification(query.Status);
+        var specification = leadStatusSpecification.And(leadTitleSpecification.Or(leadAccountNameSpecification));
 
-        var specification = leadTitleSpecification.And(leadStatusSpecification);
+        var (leads, totalCount) = await _repository.GetFilterAndPagingAsync(specification,
+            query.Sort, query.Skip, query.Take,includes);
 
-
-        var (deals, totalCount) = await _repository.GetFilterAndPagingAsync(specification,
-            query.Sort, query.Skip, query.Take);
-
-        return new FilterAndPagingResultDto<LeadDto>(_mapper.Map<List<LeadDto>>(deals), query.Skip, query.Take,
+        return new FilterAndPagingResultDto<LeadSummaryDto>(_mapper.Map<List<LeadSummaryDto>>(leads), query.Skip, query.Take,
             totalCount);
     }
 }
