@@ -1,6 +1,7 @@
 using BuildingBlock.Application.DTOs;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
+using Sales.Application.CQRS.Commands.ProductCommands.Requests;
 using Sales.Application.CQRS.Queries.ProductQueries.Requests;
 using Sales.Application.DTOs.ProductDTOs;
 
@@ -33,5 +34,13 @@ public class ProductController : ControllerBase
         var product = await _mediator.Send(new GetProductQuery(id));
 
         return Ok(product);
+    }
+
+    [HttpPost]
+    public async Task<ActionResult<ProductDetailDto>> CreateAsync([FromBody] CreateOrEditProductDto dto)
+    {
+        var product = await _mediator.Send(new CreateProductCommand(dto));
+
+        return CreatedAtAction(nameof(GetByIdAsync), new { id = product.Id }, product);
     }
 }

@@ -8,6 +8,7 @@ using Sales.Domain.AccountAggregate;
 using Sales.Domain.AccountAggregate.DomainService;
 using Sales.Domain.LeadAggregate;
 using Sales.Domain.LeadAggregate.DomainService;
+using Sales.Domain.ProductAggregate.DomainService;
 using Sales.Domain.ProductAggregate.Entities;
 using Sales.Infrastructure.EFCore;
 
@@ -27,6 +28,7 @@ public static class DependencyInjectionExtensions
 
         services.AddScoped<IAccountDomainService, AccountDomainService>();
         services.AddScoped<ILeadDomainService, LeadDomainService>();
+        services.AddScoped<IProductDomainService, ProductDomainService>();
 
         services.AddScoped<Func<BaseDbContext>>(provider => () => provider.GetService<SaleDbContext>()!);
         services.AddScoped<IUnitOfWork, UnitOfWork<SaleDbContext>>();

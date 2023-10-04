@@ -5,7 +5,7 @@ namespace Sales.Domain.ProductAggregate.Entities;
 
 public sealed class Product : GuidEntity
 {
-    private Product(string code, string name, double price, bool isAvailable, ProductType type)
+    public Product(string code, string name, double price, bool isAvailable, ProductType type)
     {
         Code = code;
         Name = name;
