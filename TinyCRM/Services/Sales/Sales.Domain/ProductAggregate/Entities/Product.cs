@@ -18,9 +18,9 @@ public sealed class Product : GuidEntity
     {
     }
 
-    public string Code { get; private set; } = null!;
-    public string Name { get; private set; } = null!;
-    public double Price { get; private set; }
-    public bool IsAvailable { get; private set; }
-    public ProductType Type { get; private set; }
+    public string Code { get; set; } = null!;
+    public string Name { get; set; } = null!;
+    public double Price { get; set; }
+    public bool IsAvailable { get; set; }
+    public ProductType Type { get; set; }
 }
