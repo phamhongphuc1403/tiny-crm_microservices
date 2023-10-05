@@ -70,8 +70,8 @@ public class LeadDomainService : ILeadDomainService
         if (!CheckValidStatus(lead.Status)) throw new LeadValidStatusException(lead.Status);
         lead.Status = LeadStatus.Disqualify;
         lead.DisqualificationReason = reason;
-        lead.Description = description;
-
+        lead.DisqualificationDescription = description;
+        lead.DisqualificationDate = DateTime.UtcNow;
         return lead;
     }
 

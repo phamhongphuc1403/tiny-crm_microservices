@@ -54,4 +54,12 @@ public class LeadController : ControllerBase
 
         return Ok(lead);
     }
+    
+    [HttpPut("{id:guid}/disqualify")]
+    public async Task<ActionResult<LeadDetailDto>> DisqualifyAsync(Guid id, LeadDisqualifyDto dto)
+    {
+        var lead = await _mediator.Send(new DisqualifyLeadCommand(id, dto));
+
+        return Ok(lead);
+    }
 }
