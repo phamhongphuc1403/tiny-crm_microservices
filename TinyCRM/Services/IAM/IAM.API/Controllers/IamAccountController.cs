@@ -68,7 +68,7 @@ public class IamAccountController : Controller
         await _iamAccountService.DeleteManyUsersAsync(deleteManyUsersDto);
         return NoContent();
     }
-    
+
     [HttpDelete("all")]
     public async Task<ActionResult> DeleteAllAsync([FromQuery] FilterUsersDto dto)
     {

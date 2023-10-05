@@ -54,12 +54,28 @@ public class LeadController : ControllerBase
 
         return Ok(lead);
     }
-    
+
     [HttpPut("{id:guid}/disqualify")]
     public async Task<ActionResult<LeadDetailDto>> DisqualifyAsync(Guid id, LeadDisqualifyDto dto)
     {
         var lead = await _mediator.Send(new DisqualifyLeadCommand(id, dto));
 
         return Ok(lead);
+    }
+
+    [HttpDelete]
+    public async Task<ActionResult> DeleteManyAsync(LeadDeleteManyDto dto)
+    {
+        await _mediator.Send(new DeleteManyLeadsCommand(dto));
+
+        return NoContent();
+    }
+
+    [HttpDelete("all")]
+    public async Task<ActionResult> DeleteAllAsync(FilterLeadsDto dto)
+    {
+        await _mediator.Send(new DeleteFilterLeadsCommand(dto));
+
+        return NoContent();
     }
 }

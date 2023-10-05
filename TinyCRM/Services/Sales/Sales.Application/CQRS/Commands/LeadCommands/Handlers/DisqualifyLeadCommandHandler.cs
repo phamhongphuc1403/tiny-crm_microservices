@@ -36,7 +36,7 @@ public class DisqualifyLeadCommandHandler : ICommandHandler<DisqualifyLeadComman
             .ThrowIfNotPresent(new LeadNotFoundException(request.Id)).Get();
         lead = _leadDomainService.Disqualify(lead, request.DisqualificationReason,
             request.DescriptionDisqualification);
-        
+
         _leadOperationRepository.Update(lead);
 
         await _unitOfWork.SaveChangesAsync();
