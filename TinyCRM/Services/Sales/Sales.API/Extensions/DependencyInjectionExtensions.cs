@@ -10,7 +10,9 @@ using Sales.Domain.LeadAggregate;
 using Sales.Domain.LeadAggregate.DomainService;
 using Sales.Domain.ProductAggregate.DomainService;
 using Sales.Domain.ProductAggregate.Entities;
+using Sales.Domain.ProductAggregate.Repositories;
 using Sales.Infrastructure.EFCore;
+using Sales.Infrastructure.EFCore.Repositories.ProductRepositories;
 
 namespace Sales.API.Extensions;
 
@@ -25,6 +27,7 @@ public static class DependencyInjectionExtensions
         services.AddScoped<IOperationRepository<Account>, OperationRepository<SaleDbContext, Account>>();
         services.AddScoped<IReadOnlyRepository<Product>, ReadOnlyRepository<SaleDbContext, Product>>();
         services.AddScoped<IOperationRepository<Product>, OperationRepository<SaleDbContext, Product>>();
+        services.AddScoped<IProductOperationRepository, ProductOperationRepository>();
 
         services.AddScoped<IAccountDomainService, AccountDomainService>();
         services.AddScoped<ILeadDomainService, LeadDomainService>();

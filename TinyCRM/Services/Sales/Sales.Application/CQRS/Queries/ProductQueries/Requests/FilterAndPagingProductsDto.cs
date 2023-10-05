@@ -15,6 +15,8 @@ public class FilterAndPagingProductsQuery : FilterAndPagingProductsDto,
         IsDescending = dto.IsDescending;
         Sort = dto.ConvertSort();
         Type = dto.Type;
+        ShowDeleted = dto.ShowDeleted;
+        ShowUnavailable = dto.ShowUnavailable;
     }
 
     public string Sort { get; private init; }

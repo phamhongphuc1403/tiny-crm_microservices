@@ -23,4 +23,5 @@ public sealed class Product : GuidEntity
     public double Price { get; set; }
     public bool IsAvailable { get; set; }
     public ProductType Type { get; set; }
+    public DateTime? DeletedDate { get; set; }
 }

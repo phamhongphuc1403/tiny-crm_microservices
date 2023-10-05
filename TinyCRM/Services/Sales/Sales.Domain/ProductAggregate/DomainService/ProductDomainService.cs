@@ -37,6 +37,23 @@ public class ProductDomainService : IProductDomainService
         return product;
     }
 
+    public async Task<IEnumerable<Product>> RemoveManyAsync(IEnumerable<Guid> ids)
+    {
+        List<Product> products = new();
+
+        foreach (var id in ids)
+        {
+            var productIdSpecification = new ProductIdSpecification(id);
+
+            var product = Optional<Product>.Of(await _readOnlyRepository.GetAnyAsync(productIdSpecification))
+                .ThrowIfNotPresent(new ProductNotFoundException(id)).Get();
+
+            products.Add(product);
+        }
+
+        return products;
+    }
+
     private async Task CheckValidOnCreateAsync(string code)
     {
         var productCodeSpecification = new ProductCodeExactMatchSpecification(code);

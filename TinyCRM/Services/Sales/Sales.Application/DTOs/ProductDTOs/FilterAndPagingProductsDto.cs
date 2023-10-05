@@ -7,4 +7,6 @@ namespace Sales.Application.DTOs.ProductDTOs;
 public class FilterAndPagingProductsDto : FilterAndPagingDto<ProductSortProperty>
 {
     public ProductType? Type { get; set; }
+    public bool ShowDeleted { get; set; }
+    public bool ShowUnavailable { get; set; }
 }

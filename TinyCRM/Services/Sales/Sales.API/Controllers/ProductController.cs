@@ -57,4 +57,13 @@ public class ProductController : ControllerBase
 
         return product;
     }
+
+    [HttpDelete]
+    [Authorize(Policy = TinyCrmPermissions.Products.Delete)]
+    public async Task<ActionResult> DeleteAsync(DeleteManyProductsDto dto)
+    {
+        await _mediator.Send(new DeleteManyProductsCommand(dto));
+
+        return NoContent();
+    }
 }

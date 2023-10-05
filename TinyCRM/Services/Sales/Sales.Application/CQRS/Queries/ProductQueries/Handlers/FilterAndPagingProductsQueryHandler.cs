@@ -33,10 +33,15 @@ public class FilterAndPagingProductsQueryHandler : IQueryHandler<FilterAndPaging
 
         var productTypeSpecification = new ProductTypeSpecification(query.Type);
 
+        var productDeletedSpecification = new ProductDeletedSpecification(query.ShowDeleted);
+
+        var productUnavailableSpecification = new ProductUnavailableSpecification(query.ShowUnavailable);
+
         var productKeywordPartialMatchSpecification =
             productNamePartialMatchSpecification.Or(productCodePartialMatchSpecification);
 
-        var specification = productKeywordPartialMatchSpecification.And(productTypeSpecification);
+        var specification = productKeywordPartialMatchSpecification.And(productTypeSpecification)
+            .And(productDeletedSpecification).And(productUnavailableSpecification);
 
         var (products, totalCount) =
             await _repository.GetFilterAndPagingAsync(specification, query.Sort, query.Skip, query.Take);
