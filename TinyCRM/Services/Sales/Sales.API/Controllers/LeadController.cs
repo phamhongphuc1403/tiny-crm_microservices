@@ -32,6 +32,7 @@ public class LeadController : ControllerBase
 
     [HttpGet("{id:guid}")]
     [ActionName(nameof(GetByIdAsync))]
+    [Authorize(Policy = TinyCrmPermissions.Leads.Read)]
     public async Task<ActionResult<LeadDetailDto>> GetByIdAsync(Guid id)
     {
         var lead = await _mediator.Send(new GetLeadQuery(id));
@@ -40,6 +41,7 @@ public class LeadController : ControllerBase
     }
 
     [HttpPost]
+    [Authorize(Policy = TinyCrmPermissions.Leads.Create)]
     public async Task<ActionResult<LeadDetailDto>> CreateAsync(LeadCreateDto dto)
     {
         var lead = await _mediator.Send(new CreateLeadCommand(dto));
@@ -48,6 +50,7 @@ public class LeadController : ControllerBase
     }
 
     [HttpPut]
+    [Authorize(Policy = TinyCrmPermissions.Leads.Edit)]
     public async Task<ActionResult<LeadDetailDto>> EditAsync(Guid id, LeadEditDto dto)
     {
         var lead = await _mediator.Send(new EditLeadCommand(id, dto));
@@ -56,6 +59,7 @@ public class LeadController : ControllerBase
     }
 
     [HttpPut("{id:guid}/disqualify")]
+    [Authorize(Policy = TinyCrmPermissions.Leads.Edit)]
     public async Task<ActionResult<LeadDetailDto>> DisqualifyAsync(Guid id, LeadDisqualifyDto dto)
     {
         var lead = await _mediator.Send(new DisqualifyLeadCommand(id, dto));
@@ -64,6 +68,7 @@ public class LeadController : ControllerBase
     }
 
     [HttpDelete]
+    [Authorize(Policy = TinyCrmPermissions.Leads.Delete)]
     public async Task<ActionResult> DeleteManyAsync(LeadDeleteManyDto dto)
     {
         await _mediator.Send(new DeleteManyLeadsCommand(dto));
@@ -72,6 +77,7 @@ public class LeadController : ControllerBase
     }
 
     [HttpDelete("all")]
+    [Authorize(Policy = TinyCrmPermissions.Leads.Delete)]
     public async Task<ActionResult> DeleteAllAsync(FilterLeadsDto dto)
     {
         await _mediator.Send(new DeleteFilterLeadsCommand(dto));
