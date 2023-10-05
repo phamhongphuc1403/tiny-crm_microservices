@@ -34,6 +34,7 @@ public static class DependencyInjectionExtensions
         services.AddScoped<IUnitOfWork, UnitOfWork<SaleDbContext>>();
 
         services.AddScoped<IDataSeeder, ProductSeeder>();
+        services.AddScoped<IDataSeeder, LeadSeeder>();
         return services;
     }
 }

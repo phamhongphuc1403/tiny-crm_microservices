@@ -17,7 +17,7 @@ public sealed class Lead : GuidEntity
         Status = LeadStatus.Prospect;
     }
 
-    internal Lead()
+    public Lead()
     {
     }
 
