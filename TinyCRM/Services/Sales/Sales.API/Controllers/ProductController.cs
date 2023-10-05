@@ -66,4 +66,12 @@ public class ProductController : ControllerBase
 
         return NoContent();
     }
+
+    [HttpDelete("all")]
+    public async Task<ActionResult> DeleteAllAsync([FromQuery] FilterProductsDto dto)
+    {
+        await _mediator.Send(new DeleteFilteredProductsCommand(dto));
+
+        return NoContent();
+    }
 }
