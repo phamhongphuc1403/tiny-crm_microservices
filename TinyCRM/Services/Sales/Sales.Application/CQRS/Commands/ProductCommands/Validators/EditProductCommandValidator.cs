@@ -10,12 +10,12 @@ public class EditProductCommandValidator : AbstractValidator<EditProductCommand>
         RuleFor(product => product.Code)
             .NotEmpty()
             .When(product => string.IsNullOrWhiteSpace(product.Code))
-            .MaximumLength(10);
+            .MaximumLength(256);
 
         RuleFor(product => product.Name)
             .NotEmpty()
             .When(product => string.IsNullOrWhiteSpace(product.Name))
-            .MaximumLength(255);
+            .MaximumLength(256);
 
         RuleFor(product => product.Price)
             .InclusiveBetween(0, double.MaxValue);
