@@ -3,7 +3,7 @@ using BuildingBlock.Domain.Specifications;
 
 namespace Sales.Domain.DealAggregate.Specifications;
 
-public class DealTitlePartialMatchSpecification:Specification<Deal>
+public class DealTitlePartialMatchSpecification : Specification<Deal>
 {
     public DealTitlePartialMatchSpecification(string keyword)
     {
@@ -11,6 +11,7 @@ public class DealTitlePartialMatchSpecification:Specification<Deal>
     }
 
     private string Keyword { get; }
+
     public override Expression<Func<Deal, bool>> ToExpression()
     {
         return deal => deal.Title.ToUpper().Contains(Keyword.ToUpper());

@@ -66,7 +66,7 @@ public class AccountController : ControllerBase
 
         return NoContent();
     }
-    
+
     [HttpDelete("all")]
     public async Task<ActionResult> DeleteAllAsync([FromQuery] FilterAccountsDto dto)
     {

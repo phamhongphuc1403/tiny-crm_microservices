@@ -10,12 +10,7 @@
         <ProjectReference Include="..\..\..\BuildingBlocks\BuildingBlock.Domain\BuildingBlock.Domain.csproj"/>
 
 
-
-
-
     </ItemGroup>
-
-
 
 
 </Project>

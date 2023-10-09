@@ -4,7 +4,7 @@ using Sales.Domain.DealAggregate;
 
 namespace Sales.Infrastructure.EFCore.EntityConfigurations;
 
-public class DealConfiguration:IEntityTypeConfiguration<Deal>
+public class DealConfiguration : IEntityTypeConfiguration<Deal>
 {
     public void Configure(EntityTypeBuilder<Deal> builder)
     {
@@ -27,7 +27,7 @@ public class DealConfiguration:IEntityTypeConfiguration<Deal>
             .WithOne()
             .HasForeignKey(dl => dl.DealId)
             .OnDelete(DeleteBehavior.Cascade);
-        
+
         builder.HasIndex(d => d.Title).IsUnique();
     }
 }

@@ -1,8 +1,10 @@
 using Bogus;
 using BuildingBlock.Application;
+using BuildingBlock.Domain.Exceptions;
 using BuildingBlock.Domain.Interfaces;
 using BuildingBlock.Domain.Repositories;
 using Microsoft.Extensions.Logging;
+using Polly;
 using Sales.Domain.AccountAggregate;
 using Sales.Domain.LeadAggregate;
 using Sales.Domain.LeadAggregate.Enums;
@@ -11,12 +13,11 @@ namespace Sales.Application.Seeds;
 
 public class LeadSeeder : IDataSeeder
 {
-    private readonly ILogger<LeadSeeder> _logger;
+    private readonly IReadOnlyRepository<Account> _accountReadonlyRepository;
     private readonly IOperationRepository<Lead> _leadOperationRepository;
     private readonly IReadOnlyRepository<Lead> _leadReadonlyRepository;
-    private readonly IReadOnlyRepository<Account> _accountReadonlyRepository;
+    private readonly ILogger<LeadSeeder> _logger;
     private readonly IUnitOfWork _unitOfWork;
-
 
     public LeadSeeder(ILogger<LeadSeeder> logger, IOperationRepository<Lead> leadOperationRepository,
         IReadOnlyRepository<Lead> leadReadonlyRepository, IReadOnlyRepository<Account> accountReadonlyRepository,
@@ -31,14 +32,28 @@ public class LeadSeeder : IDataSeeder
 
     public async Task SeedDataAsync()
     {
+        var accountIds = new List<Guid>();
+        var policy = Policy.Handle<SeedDataException>()
+            .WaitAndRetry(5, retryAttempt => TimeSpan.FromSeconds(Math.Pow(2, retryAttempt)),
+                (ex, time) =>
+                {
+                    _logger.LogWarning(ex, "Couldn't seed Leads table after {TimeOut}s", $"{time.TotalSeconds:n1}");
+                }
+            );
+
+        policy.Execute(() =>
+        {
+            var accounts = _accountReadonlyRepository.GetAllAsync().Result;
+            if (accounts.Count < 50) throw new SeedDataException("Account data not seeded yet!");
+
+            accountIds = accounts.Select(account => account.Id).ToList();
+        });
+
         if (await _leadReadonlyRepository.CheckIfExistAsync())
         {
             _logger.LogInformation("Leads data already seeded!");
             return;
         }
-
-        await Task.Delay(30000);
-        var accountIds = (await _accountReadonlyRepository.GetAllAsync()).Select(account => account.Id);
 
         SeedLeads(accountIds);
         await _unitOfWork.SaveChangesAsync();
@@ -59,12 +74,12 @@ public class LeadSeeder : IDataSeeder
             .FinishWith((f, lead) =>
             {
                 if (lead.Status != LeadStatus.Disqualified) return;
-                
+
                 lead.DisqualificationReason = f.PickRandom<LeadDisqualificationReason>();
                 lead.DisqualificationDescription = f.Lorem.Sentence();
                 lead.DisqualificationDate = f.Date.Past();
             });
 
-        _leadOperationRepository.AddRangeAsync(faker.Generate(500));
+        _leadOperationRepository.AddRangeAsync(faker.Generate(50));
     }
 }

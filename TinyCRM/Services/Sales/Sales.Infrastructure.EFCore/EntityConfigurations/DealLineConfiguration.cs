@@ -15,10 +15,10 @@ public class DealLineConfiguration : IEntityTypeConfiguration<DealLine>
 
         builder.HasIndex(dl => dl.Code).IsUnique();
 
-        builder.HasOne(dl=>dl.Product)
-            .WithMany() 
+        builder.HasOne(dl => dl.Product)
+            .WithMany()
             .HasForeignKey(dl => dl.ProductId)
             .OnDelete(DeleteBehavior
-                .Cascade); 
+                .Cascade);
     }
 }

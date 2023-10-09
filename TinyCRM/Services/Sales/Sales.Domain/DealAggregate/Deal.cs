@@ -8,18 +8,6 @@ namespace Sales.Domain.DealAggregate;
 
 public class Deal : GuidEntity
 {
-    public string Title { get; set; }
-    public Guid CustomerId { get; set; }
-    public Account Customer { get; set; } = null!;
-    public Guid? LeadId { get; set; }
-    public Lead? Lead { get; set; }
-    public string? Description { get; set; }
-    public DealStatus DealStatus { get; set; }
-    public decimal EstimatedRevenue { get; set; }
-    public decimal ActualRevenue { get; set; }
-
-    public List<DealLine> DealLines { get; set; }
-
     internal Deal(string title, Guid customerId, Guid? leadId, string? description,
         decimal estimatedRevenue)
     {
@@ -31,6 +19,18 @@ public class Deal : GuidEntity
         EstimatedRevenue = estimatedRevenue;
         DealLines = new List<DealLine>();
     }
+
+    public string Title { get; set; }
+    public Guid CustomerId { get; set; }
+    public Account Customer { get; set; } = null!;
+    public Guid? LeadId { get; set; }
+    public Lead? Lead { get; set; }
+    public string? Description { get; set; }
+    public DealStatus DealStatus { get; set; }
+    public decimal EstimatedRevenue { get; set; }
+    public decimal ActualRevenue { get; set; }
+
+    public List<DealLine> DealLines { get; set; }
 
     internal void Update(string title, Guid customerId, Guid? leadId, string? description, DealStatus dealStatus,
         decimal estimatedRevenue, decimal actualRevenue)
@@ -52,10 +52,7 @@ public class Deal : GuidEntity
     internal void UpdateDealLine(Guid id, Guid productId, string code, double price, int quantity, double totalAmount)
     {
         var dealLine = DealLines.FirstOrDefault(x => x.Id == id);
-        if (dealLine == null)
-        {
-            throw new DealLineNotFoundException(id);
-        }
+        if (dealLine == null) throw new DealLineNotFoundException(id);
 
         dealLine.ProductId = productId;
         dealLine.Code = code;
@@ -63,14 +60,11 @@ public class Deal : GuidEntity
         dealLine.Quantity = quantity;
         dealLine.TotalAmount = totalAmount;
     }
-    
+
     internal void RemoveDealLine(Guid id)
     {
         var dealLine = DealLines.FirstOrDefault(x => x.Id == id);
-        if (dealLine == null)
-        {
-            throw new DealLineNotFoundException(id);
-        }
+        if (dealLine == null) throw new DealLineNotFoundException(id);
 
         DealLines.Remove(dealLine);
     }
