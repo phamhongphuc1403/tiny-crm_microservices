@@ -67,7 +67,7 @@ public class LeadDomainService : ILeadDomainService
     public Lead Disqualify(Lead lead, LeadDisqualificationReason reason, string? description = null)
     {
         if (!CheckValidStatus(lead.Status)) throw new LeadValidStatusException(lead.Status);
-        lead.Status = LeadStatus.Disqualify;
+        lead.Status = LeadStatus.Disqualified;
         lead.DisqualificationReason = reason;
         lead.DisqualificationDescription = description;
         lead.DisqualificationDate = DateTime.UtcNow;
@@ -78,7 +78,7 @@ public class LeadDomainService : ILeadDomainService
     {
         if (!CheckValidStatus(lead.Status)) throw new LeadValidStatusException(lead.Status);
 
-        lead.Status = LeadStatus.Qualify;
+        lead.Status = LeadStatus.Qualified;
 
         return lead;
     }

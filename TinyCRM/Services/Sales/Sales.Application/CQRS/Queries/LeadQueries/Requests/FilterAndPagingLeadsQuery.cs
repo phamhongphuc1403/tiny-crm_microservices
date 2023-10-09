@@ -1,10 +1,11 @@
 using BuildingBlock.Application.CQRS.Query;
 using BuildingBlock.Application.DTOs;
 using Sales.Application.DTOs.Leads;
+using Sales.Application.DTOs.Leads.Enums;
 
 namespace Sales.Application.CQRS.Queries.LeadQueries.Requests;
 
-public class FilterAndPagingLeadsQuery : FilterAndPagingLeadsDto, IQuery<FilterAndPagingResultDto<LeadSummaryDto>>
+public sealed class FilterAndPagingLeadsQuery : FilterAndPagingLeadsDto, IQuery<FilterAndPagingResultDto<LeadSummaryDto>>
 {
     public FilterAndPagingLeadsQuery(FilterAndPagingLeadsDto dto)
     {
@@ -13,6 +14,8 @@ public class FilterAndPagingLeadsQuery : FilterAndPagingLeadsDto, IQuery<FilterA
         Take = dto.Take;
         IsDescending = dto.IsDescending;
         Sort = dto.ConvertSort();
+        if (dto.SortBy == LeadSortProperty.Customer)
+            Sort = Sort.Replace("Customer", "Customer.Name");
         Status = dto.Status;
     }
 

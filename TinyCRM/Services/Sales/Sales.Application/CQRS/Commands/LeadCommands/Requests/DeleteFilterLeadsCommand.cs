@@ -7,6 +7,7 @@ public class DeleteFilterLeadsCommand : FilterLeadsDto, ICommand
 {
     public DeleteFilterLeadsCommand(FilterLeadsDto dto)
     {
+        Status = dto.Status;
         Keyword = dto.Keyword;
     }
 }

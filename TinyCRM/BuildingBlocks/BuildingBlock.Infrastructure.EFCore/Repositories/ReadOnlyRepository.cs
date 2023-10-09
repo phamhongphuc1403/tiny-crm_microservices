@@ -35,7 +35,7 @@ public class ReadOnlyRepository<TDbContext, TEntity> : IReadOnlyRepository<TEnti
     public Task<List<TEntity>> GetAllAsync(ISpecification<TEntity>? specification = null,
         string? includeTables = null)
     {
-        var query = DbSet.AsNoTracking();
+        var query = DbSet.AsQueryable();
 
         if (specification != null) query = Filter(query, specification);
 

@@ -78,7 +78,7 @@ public class LeadController : ControllerBase
 
     [HttpDelete("all")]
     [Authorize(Policy = TinyCrmPermissions.Leads.Delete)]
-    public async Task<ActionResult> DeleteAllAsync(FilterLeadsDto dto)
+    public async Task<ActionResult> DeleteAllAsync([FromQuery] FilterLeadsDto dto)
     {
         await _mediator.Send(new DeleteFilterLeadsCommand(dto));
 

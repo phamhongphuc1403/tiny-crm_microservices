@@ -23,10 +23,14 @@ public class DeleteFilterLeadsCommandHandler : ICommandHandler<DeleteFilterLeads
 
     public async Task Handle(DeleteFilterLeadsCommand request, CancellationToken cancellationToken)
     {
+        var includes = "Customer";
         var leadAccountNamePartialMatchSpecification = new LeadAccountNamePartialMatchSpecification(request.Keyword);
         var leadTitlePartialMatchSpecification = new LeadTitlePartialMatchSpecification(request.Keyword);
-        var specification = leadTitlePartialMatchSpecification.Or(leadAccountNamePartialMatchSpecification);
-        var leads = await _leadReadOnlyRepository.GetAllAsync(specification);
+        var leadStatusFilterSpecification = new LeadStatusFilterSpecification(request.Status);
+        var specification =
+            leadStatusFilterSpecification.And(
+                leadTitlePartialMatchSpecification.Or(leadAccountNamePartialMatchSpecification));
+        var leads = await _leadReadOnlyRepository.GetAllAsync(specification, includes);
 
         _leadOperationRepository.RemoveRange(leads);
         await _unitOfWork.SaveChangesAsync();

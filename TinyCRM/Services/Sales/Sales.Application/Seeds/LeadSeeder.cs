@@ -37,6 +37,7 @@ public class LeadSeeder : IDataSeeder
             return;
         }
 
+        await Task.Delay(30000);
         var accountIds = (await _accountReadonlyRepository.GetAllAsync()).Select(account => account.Id);
 
         SeedLeads(accountIds);
@@ -57,7 +58,7 @@ public class LeadSeeder : IDataSeeder
             .RuleFor(lead => lead.Status, f => f.PickRandom<LeadStatus>())
             .FinishWith((f, lead) =>
             {
-                if (lead.Status != LeadStatus.Disqualify) return;
+                if (lead.Status != LeadStatus.Disqualified) return;
                 
                 lead.DisqualificationReason = f.PickRandom<LeadDisqualificationReason>();
                 lead.DisqualificationDescription = f.Lorem.Sentence();

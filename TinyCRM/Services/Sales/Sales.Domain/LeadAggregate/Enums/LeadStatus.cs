@@ -4,6 +4,6 @@ public enum LeadStatus
 {
     Prospect,
     Open,
-    Qualify,
-    Disqualify
+    Qualified,
+    Disqualified
 }

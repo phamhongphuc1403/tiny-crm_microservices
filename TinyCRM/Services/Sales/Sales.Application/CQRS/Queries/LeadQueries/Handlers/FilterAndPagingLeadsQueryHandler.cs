@@ -28,7 +28,8 @@ public class
     public async Task<FilterAndPagingResultDto<LeadSummaryDto>> Handle(FilterAndPagingLeadsQuery query,
         CancellationToken cancellationToken)
     {
-        var includes = "Customer";
+        const string includes = "Customer";
+        
         var leadTitleSpecification = new LeadTitlePartialMatchSpecification(query.Keyword);
         var leadAccountNameSpecification = new LeadAccountNamePartialMatchSpecification(query.Keyword);
         var leadStatusSpecification = new LeadStatusFilterSpecification(query.Status);
