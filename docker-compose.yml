@@ -89,6 +89,7 @@ services:
       - SA_PASSWORD=Admin123
   tinycrm.redis:
     image: redis
+    restart: always
     ports:
       - "6379:6379"
   tinycrm.rabbitmq:
@@ -96,6 +97,7 @@ services:
     ports:
       - "15672:15672"
       - "5672:5672"
+    restart: always
     environment:
       - RABBITMQ_DEFAULT_USER=admin
       - RABBITMQ_DEFAULT_PASS=admin

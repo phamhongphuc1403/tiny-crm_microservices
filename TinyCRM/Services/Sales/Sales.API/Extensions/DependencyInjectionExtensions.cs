@@ -6,6 +6,8 @@ using BuildingBlock.Infrastructure.EFCore.Repositories;
 using Sales.Application.Seeds;
 using Sales.Domain.AccountAggregate;
 using Sales.Domain.AccountAggregate.DomainService;
+using Sales.Domain.DealAggregate;
+using Sales.Domain.DealAggregate.DomainService;
 using Sales.Domain.LeadAggregate;
 using Sales.Domain.LeadAggregate.DomainService;
 using Sales.Domain.ProductAggregate.DomainService;
@@ -22,16 +24,19 @@ public static class DependencyInjectionExtensions
     {
         services.AddScoped<IReadOnlyRepository<Lead>, ReadOnlyRepository<SaleDbContext, Lead>>();
         services.AddScoped<IReadOnlyRepository<Account>, ReadOnlyRepository<SaleDbContext, Account>>();
+        services.AddScoped<IReadOnlyRepository<Product>, ReadOnlyRepository<SaleDbContext, Product>>();
+        services.AddScoped<IReadOnlyRepository<Deal>, ReadOnlyRepository<SaleDbContext, Deal>>();
 
         services.AddScoped<IOperationRepository<Lead>, OperationRepository<SaleDbContext, Lead>>();
         services.AddScoped<IOperationRepository<Account>, OperationRepository<SaleDbContext, Account>>();
-        services.AddScoped<IReadOnlyRepository<Product>, ReadOnlyRepository<SaleDbContext, Product>>();
         services.AddScoped<IOperationRepository<Product>, OperationRepository<SaleDbContext, Product>>();
         services.AddScoped<IProductOperationRepository, ProductOperationRepository>();
+        services.AddScoped<IOperationRepository<Deal>, OperationRepository<SaleDbContext, Deal>>();
 
         services.AddScoped<IAccountDomainService, AccountDomainService>();
         services.AddScoped<ILeadDomainService, LeadDomainService>();
         services.AddScoped<IProductDomainService, ProductDomainService>();
+        services.AddScoped<IDealDomainService, DealDomainService>();
 
         services.AddScoped<Func<BaseDbContext>>(provider => () => provider.GetService<SaleDbContext>()!);
         services.AddScoped<IUnitOfWork, UnitOfWork<SaleDbContext>>();

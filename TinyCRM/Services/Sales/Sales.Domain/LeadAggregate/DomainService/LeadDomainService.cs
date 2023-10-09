@@ -14,8 +14,7 @@ public class LeadDomainService : ILeadDomainService
     private readonly IReadOnlyRepository<Account> _accountReadOnlyRepository;
     private readonly IReadOnlyRepository<Lead> _leadReadOnlyRepository;
 
-    public LeadDomainService(IReadOnlyRepository<Lead> readOnlyRepository,
-        IReadOnlyRepository<Account> accountReadOnlyRepository, IReadOnlyRepository<Lead> leadReadOnlyRepository)
+    public LeadDomainService(IReadOnlyRepository<Account> accountReadOnlyRepository, IReadOnlyRepository<Lead> leadReadOnlyRepository)
     {
         _accountReadOnlyRepository = accountReadOnlyRepository;
         _leadReadOnlyRepository = leadReadOnlyRepository;
