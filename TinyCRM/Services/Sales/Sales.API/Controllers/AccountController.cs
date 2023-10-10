@@ -4,7 +4,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Sales.Application.CQRS.Commands.AccountCommands.Requests;
 using Sales.Application.CQRS.Queries.AccountQueries.Requests;
-using Sales.Application.DTOs.Accounts;
+using Sales.Application.DTOs.AccountDTOs;
 
 namespace Sales.API.Controllers;
 
@@ -21,17 +21,17 @@ public class AccountController : ControllerBase
 
     [HttpGet]
     [Authorize(Policy = TinyCrmPermissions.Accounts.Read)]
-    public async Task<ActionResult<IEnumerable<AccountResultDto>>> FilteredAsync(
-        [FromQuery] FilterAccountDto dto)
+    public async Task<ActionResult<IEnumerable<AccountSummaryDto>>> FilteredAsync(
+        [FromQuery] FilterAndPagingAccountsDto dto)
     {
-        var accounts = await _mediator.Send(new FilterAccountsQuery(dto));
+        var accounts = await _mediator.Send(new FilterAndPagingAccountsQuery(dto));
 
         return Ok(accounts);
     }
 
     [HttpPost]
     [Authorize(Policy = TinyCrmPermissions.Accounts.Create)]
-    public async Task<ActionResult<AccountResultDto>> CreateAsync(CreateAccountDto dto)
+    public async Task<ActionResult<AccountSummaryDto>> CreateAsync(CreateAccountDto dto)
     {
         var account = await _mediator.Send(new CreateAccountCommand(dto));
 

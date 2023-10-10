@@ -1,4 +1,4 @@
-namespace Sales.Application.DTOs.Leads.Enums;
+namespace Sales.Application.DTOs.LeadDTOs.Enums;
 
 public enum LeadSortProperty
 {

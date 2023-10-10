@@ -1,5 +1,5 @@
 using BuildingBlock.Application.CQRS.Command;
-using Sales.Application.DTOs.Leads;
+using Sales.Application.DTOs.LeadDTOs;
 
 namespace Sales.Application.CQRS.Commands.LeadCommands.Requests;
 

@@ -1,4 +1,4 @@
-namespace Sales.Application.DTOs.Leads;
+namespace Sales.Application.DTOs.LeadDTOs;
 
 public class LeadDeleteManyDto
 {

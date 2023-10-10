@@ -1,4 +1,4 @@
-namespace Sales.Application.DTOs.Accounts;
+namespace Sales.Application.DTOs.AccountDTOs;
 
 public class CreateAccountDto
 {

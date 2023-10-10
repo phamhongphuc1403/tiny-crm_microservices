@@ -1,6 +1,6 @@
-namespace Sales.Application.DTOs.Accounts;
+namespace Sales.Application.DTOs.AccountDTOs;
 
-public class AccountResultDto
+public class AccountSummaryDto
 {
     public Guid Id { get; set; }
     public string Name { get; set; } = null!;

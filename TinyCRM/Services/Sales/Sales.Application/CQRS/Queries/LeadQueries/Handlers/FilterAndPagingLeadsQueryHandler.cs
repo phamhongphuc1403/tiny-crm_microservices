@@ -3,7 +3,7 @@ using BuildingBlock.Application.CQRS.Query;
 using BuildingBlock.Application.DTOs;
 using BuildingBlock.Domain.Repositories;
 using Sales.Application.CQRS.Queries.LeadQueries.Requests;
-using Sales.Application.DTOs.Leads;
+using Sales.Application.DTOs.LeadDTOs;
 using Sales.Domain.LeadAggregate;
 using Sales.Domain.LeadAggregate.Specifications;
 

@@ -1,9 +1,9 @@
 using BuildingBlock.Application.CQRS.Command;
-using Sales.Application.DTOs.Accounts;
+using Sales.Application.DTOs.AccountDTOs;
 
 namespace Sales.Application.CQRS.Commands.AccountCommands.Requests;
 
-public class CreateAccountCommand : CreateAccountDto, ICommand<AccountResultDto>
+public class CreateAccountCommand : CreateAccountDto, ICommand<AccountSummaryDto>
 {
     public CreateAccountCommand(CreateAccountDto dto)
     {

@@ -2,7 +2,7 @@
 using System.Text.Json.Serialization;
 using Sales.Domain.LeadAggregate.Enums;
 
-namespace Sales.Application.DTOs.Leads;
+namespace Sales.Application.DTOs.LeadDTOs;
 
 public class LeadDisqualifyDto
 {

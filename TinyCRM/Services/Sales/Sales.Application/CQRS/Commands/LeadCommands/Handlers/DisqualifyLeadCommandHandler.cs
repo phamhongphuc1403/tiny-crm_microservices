@@ -4,7 +4,7 @@ using BuildingBlock.Domain.Interfaces;
 using BuildingBlock.Domain.Repositories;
 using BuildingBlock.Domain.Utils;
 using Sales.Application.CQRS.Commands.LeadCommands.Requests;
-using Sales.Application.DTOs.Leads;
+using Sales.Application.DTOs.LeadDTOs;
 using Sales.Domain.LeadAggregate;
 using Sales.Domain.LeadAggregate.DomainService;
 using Sales.Domain.LeadAggregate.Exceptions;

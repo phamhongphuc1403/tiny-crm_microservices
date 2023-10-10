@@ -1,4 +1,4 @@
-﻿using Sales.Application.DTOs.Leads;
+﻿using Sales.Application.DTOs.LeadDTOs;
 using Sales.Domain.LeadAggregate;
 
 namespace Sales.Infrastructure.EFCore.Mapper;

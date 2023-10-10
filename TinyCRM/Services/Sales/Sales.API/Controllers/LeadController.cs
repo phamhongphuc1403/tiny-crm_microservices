@@ -5,7 +5,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Sales.Application.CQRS.Commands.LeadCommands.Requests;
 using Sales.Application.CQRS.Queries.LeadQueries.Requests;
-using Sales.Application.DTOs.Leads;
+using Sales.Application.DTOs.LeadDTOs;
 
 namespace Sales.API.Controllers;
 

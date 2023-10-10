@@ -1,7 +1,7 @@
 using BuildingBlock.Application.CQRS.Query;
 using BuildingBlock.Application.DTOs;
-using Sales.Application.DTOs.Leads;
-using Sales.Application.DTOs.Leads.Enums;
+using Sales.Application.DTOs.LeadDTOs;
+using Sales.Application.DTOs.LeadDTOs.Enums;
 
 namespace Sales.Application.CQRS.Queries.LeadQueries.Requests;
 
