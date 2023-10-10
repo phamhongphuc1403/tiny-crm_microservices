@@ -3,6 +3,7 @@ using BuildingBlock.Application.Identity.Permissions;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Sales.Application.CQRS.Commands.DealCommands.Requests;
 using Sales.Application.CQRS.Queries.DealQueries.Requests;
 using Sales.Application.DTOs.DealDTOs;
 
@@ -24,8 +25,16 @@ public class DealController : ControllerBase
     public async Task<ActionResult<FilterAndPagingResultDto<DealSummaryDto>>> GetAllAsync(
         [FromQuery] FilterAndPagingDealsDto dto)
     {
-        var leads = await _mediator.Send(new FilterAndPagingDealsQuery(dto));
+        var deals = await _mediator.Send(new FilterAndPagingDealsQuery(dto));
 
-        return Ok(leads);
+        return Ok(deals);
+    }
+    
+    [HttpPost]
+    public async Task<ActionResult<DealDetailDto>> CreateAsync([FromBody] DealCreateDto dto)
+    {
+        var deal = await _mediator.Send(new CreateDealCommand(dto));
+
+        return Ok(deal);
     }
 }

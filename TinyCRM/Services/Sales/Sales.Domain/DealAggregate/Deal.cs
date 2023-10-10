@@ -9,7 +9,7 @@ namespace Sales.Domain.DealAggregate;
 public class Deal : GuidEntity
 {
     internal Deal(string title, Guid customerId, Guid? leadId, string? description,
-        decimal estimatedRevenue)
+        double estimatedRevenue, double actualRevenue)
     {
         Title = title;
         CustomerId = customerId;
@@ -17,6 +17,7 @@ public class Deal : GuidEntity
         Description = description;
         DealStatus = DealStatus.Open;
         EstimatedRevenue = estimatedRevenue;
+        ActualRevenue = actualRevenue;
         DealLines = new List<DealLine>();
     }
 
@@ -27,13 +28,13 @@ public class Deal : GuidEntity
     public Lead? Lead { get; set; }
     public string? Description { get; set; }
     public DealStatus DealStatus { get; set; }
-    public decimal EstimatedRevenue { get; set; }
-    public decimal ActualRevenue { get; set; }
+    public double EstimatedRevenue { get; set; }
+    public double ActualRevenue { get; set; }
 
     public List<DealLine> DealLines { get; set; }
 
     internal void Update(string title, Guid customerId, Guid? leadId, string? description, DealStatus dealStatus,
-        decimal estimatedRevenue, decimal actualRevenue)
+        double estimatedRevenue, double actualRevenue)
     {
         Title = title;
         CustomerId = customerId;

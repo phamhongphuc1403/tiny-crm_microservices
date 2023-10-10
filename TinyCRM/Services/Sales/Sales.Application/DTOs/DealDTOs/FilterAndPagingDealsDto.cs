@@ -6,5 +6,5 @@ namespace Sales.Application.DTOs.DealDTOs;
 
 public class FilterAndPagingDealsDto:FilterAndPagingDto<DealSortProperty>
 {
-    public DealStatus Status { get; set; }
+    public DealStatus? Status { get; set; }
 }
