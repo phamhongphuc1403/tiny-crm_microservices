@@ -49,7 +49,7 @@ public class LeadController : ControllerBase
         return CreatedAtAction(nameof(GetByIdAsync), new { id = lead.Id }, lead);
     }
 
-    [HttpPut]
+    [HttpPut("{id:guid}")]
     [Authorize(Policy = TinyCrmPermissions.Leads.Edit)]
     public async Task<ActionResult<LeadDetailDto>> EditAsync(Guid id, LeadEditDto dto)
     {
