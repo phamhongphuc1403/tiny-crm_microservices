@@ -28,6 +28,27 @@ public class DealDomainService : IDealDomainService
         _leadReadOnlyRepository = leadReadOnlyRepository;
     }
 
+    public async Task<Deal> CreateDealAsync(Guid dealId, string title, Guid customerId, Guid? leadId,
+        string? description,
+        double estimatedRevenue, double actualRevenue)
+    {
+        Optional<bool>
+            .Of(await _accountReadOnlyRepository.CheckIfExistAsync(new AccountIdSpecification(customerId)))
+            .ThrowIfNotPresent(new AccountNotFoundException(customerId));
+
+        if (leadId == null)
+            return new Deal(dealId, title, customerId, leadId, description, estimatedRevenue, actualRevenue);
+
+        var leads = Optional<List<Lead>>
+            .Of(await _leadReadOnlyRepository.GetAllAsync(new LeadAccountIdMatchSpecification(customerId)))
+            .ThrowIfNotPresent(new LeadNotFoundException(leadId.Value))
+            .Get().Select(lead => lead.Id).ToList();
+        if (!leads.Contains((Guid)leadId))
+            throw new LeadMatchAccountException($"Lead {leadId} not match account {customerId}");
+
+        return new Deal(dealId, title, customerId, leadId, description, estimatedRevenue, actualRevenue);
+    }
+
     public async Task<Deal> CreateDealAsync(string title, Guid customerId, Guid? leadId, string? description,
         double estimatedRevenue, double actualRevenue)
     {
@@ -36,14 +57,14 @@ public class DealDomainService : IDealDomainService
             .ThrowIfNotPresent(new AccountNotFoundException(customerId));
 
         if (leadId == null) return new Deal(title, customerId, leadId, description, estimatedRevenue, actualRevenue);
-        
+
         var leads = Optional<List<Lead>>
             .Of(await _leadReadOnlyRepository.GetAllAsync(new LeadAccountIdMatchSpecification(customerId)))
             .ThrowIfNotPresent(new LeadNotFoundException(leadId.Value))
             .Get().Select(lead => lead.Id).ToList();
         if (!leads.Contains((Guid)leadId))
             throw new LeadMatchAccountException($"Lead {leadId} not match account {customerId}");
-        
+
         return new Deal(title, customerId, leadId, description, estimatedRevenue, actualRevenue);
     }
 

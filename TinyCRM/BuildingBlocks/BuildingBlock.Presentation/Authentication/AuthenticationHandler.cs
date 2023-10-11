@@ -25,7 +25,7 @@ public class AuthenticationHandler : AuthenticationHandler<AuthenticationSchemeO
             Logger.LogInformation("Authenticated failed, access token not provided!");
             return AuthenticateResult.Fail("Access token not provided!");
         }
-
+    
         var accessToken = Context.Request.Headers["Authorization"].ToString();
 
         var headers = new Metadata

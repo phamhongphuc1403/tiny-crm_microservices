@@ -7,6 +7,9 @@ public interface IDealDomainService
     Task<Deal> CreateDealAsync(string title, Guid customerId, Guid? leadId, string? description,
         double estimatedRevenue,double actualRevenue);
 
+    Task<Deal> CreateDealAsync(Guid dealId,string title, Guid customerId, Guid? leadId, string? description,
+        double estimatedRevenue,double actualRevenue);
+    
     Task<Deal> UpdateDealAsync(Deal deal, string title, Guid customerId, Guid? leadId, string? description,
         DealStatus dealStatus,
         double estimatedRevenue,double actualRevenue);

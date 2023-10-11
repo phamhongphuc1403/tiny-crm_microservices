@@ -1,5 +1,6 @@
 using BuildingBlock.Domain.Model;
 using Sales.Domain.AccountAggregate;
+using Sales.Domain.DealAggregate;
 using Sales.Domain.LeadAggregate.Enums;
 
 namespace Sales.Domain.LeadAggregate;
@@ -34,6 +35,8 @@ public sealed class Lead : GuidEntity
     public LeadDisqualificationReason? DisqualificationReason { get; set; }
     public string? DisqualificationDescription { get; set; }
     public DateTime? DisqualificationDate { get; set; }
+
+    public Deal? Deal { get; set; }
 
     internal void Update(string title, Guid customerId, LeadSource? source, double? estimatedRevenue,
         string? description, LeadStatus status)

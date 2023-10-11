@@ -4,6 +4,7 @@ using Sales.Domain.AccountAggregate;
 using Sales.Domain.AccountAggregate.Exceptions;
 using Sales.Domain.AccountAggregate.Specifications;
 using Sales.Domain.LeadAggregate.Enums;
+using Sales.Domain.LeadAggregate.Events;
 using Sales.Domain.LeadAggregate.Exceptions;
 using Sales.Domain.LeadAggregate.Specifications;
 
@@ -75,11 +76,12 @@ public class LeadDomainService : ILeadDomainService
         return lead;
     }
 
-    public Lead Qualify(Lead lead)
+    public Lead Qualify(Lead lead,Guid dealId)
     {
         if (!CheckValidStatus(lead.Status)) throw new LeadValidStatusException(lead.Status);
 
         lead.Status = LeadStatus.Qualified;
+        lead.AddDomainEvent(new QualifiedLeadDomainEvent(dealId,lead.Id, lead.CustomerId, lead.EstimatedRevenue, lead.Title));
 
         return lead;
     }

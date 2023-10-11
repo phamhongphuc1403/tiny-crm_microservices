@@ -6,7 +6,7 @@ using Sales.Domain.LeadAggregate;
 
 namespace Sales.Domain.DealAggregate;
 
-public class Deal : GuidEntity
+public sealed class Deal : GuidEntity
 {
     internal Deal(string title, Guid customerId, Guid? leadId, string? description,
         double estimatedRevenue, double actualRevenue)
@@ -21,6 +21,20 @@ public class Deal : GuidEntity
         DealLines = new List<DealLine>();
     }
 
+    internal Deal(Guid id, string title, Guid customerId, Guid? leadId, string? description,
+        double estimatedRevenue, double actualRevenue)
+    {
+        Id = id;
+        Title = title;
+        CustomerId = customerId;
+        LeadId = leadId;
+        Description = description;
+        DealStatus = DealStatus.Open;
+        EstimatedRevenue = estimatedRevenue;
+        ActualRevenue = actualRevenue;
+        DealLines = new List<DealLine>();
+    }
+    
     public string Title { get; set; }
     public Guid CustomerId { get; set; }
     public Account Customer { get; set; } = null!;
