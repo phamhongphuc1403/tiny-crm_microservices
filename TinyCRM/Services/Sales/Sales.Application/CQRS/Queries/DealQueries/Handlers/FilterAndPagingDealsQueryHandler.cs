@@ -9,7 +9,9 @@ using Sales.Domain.DealAggregate.Specifications;
 
 namespace Sales.Application.CQRS.Queries.DealQueries.Handlers;
 
-public class FilterAndPagingDealsQueryHandler: IQueryHandler<FilterAndPagingDealsQuery, FilterAndPagingResultDto<DealSummaryDto>>
+public class
+    FilterAndPagingDealsQueryHandler : IQueryHandler<FilterAndPagingDealsQuery,
+        FilterAndPagingResultDto<DealSummaryDto>>
 {
     private readonly IMapper _mapper;
     private readonly IReadOnlyRepository<Deal> _repository;
@@ -20,10 +22,11 @@ public class FilterAndPagingDealsQueryHandler: IQueryHandler<FilterAndPagingDeal
         _repository = repository;
     }
 
-    public async Task<FilterAndPagingResultDto<DealSummaryDto>> Handle(FilterAndPagingDealsQuery request, CancellationToken cancellationToken)
+    public async Task<FilterAndPagingResultDto<DealSummaryDto>> Handle(FilterAndPagingDealsQuery request,
+        CancellationToken cancellationToken)
     {
         const string includes = "Customer";
-        
+
         var dealTitleSpecification = new DealTitlePartialMatchSpecification(request.Keyword);
         var dealAccountNameSpecification = new DealAccountNamePartialMatchSpecification(request.Keyword);
         var dealStatusSpecification = new DealStatusFilterSpecification(request.Status);

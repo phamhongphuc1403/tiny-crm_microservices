@@ -8,17 +8,18 @@ public class DealLineConfiguration : IEntityTypeConfiguration<DealLine>
 {
     public void Configure(EntityTypeBuilder<DealLine> builder)
     {
-        builder.Property(dl => dl.Code).HasMaxLength(50).IsRequired().IsUnicode(false);
-        builder.Property(dl => dl.Price).HasColumnType("decimal(18,2)").IsRequired();
+        builder.Property(dl => dl.PricePerUnit).HasColumnType("decimal(18,2)").IsRequired();
         builder.Property(dl => dl.Quantity).IsRequired();
         builder.Property(dl => dl.TotalAmount).HasColumnType("decimal(18,2)").IsRequired();
 
-        builder.HasIndex(dl => dl.Code).IsUnique();
-
         builder.HasOne(dl => dl.Product)
-            .WithMany()
+            .WithMany(product => product.DealLines)
             .HasForeignKey(dl => dl.ProductId)
-            .OnDelete(DeleteBehavior
-                .Cascade);
+            .OnDelete(DeleteBehavior.Cascade);
+
+        builder.HasOne(dl => dl.Deal)
+            .WithMany(deal => deal.DealLines)
+            .HasForeignKey(dl => dl.DealId)
+            .OnDelete(DeleteBehavior.Cascade);
     }
 }

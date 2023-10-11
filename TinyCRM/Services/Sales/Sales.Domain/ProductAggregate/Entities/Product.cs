@@ -1,4 +1,5 @@
 using BuildingBlock.Domain.Model;
+using Sales.Domain.DealAggregate;
 using Sales.Domain.ProductAggregate.Entities.Enums;
 
 namespace Sales.Domain.ProductAggregate.Entities;
@@ -24,4 +25,5 @@ public sealed class Product : GuidEntity
     public bool IsAvailable { get; set; }
     public ProductType Type { get; set; }
     public DateTime? DeletedDate { get; set; }
+    public ICollection<DealLine> DealLines { get; set; } = null!;
 }

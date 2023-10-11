@@ -11,10 +11,11 @@ namespace Sales.Application.DomainEventHandlers;
 
 public class CreatedDealDomainEventHandler : IDomainEventHandler<CreatedDealEvent>
 {
+    private readonly ILeadDomainService _leadDomainService;
     private readonly IOperationRepository<Lead> _leadOperationRepository;
     private readonly IReadOnlyRepository<Lead> _leadReadOnlyRepository;
-    private readonly ILeadDomainService _leadDomainService;
     private readonly IUnitOfWork _unitOfWork;
+
     public CreatedDealDomainEventHandler(IOperationRepository<Lead> leadOperationRepository,
         IReadOnlyRepository<Lead> leadReadOnlyRepository, ILeadDomainService leadDomainService, IUnitOfWork unitOfWork)
     {
@@ -27,7 +28,7 @@ public class CreatedDealDomainEventHandler : IDomainEventHandler<CreatedDealEven
     public async Task Handle(CreatedDealEvent notification, CancellationToken cancellationToken)
     {
         var lead = await _leadReadOnlyRepository.GetAnyAsync(new LeadIdSpecification(notification.LeadId));
-        _leadDomainService.UpdateStatus(lead!,LeadStatus.Qualified);
+        _leadDomainService.UpdateStatus(lead!, LeadStatus.Qualified);
         _leadOperationRepository.Update(lead!);
     }
 }

@@ -3,7 +3,7 @@ using BuildingBlock.Domain.Specifications;
 
 namespace Sales.Domain.LeadAggregate.Specifications;
 
-public class LeadAccountIdMatchSpecification:Specification<Lead>
+public class LeadAccountIdMatchSpecification : Specification<Lead>
 {
     private readonly Guid _accountId;
 

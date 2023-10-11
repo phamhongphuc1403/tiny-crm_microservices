@@ -5,11 +5,15 @@ using Sales.Domain.AccountAggregate.Exceptions;
 using Sales.Domain.AccountAggregate.Specifications;
 using Sales.Domain.DealAggregate.Enums;
 using Sales.Domain.DealAggregate.Events;
+using Sales.Domain.DealAggregate.Exceptions;
+using Sales.Domain.DealAggregate.Specifications;
 using Sales.Domain.LeadAggregate;
 using Sales.Domain.LeadAggregate.Enums;
 using Sales.Domain.LeadAggregate.Exceptions;
 using Sales.Domain.LeadAggregate.Specifications;
 using Sales.Domain.ProductAggregate.Entities;
+using Sales.Domain.ProductAggregate.Exceptions;
+using Sales.Domain.ProductAggregate.Specifications;
 
 namespace Sales.Domain.DealAggregate.DomainService;
 
@@ -17,8 +21,8 @@ public class DealDomainService : IDealDomainService
 {
     private readonly IReadOnlyRepository<Account> _accountReadOnlyRepository;
     private readonly IReadOnlyRepository<Deal> _dealReadOnlyRepository;
-    private readonly IReadOnlyRepository<Product> _productReadOnlyRepository;
     private readonly IReadOnlyRepository<Lead> _leadReadOnlyRepository;
+    private readonly IReadOnlyRepository<Product> _productReadOnlyRepository;
 
     public DealDomainService(IReadOnlyRepository<Deal> dealReadOnlyRepository,
         IReadOnlyRepository<Product> productReadOnlyRepository, IReadOnlyRepository<Account> accountReadOnlyRepository,
@@ -51,12 +55,6 @@ public class DealDomainService : IDealDomainService
         return new Deal(dealId, title, customerId, leadId, description, estimatedRevenue, actualRevenue);
     }
 
-    private static void CheckValidStatus(LeadStatus status)
-    {
-        if (status is LeadStatus.Qualified or LeadStatus.Disqualified)
-            throw new LeadValidStatusException(status);
-    }
-
     public async Task<Deal> CreateDealAsync(string title, Guid customerId, Guid? leadId, string? description,
         double estimatedRevenue, double actualRevenue)
     {
@@ -86,14 +84,29 @@ public class DealDomainService : IDealDomainService
         throw new NotImplementedException();
     }
 
+    public async Task<Deal> GetDealAsync(Guid id)
+    {
+        var dealIdSpecification = new DealIdSpecification(id);
+
+        const string includeTables = "DealLines";
+
+        return Optional<Deal>.Of(await _dealReadOnlyRepository.GetAnyAsync(dealIdSpecification, includeTables))
+            .ThrowIfNotPresent(new DealNotfoundException(id)).Get();
+    }
+
     public Task<Deal> DeleteManyDealAsync(List<Guid> ids)
     {
         throw new NotImplementedException();
     }
 
-    public Task<Deal> CreateDealLineAsync(Deal deal, Guid productId, decimal price, int quantity)
+    public async Task<DealLine> CreateDealLineAsync(Deal deal, Guid productId, double price, int quantity)
     {
-        throw new NotImplementedException();
+        var productIdSpecification = new ProductIdSpecification(productId);
+
+        Optional<Product>.Of(await _productReadOnlyRepository.GetAnyAsync(productIdSpecification))
+            .ThrowIfNotPresent(new ProductNotFoundException(productId));
+
+        return deal.AddDealLine(productId, price, quantity);
     }
 
     public Task<Deal> UpdateDealLineAsync(Deal deal, Guid idDealLine, Guid productId, decimal price, int quantity)
@@ -109,5 +122,11 @@ public class DealDomainService : IDealDomainService
     public Task<Deal> UpdateDealStatusAsync(Deal deal, DealStatus dealStatus)
     {
         throw new NotImplementedException();
+    }
+
+    private static void CheckValidStatus(LeadStatus status)
+    {
+        if (status is LeadStatus.Qualified or LeadStatus.Disqualified)
+            throw new LeadValidStatusException(status);
     }
 }

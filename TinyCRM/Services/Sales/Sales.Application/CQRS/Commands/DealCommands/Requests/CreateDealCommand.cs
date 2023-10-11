@@ -3,7 +3,7 @@ using Sales.Application.DTOs.DealDTOs;
 
 namespace Sales.Application.CQRS.Commands.DealCommands.Requests;
 
-public class CreateDealCommand: DealCreateDto,IRequest<DealDetailDto>
+public class CreateDealCommand : DealCreateDto, IRequest<DealDetailDto>
 {
     public CreateDealCommand(DealCreateDto dto)
     {

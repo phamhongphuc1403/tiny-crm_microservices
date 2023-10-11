@@ -3,7 +3,6 @@ using Sales.Application.DTOs.AccountDTOs.Enums;
 
 namespace Sales.Application.DTOs.AccountDTOs;
 
-public class FilterAndPagingAccountsDto:FilterAndPagingDto<AccountSortProperty>
+public class FilterAndPagingAccountsDto : FilterAndPagingDto<AccountSortProperty>
 {
-    
 }

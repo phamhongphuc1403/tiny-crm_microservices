@@ -5,7 +5,8 @@ using Sales.Application.DTOs.LeadDTOs.Enums;
 
 namespace Sales.Application.CQRS.Queries.LeadQueries.Requests;
 
-public sealed class FilterAndPagingLeadsQuery : FilterAndPagingLeadsDto, IQuery<FilterAndPagingResultDto<LeadSummaryDto>>
+public sealed class FilterAndPagingLeadsQuery : FilterAndPagingLeadsDto,
+    IQuery<FilterAndPagingResultDto<LeadSummaryDto>>
 {
     public FilterAndPagingLeadsQuery(FilterAndPagingLeadsDto dto)
     {
@@ -19,5 +20,5 @@ public sealed class FilterAndPagingLeadsQuery : FilterAndPagingLeadsDto, IQuery<
         Status = dto.Status;
     }
 
-    public string Sort { get; private init; }
+    public string Sort { get; }
 }

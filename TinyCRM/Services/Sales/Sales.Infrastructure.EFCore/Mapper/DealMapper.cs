@@ -10,5 +10,8 @@ public class DealMapper : Mapper
         CreateMap<Deal, DealSummaryDto>()
             .ForMember(dest => dest.CustomerName, opt => opt.MapFrom(src => src.Customer.Name));
         CreateMap<Deal, DealDetailDto>();
+
+        CreateMap<DealLine, DealLineDto>()
+            .ForMember(dest => dest.ProductCode, opt => opt.MapFrom(src => src.Product.Code));
     }
 }

@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Sales.Infrastructure.EFCore;
 
@@ -11,9 +12,11 @@ using Sales.Infrastructure.EFCore;
 namespace Sales.Infrastructure.EFCore.Migrations
 {
     [DbContext(typeof(SaleDbContext))]
-    partial class SaleDbContextModelSnapshot : ModelSnapshot
+    [Migration("20231011175309_ChangePriceToPriceToUnitInDealLinesTable")]
+    partial class ChangePriceToPriceToUnitInDealLinesTable
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -103,9 +106,7 @@ namespace Sales.Infrastructure.EFCore.Migrations
 
                     b.HasIndex("CustomerId");
 
-                    b.HasIndex("LeadId")
-                        .IsUnique()
-                        .HasFilter("[LeadId] IS NOT NULL");
+                    b.HasIndex("LeadId");
 
                     b.ToTable("Deal");
                 });
@@ -265,8 +266,8 @@ namespace Sales.Infrastructure.EFCore.Migrations
                         .IsRequired();
 
                     b.HasOne("Sales.Domain.LeadAggregate.Lead", "Lead")
-                        .WithOne("Deal")
-                        .HasForeignKey("Sales.Domain.DealAggregate.Deal", "LeadId")
+                        .WithMany()
+                        .HasForeignKey("LeadId")
                         .OnDelete(DeleteBehavior.NoAction);
 
                     b.Navigation("Customer");
@@ -312,11 +313,6 @@ namespace Sales.Infrastructure.EFCore.Migrations
             modelBuilder.Entity("Sales.Domain.ProductAggregate.Entities.Product", b =>
                 {
                     b.Navigation("DealLines");
-                });
-
-            modelBuilder.Entity("Sales.Domain.LeadAggregate.Lead", b =>
-                {
-                    b.Navigation("Deal");
                 });
 #pragma warning restore 612, 618
         }

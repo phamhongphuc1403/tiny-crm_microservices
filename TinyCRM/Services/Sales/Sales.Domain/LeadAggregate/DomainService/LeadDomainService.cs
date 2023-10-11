@@ -82,12 +82,13 @@ public class LeadDomainService : ILeadDomainService
         return lead;
     }
 
-    public Lead Qualify(Lead lead,Guid dealId)
+    public Lead Qualify(Lead lead, Guid dealId)
     {
         if (!CheckValidStatus(lead.Status)) throw new LeadValidStatusException(lead.Status);
 
         lead.Status = LeadStatus.Qualified;
-        lead.AddDomainEvent(new QualifiedLeadDomainEvent(dealId,lead.Id, lead.CustomerId, lead.EstimatedRevenue, lead.Title));
+        lead.AddDomainEvent(new QualifiedLeadDomainEvent(dealId, lead.Id, lead.CustomerId, lead.EstimatedRevenue,
+            lead.Title));
 
         return lead;
     }

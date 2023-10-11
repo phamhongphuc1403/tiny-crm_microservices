@@ -84,7 +84,7 @@ public class LeadController : ControllerBase
 
         return NoContent();
     }
-    
+
     [HttpPut("{id:guid}/qualify")]
     public async Task<ActionResult<LeadDetailDto>> QualifyAsync(Guid id)
     {
@@ -92,5 +92,4 @@ public class LeadController : ControllerBase
 
         return Ok(lead);
     }
-    
 }

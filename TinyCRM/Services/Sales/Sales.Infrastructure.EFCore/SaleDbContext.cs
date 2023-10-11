@@ -9,6 +9,11 @@ namespace Sales.Infrastructure.EFCore;
 
 public class SaleDbContext : BaseDbContext
 {
+    public SaleDbContext(DbContextOptions options, IMediator mediator, ILogger<BaseDbContext> logger) : base(options,
+        mediator, logger)
+    {
+    }
+
     public DbSet<Lead> Leads { get; set; } = null!;
     public DbSet<Account> Accounts { get; set; } = null!;
 
@@ -17,9 +22,5 @@ public class SaleDbContext : BaseDbContext
         base.OnModelCreating(modelBuilder);
 
         modelBuilder.ApplyConfigurationsFromAssembly(typeof(SaleDbContext).Assembly);
-    }
-
-    public SaleDbContext(DbContextOptions options, IMediator mediator, ILogger<BaseDbContext> logger) : base(options, mediator, logger)
-    {
     }
 }

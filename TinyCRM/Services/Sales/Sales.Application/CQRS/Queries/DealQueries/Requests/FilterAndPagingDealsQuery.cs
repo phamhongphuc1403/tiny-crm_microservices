@@ -5,7 +5,7 @@ using Sales.Application.DTOs.DealDTOs.Enums;
 
 namespace Sales.Application.CQRS.Queries.DealQueries.Requests;
 
-public class FilterAndPagingDealsQuery: FilterAndPagingDealsDto, IQuery<FilterAndPagingResultDto<DealSummaryDto>>
+public class FilterAndPagingDealsQuery : FilterAndPagingDealsDto, IQuery<FilterAndPagingResultDto<DealSummaryDto>>
 {
     public FilterAndPagingDealsQuery(FilterAndPagingDealsDto dto)
     {
@@ -18,5 +18,6 @@ public class FilterAndPagingDealsQuery: FilterAndPagingDealsDto, IQuery<FilterAn
             Sort = Sort.Replace("Customer", "Customer.Name");
         Status = dto.Status;
     }
-    public string Sort { get; private init; }
+
+    public string Sort { get; }
 }

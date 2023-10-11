@@ -1,7 +1,6 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using Sales.Domain.DealAggregate;
-using Sales.Domain.LeadAggregate;
 
 namespace Sales.Infrastructure.EFCore.EntityConfigurations;
 
@@ -19,8 +18,8 @@ public class DealConfiguration : IEntityTypeConfiguration<Deal>
             .OnDelete(DeleteBehavior.Cascade);
 
         builder.HasOne(d => d.Lead)
-            .WithOne(a=>a.Deal)
-            .HasForeignKey<Deal>(d=>d.LeadId)
+            .WithOne(a => a.Deal)
+            .HasForeignKey<Deal>(d => d.LeadId)
             .IsRequired(false)
             .OnDelete(DeleteBehavior.NoAction);
 

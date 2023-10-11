@@ -4,7 +4,7 @@ using Sales.Domain.DealAggregate.Enums;
 
 namespace Sales.Application.DTOs.DealDTOs;
 
-public class FilterAndPagingDealsDto:FilterAndPagingDto<DealSortProperty>
+public class FilterAndPagingDealsDto : FilterAndPagingDto<DealSortProperty>
 {
     public DealStatus? Status { get; set; }
 }

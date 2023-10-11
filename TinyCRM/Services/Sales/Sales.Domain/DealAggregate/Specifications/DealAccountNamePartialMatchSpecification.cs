@@ -1,6 +1,5 @@
 using System.Linq.Expressions;
 using BuildingBlock.Domain.Specifications;
-using Sales.Domain.LeadAggregate;
 
 namespace Sales.Domain.DealAggregate.Specifications;
 

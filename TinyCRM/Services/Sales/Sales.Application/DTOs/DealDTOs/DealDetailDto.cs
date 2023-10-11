@@ -10,8 +10,10 @@ public class DealDetailDto
     public Guid CustomerId { get; set; }
     public Guid? LeadId { get; set; }
     public string? Description { get; set; }
+
     [JsonConverter(typeof(JsonStringEnumConverter))]
     public DealStatus DealStatus { get; set; }
+
     public double EstimatedRevenue { get; set; }
     public double ActualRevenue { get; set; }
 }

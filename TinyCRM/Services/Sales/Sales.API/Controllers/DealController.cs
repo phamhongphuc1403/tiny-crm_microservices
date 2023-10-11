@@ -29,12 +29,20 @@ public class DealController : ControllerBase
 
         return Ok(deals);
     }
-    
+
     [HttpPost]
     public async Task<ActionResult<DealDetailDto>> CreateAsync([FromBody] DealCreateDto dto)
     {
         var deal = await _mediator.Send(new CreateDealCommand(dto));
 
         return Ok(deal);
+    }
+
+    [HttpPut("{id:guid}/lines")]
+    public async Task<ActionResult<DealLineDto>> AddProductAsync(Guid id, [FromBody] CreateOrEditDealLineDto dto)
+    {
+        var dealLine = await _mediator.Send(new CreateDealLineCommand(id, dto));
+
+        return Ok(dealLine);
     }
 }

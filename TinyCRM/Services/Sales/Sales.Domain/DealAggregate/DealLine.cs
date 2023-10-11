@@ -5,21 +5,20 @@ namespace Sales.Domain.DealAggregate;
 
 public class DealLine : GuidEntity
 {
-    public DealLine(Guid dealId, Guid productId, string code, double price, int quantity, double totalAmount)
+    public DealLine(Guid productId, double pricePerUnit, int quantity)
     {
-        DealId = dealId;
         ProductId = productId;
-        Code = code;
-        Price = price;
+        PricePerUnit = pricePerUnit;
         Quantity = quantity;
-        TotalAmount = totalAmount;
+        TotalAmount = pricePerUnit * quantity;
+        CreatedDate = DateTime.UtcNow;
     }
 
     public Guid DealId { get; set; }
+    public Deal Deal { get; set; } = null!;
     public Guid ProductId { get; set; }
     public Product Product { get; set; } = null!;
-    public string Code { get; set; }
-    public double Price { get; set; }
+    public double PricePerUnit { get; set; }
     public int Quantity { get; set; }
     public double TotalAmount { get; set; }
 }

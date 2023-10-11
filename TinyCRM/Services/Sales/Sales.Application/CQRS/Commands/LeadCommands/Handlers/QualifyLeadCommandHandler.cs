@@ -36,7 +36,7 @@ public class QualifyLeadCommandHandler : ICommandHandler<QualifyLeadCommand, Lea
         var lead = Optional<Lead>.Of(await _leadReadOnlyRepository.GetAnyAsync(new LeadIdSpecification(request.Id)))
             .ThrowIfNotPresent(new LeadNotFoundException(request.Id)).Get();
         var dealId = Guid.NewGuid();
-        lead = _leadDomainService.Qualify(lead,dealId);
+        lead = _leadDomainService.Qualify(lead, dealId);
         _leadOperationRepository.Update(lead);
         await _unitOfWork.SaveChangesAsync();
         return _mapper.Map<LeadDetailDto>(lead);

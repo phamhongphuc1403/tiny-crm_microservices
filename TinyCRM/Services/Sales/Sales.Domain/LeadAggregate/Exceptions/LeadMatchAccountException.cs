@@ -1,8 +1,6 @@
-using System.Runtime.Serialization;
-
 namespace Sales.Domain.LeadAggregate.Exceptions;
 
-public class LeadMatchAccountException:Exception
+public class LeadMatchAccountException : Exception
 {
     public LeadMatchAccountException()
     {

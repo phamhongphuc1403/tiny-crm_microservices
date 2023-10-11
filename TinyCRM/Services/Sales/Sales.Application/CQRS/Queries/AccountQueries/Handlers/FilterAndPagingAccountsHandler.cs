@@ -9,7 +9,9 @@ using Sales.Domain.AccountAggregate.Specifications;
 
 namespace Sales.Application.CQRS.Queries.AccountQueries.Handlers;
 
-public class FilterAndPagingAccountsHandler : IQueryHandler<FilterAndPagingAccountsQuery, FilterAndPagingResultDto<AccountSummaryDto>>
+public class
+    FilterAndPagingAccountsHandler : IQueryHandler<FilterAndPagingAccountsQuery,
+        FilterAndPagingResultDto<AccountSummaryDto>>
 {
     private readonly IMapper _mapper;
     private readonly IReadOnlyRepository<Account> _repository;
@@ -24,9 +26,10 @@ public class FilterAndPagingAccountsHandler : IQueryHandler<FilterAndPagingAccou
         CancellationToken cancellationToken)
     {
         var accountNameSpecification = new AccountNamePartialMatchSpecification(request.Keyword);
-        var (accounts,totalCount) = await _repository.GetFilterAndPagingAsync(accountNameSpecification,
+        var (accounts, totalCount) = await _repository.GetFilterAndPagingAsync(accountNameSpecification,
             request.Sort, request.Skip, request.Take);
-        return new FilterAndPagingResultDto<AccountSummaryDto>(_mapper.Map<List<AccountSummaryDto>>(accounts), request.Skip,
+        return new FilterAndPagingResultDto<AccountSummaryDto>(_mapper.Map<List<AccountSummaryDto>>(accounts),
+            request.Skip,
             request.Take,
             totalCount);
     }

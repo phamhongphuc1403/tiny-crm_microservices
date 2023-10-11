@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Sales.Infrastructure.EFCore;
 
@@ -11,9 +12,11 @@ using Sales.Infrastructure.EFCore;
 namespace Sales.Infrastructure.EFCore.Migrations
 {
     [DbContext(typeof(SaleDbContext))]
-    partial class SaleDbContextModelSnapshot : ModelSnapshot
+    [Migration("20231011081350_RemoveProductCodeInDealLinesTable")]
+    partial class RemoveProductCodeInDealLinesTable
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -103,9 +106,7 @@ namespace Sales.Infrastructure.EFCore.Migrations
 
                     b.HasIndex("CustomerId");
 
-                    b.HasIndex("LeadId")
-                        .IsUnique()
-                        .HasFilter("[LeadId] IS NOT NULL");
+                    b.HasIndex("LeadId");
 
                     b.ToTable("Deal");
                 });
@@ -125,7 +126,7 @@ namespace Sales.Infrastructure.EFCore.Migrations
                     b.Property<Guid>("DealId")
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<decimal>("PricePerUnit")
+                    b.Property<decimal>("Price")
                         .HasColumnType("decimal(18,2)");
 
                     b.Property<Guid>("ProductId")
@@ -265,8 +266,8 @@ namespace Sales.Infrastructure.EFCore.Migrations
                         .IsRequired();
 
                     b.HasOne("Sales.Domain.LeadAggregate.Lead", "Lead")
-                        .WithOne("Deal")
-                        .HasForeignKey("Sales.Domain.DealAggregate.Deal", "LeadId")
+                        .WithMany()
+                        .HasForeignKey("LeadId")
                         .OnDelete(DeleteBehavior.NoAction);
 
                     b.Navigation("Customer");
@@ -276,19 +277,17 @@ namespace Sales.Infrastructure.EFCore.Migrations
 
             modelBuilder.Entity("Sales.Domain.DealAggregate.DealLine", b =>
                 {
-                    b.HasOne("Sales.Domain.DealAggregate.Deal", "Deal")
+                    b.HasOne("Sales.Domain.DealAggregate.Deal", null)
                         .WithMany("DealLines")
                         .HasForeignKey("DealId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.HasOne("Sales.Domain.ProductAggregate.Entities.Product", "Product")
-                        .WithMany("DealLines")
+                        .WithMany()
                         .HasForeignKey("ProductId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
-
-                    b.Navigation("Deal");
 
                     b.Navigation("Product");
                 });
@@ -307,16 +306,6 @@ namespace Sales.Infrastructure.EFCore.Migrations
             modelBuilder.Entity("Sales.Domain.DealAggregate.Deal", b =>
                 {
                     b.Navigation("DealLines");
-                });
-
-            modelBuilder.Entity("Sales.Domain.ProductAggregate.Entities.Product", b =>
-                {
-                    b.Navigation("DealLines");
-                });
-
-            modelBuilder.Entity("Sales.Domain.LeadAggregate.Lead", b =>
-                {
-                    b.Navigation("Deal");
                 });
 #pragma warning restore 612, 618
         }

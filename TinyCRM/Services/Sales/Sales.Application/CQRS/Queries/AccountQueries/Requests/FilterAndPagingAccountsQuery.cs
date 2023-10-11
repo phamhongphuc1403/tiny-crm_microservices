@@ -4,7 +4,8 @@ using Sales.Application.DTOs.AccountDTOs;
 
 namespace Sales.Application.CQRS.Queries.AccountQueries.Requests;
 
-public class FilterAndPagingAccountsQuery : FilterAndPagingAccountsDto, IQuery<FilterAndPagingResultDto<AccountSummaryDto>>
+public class FilterAndPagingAccountsQuery : FilterAndPagingAccountsDto,
+    IQuery<FilterAndPagingResultDto<AccountSummaryDto>>
 {
     public FilterAndPagingAccountsQuery(FilterAndPagingAccountsDto dto)
     {

@@ -34,7 +34,7 @@ public sealed class Deal : GuidEntity
         ActualRevenue = actualRevenue;
         DealLines = new List<DealLine>();
     }
-    
+
     public string Title { get; set; }
     public Guid CustomerId { get; set; }
     public Account Customer { get; set; } = null!;
@@ -44,7 +44,6 @@ public sealed class Deal : GuidEntity
     public DealStatus DealStatus { get; set; }
     public double EstimatedRevenue { get; set; }
     public double ActualRevenue { get; set; }
-
     public List<DealLine> DealLines { get; set; }
 
     internal void Update(string title, Guid customerId, Guid? leadId, string? description, DealStatus dealStatus,
@@ -59,9 +58,13 @@ public sealed class Deal : GuidEntity
         ActualRevenue = actualRevenue;
     }
 
-    internal void AddDealLine(Guid productId, string code, double price, int quantity, double totalAmount)
+    internal DealLine AddDealLine(Guid productId, double price, int quantity)
     {
-        DealLines.Add(new DealLine(Guid.NewGuid(), productId, code, price, quantity, totalAmount));
+        var dealLine = new DealLine(productId, price, quantity);
+
+        DealLines.Add(dealLine);
+
+        return dealLine;
     }
 
     internal void UpdateDealLine(Guid id, Guid productId, string code, double price, int quantity, double totalAmount)
@@ -70,8 +73,7 @@ public sealed class Deal : GuidEntity
         if (dealLine == null) throw new DealLineNotFoundException(id);
 
         dealLine.ProductId = productId;
-        dealLine.Code = code;
-        dealLine.Price = price;
+        dealLine.PricePerUnit = price;
         dealLine.Quantity = quantity;
         dealLine.TotalAmount = totalAmount;
     }
