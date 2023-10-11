@@ -48,7 +48,6 @@ public class DealDomainService : IDealDomainService
         var lead = leads.FirstOrDefault(l => l.Id == (Guid)leadId);
         if (lead == null)
             throw new LeadMatchAccountException($"Lead {leadId} not match account {customerId}");
-        CheckValidStatus(lead.Status);
         return new Deal(dealId, title, customerId, leadId, description, estimatedRevenue, actualRevenue);
     }
 

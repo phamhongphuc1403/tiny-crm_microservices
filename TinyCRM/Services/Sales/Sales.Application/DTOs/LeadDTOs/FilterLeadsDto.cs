@@ -6,5 +6,5 @@ namespace Sales.Application.DTOs.LeadDTOs;
 public class FilterLeadsDto : FilterDto
 {
     
-    public LeadStatus Status { get; set; }
+    public LeadStatus? Status { get; set; }
 }

@@ -85,7 +85,7 @@ public class LeadController : ControllerBase
         return NoContent();
     }
     
-    [HttpPost("{id:guid}/qualify")]
+    [HttpPut("{id:guid}/qualify")]
     public async Task<ActionResult<LeadDetailDto>> QualifyAsync(Guid id)
     {
         var lead = await _mediator.Send(new QualifyLeadCommand(id));
