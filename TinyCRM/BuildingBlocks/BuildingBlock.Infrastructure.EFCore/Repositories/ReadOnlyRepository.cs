@@ -23,7 +23,7 @@ public class ReadOnlyRepository<TDbContext, TEntity> : IReadOnlyRepository<TEnti
     public Task<TEntity?> GetAnyAsync(ISpecification<TEntity> specification,
         string? includeTables = null)
     {
-        var query = DbSet.AsNoTracking();
+        var query = DbSet.AsQueryable();
 
         query = Filter(query, specification);
 
@@ -55,7 +55,7 @@ public class ReadOnlyRepository<TDbContext, TEntity> : IReadOnlyRepository<TEnti
         int skip,
         int take, string? includeTables = null)
     {
-        var query = DbSet.AsNoTracking();
+        var query = DbSet.AsQueryable();
 
         query = Include(query, includeTables);
 

@@ -52,6 +52,12 @@ public class LeadDomainService : ILeadDomainService
         return lead;
     }
 
+    public Lead UpdateStatus(Lead lead, LeadStatus status)
+    {
+        lead.Status = status;
+        return lead;
+    }
+
     public async Task<IList<Lead>> DeleteManyAsync(IEnumerable<Guid> ids)
     {
         List<Lead> leads = new();

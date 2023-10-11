@@ -10,6 +10,8 @@ public interface ILeadDomainService
     Task<Lead> UpdateAsync(Lead lead, string title, Guid customerId, LeadSource? source, double? estimatedRevenue,
         string? description, LeadStatus status);
 
+    Lead UpdateStatus(Lead lead, LeadStatus status);
+
     Task<IList<Lead>> DeleteManyAsync(IEnumerable<Guid> ids);
 
     Lead Disqualify(Lead lead, LeadDisqualificationReason reason, string? description = null);

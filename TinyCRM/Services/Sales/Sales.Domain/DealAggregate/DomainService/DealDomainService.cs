@@ -4,7 +4,9 @@ using Sales.Domain.AccountAggregate;
 using Sales.Domain.AccountAggregate.Exceptions;
 using Sales.Domain.AccountAggregate.Specifications;
 using Sales.Domain.DealAggregate.Enums;
+using Sales.Domain.DealAggregate.Events;
 using Sales.Domain.LeadAggregate;
+using Sales.Domain.LeadAggregate.Enums;
 using Sales.Domain.LeadAggregate.Exceptions;
 using Sales.Domain.LeadAggregate.Specifications;
 using Sales.Domain.ProductAggregate.Entities;
@@ -42,11 +44,18 @@ public class DealDomainService : IDealDomainService
         var leads = Optional<List<Lead>>
             .Of(await _leadReadOnlyRepository.GetAllAsync(new LeadAccountIdMatchSpecification(customerId)))
             .ThrowIfNotPresent(new LeadNotFoundException(leadId.Value))
-            .Get().Select(lead => lead.Id).ToList();
-        if (!leads.Contains((Guid)leadId))
+            .Get().ToList();
+        var lead = leads.FirstOrDefault(l => l.Id == (Guid)leadId);
+        if (lead == null)
             throw new LeadMatchAccountException($"Lead {leadId} not match account {customerId}");
-
+        CheckValidStatus(lead.Status);
         return new Deal(dealId, title, customerId, leadId, description, estimatedRevenue, actualRevenue);
+    }
+
+    private static void CheckValidStatus(LeadStatus status)
+    {
+        if (status is LeadStatus.Qualified or LeadStatus.Disqualified)
+            throw new LeadValidStatusException(status);
     }
 
     public async Task<Deal> CreateDealAsync(string title, Guid customerId, Guid? leadId, string? description,
@@ -61,11 +70,14 @@ public class DealDomainService : IDealDomainService
         var leads = Optional<List<Lead>>
             .Of(await _leadReadOnlyRepository.GetAllAsync(new LeadAccountIdMatchSpecification(customerId)))
             .ThrowIfNotPresent(new LeadNotFoundException(leadId.Value))
-            .Get().Select(lead => lead.Id).ToList();
-        if (!leads.Contains((Guid)leadId))
+            .Get().ToList();
+        var lead = leads.FirstOrDefault(l => l.Id == (Guid)leadId);
+        if (lead == null)
             throw new LeadMatchAccountException($"Lead {leadId} not match account {customerId}");
-
-        return new Deal(title, customerId, leadId, description, estimatedRevenue, actualRevenue);
+        CheckValidStatus(lead.Status);
+        var deal = new Deal(title, customerId, leadId, description, estimatedRevenue, actualRevenue);
+        deal.AddDomainEvent(new CreatedDealEvent((Guid)leadId));
+        return deal;
     }
 
     public Task<Deal> UpdateDealAsync(Deal deal, string title, Guid customerId, Guid? leadId, string? description,
