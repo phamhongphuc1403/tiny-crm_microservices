@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 using Sales.Application.CQRS.Commands.LeadCommands.Requests;
 using Sales.Application.CQRS.Queries.LeadQueries.Requests;
 using Sales.Application.DTOs.LeadDTOs;
+using Sales.Application.DTOs.LeadDTOs.Enums;
 
 namespace Sales.API.Controllers;
 
@@ -93,12 +94,12 @@ public class LeadController : ControllerBase
         return Ok(lead);
     }
 
-    [HttpGet("account/{accountId:guid}")]   
+    [HttpGet("account/{accountId:guid}")]
     [Authorize(Policy = TinyCrmPermissions.Leads.Read)]
     public async Task<ActionResult<FilterAndPagingResultDto<LeadSummaryDto>>> GetByAccountIdAsync(
-        [FromQuery] FilterAndPagingLeadsDto dto, Guid accountId)
+        [FromQuery] FilterAndPagingDto<LeadSortProperty> dto, Guid accountId)
     {
-        var leads = await _mediator.Send(new GetLeadsByAccountIdQuery(accountId, dto));
+        var leads = await _mediator.Send(new GetLeadsByAccountIdQuery(dto,accountId));
 
         return Ok(leads);
     }

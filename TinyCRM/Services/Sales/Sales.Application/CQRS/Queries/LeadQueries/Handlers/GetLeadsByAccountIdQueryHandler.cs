@@ -5,11 +5,13 @@ using BuildingBlock.Domain.Repositories;
 using Sales.Application.CQRS.Queries.LeadQueries.Requests;
 using Sales.Application.DTOs.LeadDTOs;
 using Sales.Domain.LeadAggregate;
+using Sales.Domain.LeadAggregate.Enums;
 using Sales.Domain.LeadAggregate.Specifications;
 
 namespace Sales.Application.CQRS.Queries.LeadQueries.Handlers;
 
-public class GetLeadsByAccountIdQueryHandler:IQueryHandler<GetLeadsByAccountIdQuery,FilterAndPagingResultDto<LeadSummaryDto>>
+public class
+    GetLeadsByAccountIdQueryHandler : IQueryHandler<GetLeadsByAccountIdQuery, FilterAndPagingResultDto<LeadSummaryDto>>
 {
     private readonly IMapper _mapper;
     private readonly IReadOnlyRepository<Lead> _repository;
@@ -20,16 +22,22 @@ public class GetLeadsByAccountIdQueryHandler:IQueryHandler<GetLeadsByAccountIdQu
         _repository = repository;
     }
 
-    public async Task<FilterAndPagingResultDto<LeadSummaryDto>> Handle(GetLeadsByAccountIdQuery request, CancellationToken cancellationToken)
+    public async Task<FilterAndPagingResultDto<LeadSummaryDto>> Handle(GetLeadsByAccountIdQuery request,
+        CancellationToken cancellationToken)
     {
         const string includes = "Customer";
 
         var leadTitleSpecification = new LeadTitlePartialMatchSpecification(request.Keyword);
         var leadAccountIdSpecification = new LeadAccountIdMatchSpecification(request.AccountId);
-        var leadStatusSpecification = new LeadStatusFilterSpecification(request.Status);
+
+        var leadStatusSpecification =
+            new LeadStatusFilterSpecification(LeadStatus.Open).Or(
+                new LeadStatusFilterSpecification(LeadStatus.Prospect));
+
+
         var specification = leadAccountIdSpecification.And(leadTitleSpecification).And(leadStatusSpecification);
         var (leads, totalCount) = await _repository.GetFilterAndPagingAsync(specification,
-            request.Sort, request.Skip, request.Take, includes);
+            request.Sort, request.Skip, request.Take,includes);
 
         return new FilterAndPagingResultDto<LeadSummaryDto>(_mapper.Map<List<LeadSummaryDto>>(leads), request.Skip,
             request.Take,

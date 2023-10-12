@@ -5,12 +5,22 @@ using Sales.Application.DTOs.LeadDTOs.Enums;
 
 namespace Sales.Application.CQRS.Queries.LeadQueries.Requests;
 
-public class GetLeadsByAccountIdQuery : FilterAndPagingLeadsDto, IQuery<FilterAndPagingResultDto<LeadSummaryDto>>
+public class GetLeadsByAccountIdQuery : FilterAndPagingLeadsByAccountDto, IQuery<FilterAndPagingResultDto<LeadSummaryDto>>
 {
-    public Guid AccountId { get; private set; }
     public string Sort { get; }
 
-    public GetLeadsByAccountIdQuery(Guid accountId, FilterAndPagingLeadsDto dto)
+    public GetLeadsByAccountIdQuery(FilterAndPagingLeadsByAccountDto dto)
+    {
+        AccountId = dto.AccountId;
+        Keyword = dto.Keyword;
+        Skip = dto.Skip;
+        Take = dto.Take;
+        IsDescending = dto.IsDescending;
+        Sort = dto.ConvertSort();
+        if (dto.SortBy == LeadSortProperty.Customer)
+            Sort = Sort.Replace("Customer", "Customer.Name");
+    }
+    public GetLeadsByAccountIdQuery(FilterAndPagingDto<LeadSortProperty> dto, Guid accountId)
     {
         AccountId = accountId;
         Keyword = dto.Keyword;
@@ -20,6 +30,5 @@ public class GetLeadsByAccountIdQuery : FilterAndPagingLeadsDto, IQuery<FilterAn
         Sort = dto.ConvertSort();
         if (dto.SortBy == LeadSortProperty.Customer)
             Sort = Sort.Replace("Customer", "Customer.Name");
-        Status = dto.Status;
     }
 }
