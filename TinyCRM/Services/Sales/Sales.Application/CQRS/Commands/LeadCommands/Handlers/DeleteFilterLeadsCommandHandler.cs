@@ -3,6 +3,8 @@ using BuildingBlock.Domain.Interfaces;
 using BuildingBlock.Domain.Repositories;
 using Sales.Application.CQRS.Commands.LeadCommands.Requests;
 using Sales.Domain.LeadAggregate;
+using Sales.Domain.LeadAggregate.Enums;
+using Sales.Domain.LeadAggregate.Events;
 using Sales.Domain.LeadAggregate.Specifications;
 
 namespace Sales.Application.CQRS.Commands.LeadCommands.Handlers;
@@ -31,7 +33,10 @@ public class DeleteFilterLeadsCommandHandler : ICommandHandler<DeleteFilterLeads
             leadStatusFilterSpecification.And(
                 leadTitlePartialMatchSpecification.Or(leadAccountNamePartialMatchSpecification));
         var leads = await _leadReadOnlyRepository.GetAllAsync(specification, includes);
-
+        foreach (var lead in leads.Where(lead => lead.Status is LeadStatus.Qualified))
+        {
+            lead.AddDomainEvent(new DeletedLeadDomainEvent(lead.Id));
+        }
         _leadOperationRepository.RemoveRange(leads);
         await _unitOfWork.SaveChangesAsync();
     }

@@ -66,6 +66,8 @@ public class LeadDomainService : ILeadDomainService
             var leadIdSpecification = new LeadIdSpecification(id);
             var lead = Optional<Lead>.Of(await _leadReadOnlyRepository.GetAnyAsync(leadIdSpecification))
                 .ThrowIfNotPresent(new LeadNotFoundException(id)).Get();
+            if(lead.Status is LeadStatus.Qualified)
+                lead.AddDomainEvent(new DeletedLeadDomainEvent(lead.Id));
             leads.Add(lead);
         }
 
