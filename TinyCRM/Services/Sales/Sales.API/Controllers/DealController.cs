@@ -143,4 +143,12 @@ public class DealController : ControllerBase
 
         return NoContent();
     }
+
+    [HttpPut("{dealId:guid}/lines/delete-all")]
+    public async Task<ActionResult> DeleteFilteredDealLinesAsync(Guid dealId, [FromQuery] FilterDealLinesDto dto)
+    {
+        await _mediator.Send(new DeleteFilteredDealLinesCommand(dealId, dto));
+
+        return NoContent();
+    }
 }

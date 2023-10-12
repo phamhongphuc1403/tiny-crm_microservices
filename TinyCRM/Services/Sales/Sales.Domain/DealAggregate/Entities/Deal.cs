@@ -92,4 +92,9 @@ public sealed class Deal : GuidEntity
         return Optional<DealLine>.Of(DealLines.FirstOrDefault(x => x.Id == dealLineId))
             .ThrowIfNotPresent(new DealLineNotFoundException(dealLineId)).Get();
     }
+
+    public void RemoveDealLine(DealLine dealLines)
+    {
+        DealLines.Remove(dealLines);
+    }
 }

@@ -25,7 +25,7 @@ public class DeleteManyDealLinesCommandHandler : ICommandHandler<DeleteManyDealL
     {
         var deal = await _dealDomainService.GetDealAsync(request.DealId);
 
-        _dealDomainService.RemoveManyDealLines(deal, request.DealLineIds);
+        _dealDomainService.RemoveDealLines(deal, request.DealLineIds);
 
         _dealOperationRepository.Update(deal);
 

@@ -150,9 +150,14 @@ public class DealDomainService : IDealDomainService
         throw new NotImplementedException();
     }
 
-    public void RemoveManyDealLines(Deal deal, IEnumerable<Guid> dealLineIds)
+    public void RemoveDealLines(Deal deal, IEnumerable<Guid> dealLineIds)
     {
         foreach (var dealLineId in dealLineIds) deal.RemoveDealLine(dealLineId);
+    }
+
+    public void RemoveDealLines(Deal deal, IEnumerable<DealLine> dealLines)
+    {
+        foreach (var dealLine in dealLines) deal.RemoveDealLine(dealLine);
     }
 
     public Task<Deal> UpdateDealStatusAsync(Deal deal, DealStatus dealStatus)
