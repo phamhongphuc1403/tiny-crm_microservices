@@ -1,5 +1,4 @@
-﻿using BuildingBlock.Domain.Exceptions;
-using BuildingBlock.Domain.Repositories;
+﻿using BuildingBlock.Domain.Repositories;
 using BuildingBlock.Domain.Utils;
 using Sales.Domain.AccountAggregate;
 using Sales.Domain.AccountAggregate.Exceptions;
@@ -100,36 +99,17 @@ public class DealDomainService : IDealDomainService
 
         await ValidateUpdateDeal((Guid)leadId, customerId, deal.LeadId);
 
-        if (deal.LeadId != leadId)
-        {
-            deal.AddDomainEvent(new ChangedLeadIdForDealEvent(deal.LeadId, (Guid)leadId));
-        }
+        if (deal.LeadId != leadId) deal.AddDomainEvent(new ChangedLeadIdForDealEvent(deal.LeadId, (Guid)leadId));
 
         deal.Update(title, customerId, leadId, description, estimatedRevenue, actualRevenue);
         return deal;
-    }
-
-    private async Task ValidateUpdateDeal(Guid leadId, Guid customerId, Guid? dealLeadId)
-    {
-        var leadIdSpecification = new LeadIdSpecification(leadId);
-
-        var lead = Optional<Lead>.Of(await _leadReadOnlyRepository.GetAnyAsync(leadIdSpecification))
-            .ThrowIfNotPresent(new LeadNotFoundException(leadId)).Get();
-
-        if (lead.Id != dealLeadId && lead.Status is LeadStatus.Disqualified or LeadStatus.Qualified)
-            throw new LeadValidStatusException(lead.Status);
-
-        var leadAccountIdSpecification = new LeadAccountIdMatchSpecification(customerId);
-        Optional<bool>.Of(
-                await _leadReadOnlyRepository.CheckIfExistAsync(leadIdSpecification.And(leadAccountIdSpecification)))
-            .ThrowIfNotPresent(new LeadMatchAccountException($"Lead {leadId} not match account {customerId}"));
     }
 
     public async Task<Deal> GetDealAsync(Guid id)
     {
         var dealIdSpecification = new DealIdSpecification(id);
 
-        const string includeTables = "DealLines";
+        const string includeTables = "DealLines.Product";
 
         return Optional<Deal>.Of(await _dealReadOnlyRepository.GetAnyAsync(dealIdSpecification, includeTables))
             .ThrowIfNotPresent(new DealNotfoundException(id)).Get();
@@ -180,6 +160,27 @@ public class DealDomainService : IDealDomainService
     public Task<Deal> UpdateDealStatusAsync(Deal deal, DealStatus dealStatus)
     {
         throw new NotImplementedException();
+    }
+
+    public DealLine GetDealLine(Deal deal, Guid dealLdineId)
+    {
+        return deal.GetDealLine(dealLdineId);
+    }
+
+    private async Task ValidateUpdateDeal(Guid leadId, Guid customerId, Guid? dealLeadId)
+    {
+        var leadIdSpecification = new LeadIdSpecification(leadId);
+
+        var lead = Optional<Lead>.Of(await _leadReadOnlyRepository.GetAnyAsync(leadIdSpecification))
+            .ThrowIfNotPresent(new LeadNotFoundException(leadId)).Get();
+
+        if (lead.Id != dealLeadId && lead.Status is LeadStatus.Disqualified or LeadStatus.Qualified)
+            throw new LeadValidStatusException(lead.Status);
+
+        var leadAccountIdSpecification = new LeadAccountIdMatchSpecification(customerId);
+        Optional<bool>.Of(
+                await _leadReadOnlyRepository.CheckIfExistAsync(leadIdSpecification.And(leadAccountIdSpecification)))
+            .ThrowIfNotPresent(new LeadMatchAccountException($"Lead {leadId} not match account {customerId}"));
     }
 
     private static void CheckValidStatus(LeadStatus status)
