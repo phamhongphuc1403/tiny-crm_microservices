@@ -5,8 +5,8 @@ using BuildingBlock.Domain.Repositories;
 using BuildingBlock.Domain.Utils;
 using Sales.Application.CQRS.Commands.DealCommands.Requests;
 using Sales.Application.DTOs.DealDTOs;
-using Sales.Domain.DealAggregate;
 using Sales.Domain.DealAggregate.DomainService;
+using Sales.Domain.DealAggregate.Entities;
 using Sales.Domain.DealAggregate.Enums;
 using Sales.Domain.DealAggregate.Exceptions;
 using Sales.Domain.DealAggregate.Specifications;
@@ -37,11 +37,11 @@ public class CloseAsWonDealCommandHandler : ICommandHandler<CloseAsWonDealComman
         var dealIdSpecification = new DealIdSpecification(request.DealId);
         var deal = Optional<Deal>.Of(await _dealReadOnlyRepository.GetAnyAsync(dealIdSpecification))
             .ThrowIfNotPresent(new DealNotfoundException(request.DealId)).Get();
-        
+
         deal = _dealDomainService.UpdateStatus(deal, DealStatus.Won);
         _dealOperationRepository.Update(deal);
         await _unitOfWork.SaveChangesAsync();
-        
+
         return _mapper.Map<DealDetailDto>(deal);
     }
 }

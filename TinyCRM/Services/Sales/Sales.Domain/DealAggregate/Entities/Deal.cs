@@ -1,5 +1,4 @@
 using BuildingBlock.Domain.Model;
-using BuildingBlock.Domain.Utils;
 using Sales.Domain.AccountAggregate;
 using Sales.Domain.DealAggregate.Enums;
 using Sales.Domain.DealAggregate.Exceptions;
@@ -85,11 +84,5 @@ public sealed class Deal : GuidEntity
         if (dealLine == null) throw new DealLineNotFoundException(id);
 
         DealLines.Remove(dealLine);
-    }
-
-    public DealLine GetDealLine(Guid dealLineId)
-    {
-        return Optional<DealLine>.Of(DealLines.FirstOrDefault(x => x.Id == dealLineId))
-            .ThrowIfNotPresent(new DealLineNotFoundException(dealLineId)).Get();
     }
 }
