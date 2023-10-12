@@ -112,17 +112,17 @@ public class DealDomainService : IDealDomainService
     private async Task ValidateUpdateDeal(Guid leadId, Guid customerId)
     {
         var leadIdSpecification = new LeadIdSpecification(leadId);
+
+        var lead = Optional<Lead>.Of(await _leadReadOnlyRepository.GetAnyAsync(leadIdSpecification))
+            .ThrowIfNotPresent(new LeadNotFoundException(leadId)).Get();
+
+        if (lead.Status is LeadStatus.Disqualified or LeadStatus.Qualified)
+            throw new LeadValidStatusException(lead.Status);
+
         var leadAccountIdSpecification = new LeadAccountIdMatchSpecification(customerId);
-
-        var leadStatusOpenSpecification = new LeadStatusFilterSpecification(LeadStatus.Open);
-        var leadStatusProspectSpecification = new LeadStatusFilterSpecification(LeadStatus.Prospect);
-
-        var specification = leadIdSpecification.And(leadAccountIdSpecification)
-            .And(leadStatusOpenSpecification.Or(leadStatusProspectSpecification));
-        if (!await _leadReadOnlyRepository.CheckIfExistAsync(specification))
-        {
-            throw new InvalidUpdateException($"Deal can not update with lead {leadId} and account {customerId}");
-        }
+        Optional<bool>.Of(
+                await _leadReadOnlyRepository.CheckIfExistAsync(leadIdSpecification.And(leadAccountIdSpecification)))
+            .ThrowIfNotPresent(new LeadMatchAccountException($"Lead {leadId} not match account {customerId}"));
     }
 
     public async Task<Deal> GetDealAsync(Guid id)
