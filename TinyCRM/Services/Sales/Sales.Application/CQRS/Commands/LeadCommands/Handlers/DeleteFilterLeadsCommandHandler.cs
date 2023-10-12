@@ -25,7 +25,7 @@ public class DeleteFilterLeadsCommandHandler : ICommandHandler<DeleteFilterLeads
 
     public async Task Handle(DeleteFilterLeadsCommand request, CancellationToken cancellationToken)
     {
-        var includes = "Customer";
+        const string includes = "Customer";
         var leadAccountNamePartialMatchSpecification = new LeadAccountNamePartialMatchSpecification(request.Keyword);
         var leadTitlePartialMatchSpecification = new LeadTitlePartialMatchSpecification(request.Keyword);
         var leadStatusFilterSpecification = new LeadStatusFilterSpecification(request.Status);

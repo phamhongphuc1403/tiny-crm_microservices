@@ -100,6 +100,24 @@ public class DealController : ControllerBase
         return Ok(deal);
     }
 
+    [HttpDelete]
+    [Authorize(Policy = TinyCrmPermissions.Deals.Delete)]
+    public async Task<ActionResult> DeleteManyDealsAsync([FromBody] DealDeleteManyDto dto)
+    {
+        await _mediator.Send(new DeleteManyDealsCommand(dto));
+
+        return NoContent();
+    }
+    
+    [HttpDelete("all")]
+    [Authorize(Policy = TinyCrmPermissions.Deals.Delete)]
+    public async Task<ActionResult> DeleteFilterDealsAsync([FromQuery] FilterDealsDto dto)
+    {
+        await _mediator.Send(new DeleteFilterDealsCommand(dto));
+
+        return NoContent();
+    }
+    
     [HttpGet("{dealId:guid}/lines")]
     public async Task<ActionResult<FilterAndPagingResultDto<DealLineDto>>>
         GetFilteredAndPagedDealLinesAsync(Guid dealId, [FromQuery] FilterAndPagingDealLineDto dto)

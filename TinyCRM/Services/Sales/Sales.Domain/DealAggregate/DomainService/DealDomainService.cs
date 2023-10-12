@@ -144,9 +144,17 @@ public class DealDomainService : IDealDomainService
         return deal;
     }
 
-    public Task<Deal> DeleteManyDealAsync(List<Guid> ids)
+    public async Task<IList<Deal>> DeleteManyDealAsync(IEnumerable<Guid> ids)
     {
-        throw new NotImplementedException();
+        var deals = new List<Deal>();
+        foreach (var id in ids)
+        {
+            var dealIdSpecification = new DealIdSpecification(id);
+            var deal = Optional<Deal>.Of(await _dealReadOnlyRepository.GetAnyAsync(dealIdSpecification))
+                .ThrowIfNotPresent(new DealNotfoundException(id)).Get();
+            deals.Add(deal);
+        }
+        return deals;
     }
 
     public async Task<DealLine> CreateDealLineAsync(Deal deal, Guid productId, double price, int quantity)
