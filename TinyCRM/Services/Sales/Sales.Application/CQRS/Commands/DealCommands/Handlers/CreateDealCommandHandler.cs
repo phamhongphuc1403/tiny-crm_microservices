@@ -1,4 +1,5 @@
 using AutoMapper;
+using BuildingBlock.Application.CQRS.Command;
 using BuildingBlock.Domain.Interfaces;
 using BuildingBlock.Domain.Repositories;
 using MediatR;
@@ -9,7 +10,7 @@ using Sales.Domain.DealAggregate.DomainService;
 
 namespace Sales.Application.CQRS.Commands.DealCommands.Handlers;
 
-public class CreateDealCommandHandler : IRequestHandler<CreateDealCommand, DealDetailDto>
+public class CreateDealCommandHandler : ICommandHandler<CreateDealCommand, DealDetailDto>
 {
     private readonly IDealDomainService _dealDomainService;
     private readonly IOperationRepository<Deal> _dealOperationRepository;

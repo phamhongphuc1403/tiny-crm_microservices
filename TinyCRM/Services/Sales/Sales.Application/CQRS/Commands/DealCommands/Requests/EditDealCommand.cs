@@ -3,10 +3,13 @@ using Sales.Application.DTOs.DealDTOs;
 
 namespace Sales.Application.CQRS.Commands.DealCommands.Requests;
 
-public class CreateDealCommand : DealCreateDto, ICommand<DealDetailDto>
+public class EditDealCommand: DealEditDto, ICommand<DealDetailDto>
 {
-    public CreateDealCommand(DealCreateDto dto)
+    public Guid Id { get; set; }
+
+    public EditDealCommand(Guid id,DealEditDto dto)
     {
+        Id = id;
         Title = dto.Title;
         CustomerId = dto.CustomerId;
         LeadId = dto.LeadId;

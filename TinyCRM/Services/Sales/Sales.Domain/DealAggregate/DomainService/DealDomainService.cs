@@ -1,4 +1,5 @@
-﻿using BuildingBlock.Domain.Repositories;
+﻿using BuildingBlock.Domain.Exceptions;
+using BuildingBlock.Domain.Repositories;
 using BuildingBlock.Domain.Utils;
 using Sales.Domain.AccountAggregate;
 using Sales.Domain.AccountAggregate.Exceptions;
@@ -77,11 +78,50 @@ public class DealDomainService : IDealDomainService
         return deal;
     }
 
-    public Task<Deal> UpdateDealAsync(Deal deal, string title, Guid customerId, Guid? leadId, string? description,
-        DealStatus dealStatus,
+    public async Task<Deal> UpdateDealAsync(Deal deal, string title, Guid customerId, Guid? leadId, string? description,
         double estimatedRevenue, double actualRevenue)
     {
-        throw new NotImplementedException();
+        if (deal.DealStatus is DealStatus.Won or DealStatus.Lost)
+        {
+            deal.Description = description;
+            return deal;
+        }
+
+        Optional<bool>
+            .Of(await _accountReadOnlyRepository.CheckIfExistAsync(new AccountIdSpecification(customerId)))
+            .ThrowIfNotPresent(new AccountNotFoundException(customerId));
+
+        if (leadId == null)
+        {
+            deal.Update(title, customerId, leadId, description, estimatedRevenue, actualRevenue);
+            return deal;
+        }
+
+        await ValidateUpdateDeal((Guid)leadId, customerId);
+            
+        if (deal.LeadId != leadId)
+        {
+            deal.AddDomainEvent(new ChangedLeadIdForDealEvent(deal.LeadId, (Guid)leadId));
+        }
+        
+        deal.Update(title, customerId, leadId, description, estimatedRevenue, actualRevenue);
+        return deal;
+    }
+
+    private async Task ValidateUpdateDeal(Guid leadId, Guid customerId)
+    {
+        var leadIdSpecification = new LeadIdSpecification(leadId);
+        var leadAccountIdSpecification = new LeadAccountIdMatchSpecification(customerId);
+
+        var leadStatusOpenSpecification = new LeadStatusFilterSpecification(LeadStatus.Open);
+        var leadStatusProspectSpecification = new LeadStatusFilterSpecification(LeadStatus.Prospect);
+
+        var specification = leadIdSpecification.And(leadAccountIdSpecification)
+            .And(leadStatusOpenSpecification.Or(leadStatusProspectSpecification));
+        if (!await _leadReadOnlyRepository.CheckIfExistAsync(specification))
+        {
+            throw new InvalidUpdateException($"Deal can not update with lead {leadId} and account {customerId}");
+        }
     }
 
     public async Task<Deal> GetDealAsync(Guid id)

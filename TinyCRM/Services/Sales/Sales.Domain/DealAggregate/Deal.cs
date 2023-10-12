@@ -46,16 +46,16 @@ public sealed class Deal : GuidEntity
     public double ActualRevenue { get; set; }
     public List<DealLine> DealLines { get; set; }
 
-    internal void Update(string title, Guid customerId, Guid? leadId, string? description, DealStatus dealStatus,
+    internal void Update(string title, Guid customerId, Guid? leadId, string? description,
         double estimatedRevenue, double actualRevenue)
     {
         Title = title;
         CustomerId = customerId;
         LeadId = leadId;
         Description = description;
-        DealStatus = dealStatus;
         EstimatedRevenue = estimatedRevenue;
         ActualRevenue = actualRevenue;
+        UpdatedDate = DateTime.UtcNow;
     }
 
     internal DealLine AddDealLine(Guid productId, double price, int quantity)

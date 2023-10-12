@@ -1,5 +1,4 @@
 using BuildingBlock.Domain.DomainEvent;
-using BuildingBlock.Domain.Interfaces;
 using BuildingBlock.Domain.Repositories;
 using Sales.Domain.DealAggregate.Events;
 using Sales.Domain.LeadAggregate;
@@ -14,15 +13,13 @@ public class CreatedDealDomainEventHandler : IDomainEventHandler<CreatedDealEven
     private readonly ILeadDomainService _leadDomainService;
     private readonly IOperationRepository<Lead> _leadOperationRepository;
     private readonly IReadOnlyRepository<Lead> _leadReadOnlyRepository;
-    private readonly IUnitOfWork _unitOfWork;
 
     public CreatedDealDomainEventHandler(IOperationRepository<Lead> leadOperationRepository,
-        IReadOnlyRepository<Lead> leadReadOnlyRepository, ILeadDomainService leadDomainService, IUnitOfWork unitOfWork)
+        IReadOnlyRepository<Lead> leadReadOnlyRepository, ILeadDomainService leadDomainService)
     {
         _leadOperationRepository = leadOperationRepository;
         _leadReadOnlyRepository = leadReadOnlyRepository;
         _leadDomainService = leadDomainService;
-        _unitOfWork = unitOfWork;
     }
 
     public async Task Handle(CreatedDealEvent notification, CancellationToken cancellationToken)

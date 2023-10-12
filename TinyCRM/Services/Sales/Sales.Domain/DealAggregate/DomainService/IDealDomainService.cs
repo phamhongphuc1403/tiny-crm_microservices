@@ -11,7 +11,6 @@ public interface IDealDomainService
         double estimatedRevenue, double actualRevenue);
 
     Task<Deal> UpdateDealAsync(Deal deal, string title, Guid customerId, Guid? leadId, string? description,
-        DealStatus dealStatus,
         double estimatedRevenue, double actualRevenue);
 
     Task<Deal> DeleteManyDealAsync(List<Guid> ids);

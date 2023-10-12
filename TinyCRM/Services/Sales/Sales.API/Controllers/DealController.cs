@@ -64,4 +64,13 @@ public class DealController : ControllerBase
 
         return Ok(deal);
     }
+    
+    [HttpPut("{dealId:guid}")]
+    [Authorize(Policy = TinyCrmPermissions.Deals.Edit)]
+    public async Task<ActionResult<DealDetailDto>> EditAsync(Guid dealId, [FromBody] DealEditDto dto)
+    {
+        var deal = await _mediator.Send(new EditDealCommand(dealId, dto));
+
+        return Ok(deal);
+    }
 }
