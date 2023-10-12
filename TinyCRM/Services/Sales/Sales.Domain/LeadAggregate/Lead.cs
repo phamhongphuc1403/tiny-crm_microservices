@@ -32,6 +32,7 @@ public sealed class Lead : GuidEntity
     public string? Description { get; set; }
 
     public LeadStatus Status { get; set; }
+    public DateTime? QualificationDate { get; set; }
     public LeadDisqualificationReason? DisqualificationReason { get; set; }
     public string? DisqualificationDescription { get; set; }
     public DateTime? DisqualificationDate { get; set; }

@@ -38,6 +38,11 @@ public class LeadDomainService : ILeadDomainService
     {
         if (CheckValidStatus(lead.Status))
         {
+            if (status == LeadStatus.Qualified)
+            {
+                lead.QualificationDate = DateTime.UtcNow;
+            }
+
             Optional<bool>
                 .Of(await _accountReadOnlyRepository.CheckIfExistAsync(new AccountIdSpecification(customerId)))
                 .ThrowIfNotPresent(new AccountNotFoundException(customerId));
@@ -55,6 +60,8 @@ public class LeadDomainService : ILeadDomainService
     public Lead UpdateStatus(Lead lead, LeadStatus status)
     {
         lead.Status = status;
+        if (status == LeadStatus.Qualified)
+            lead.QualificationDate = DateTime.UtcNow;
         return lead;
     }
 
@@ -66,7 +73,7 @@ public class LeadDomainService : ILeadDomainService
             var leadIdSpecification = new LeadIdSpecification(id);
             var lead = Optional<Lead>.Of(await _leadReadOnlyRepository.GetAnyAsync(leadIdSpecification))
                 .ThrowIfNotPresent(new LeadNotFoundException(id)).Get();
-            if(lead.Status is LeadStatus.Qualified)
+            if (lead.Status is LeadStatus.Qualified)
                 lead.AddDomainEvent(new DeletedLeadDomainEvent(lead.Id));
             leads.Add(lead);
         }
@@ -89,6 +96,7 @@ public class LeadDomainService : ILeadDomainService
         if (!CheckValidStatus(lead.Status)) throw new LeadValidStatusException(lead.Status);
 
         lead.Status = LeadStatus.Qualified;
+        lead.QualificationDate = DateTime.UtcNow;
         lead.AddDomainEvent(new QualifiedLeadDomainEvent(dealId, lead.Id, lead.CustomerId, lead.EstimatedRevenue,
             lead.Title));
 

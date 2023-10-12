@@ -73,6 +73,9 @@ public class LeadSeeder : IDataSeeder
             .RuleFor(lead => lead.Status, f => f.PickRandom<LeadStatus>())
             .FinishWith((f, lead) =>
             {
+                if (lead.Status == LeadStatus.Qualified)
+                    lead.QualificationDate = f.Date.Past();
+
                 if (lead.Status != LeadStatus.Disqualified) return;
 
                 lead.DisqualificationReason = f.PickRandom<LeadDisqualificationReason>();

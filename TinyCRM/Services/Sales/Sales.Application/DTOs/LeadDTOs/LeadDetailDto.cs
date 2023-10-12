@@ -19,6 +19,7 @@ public class LeadDetailDto
     public LeadStatus? Status { get; set; }
 
     public DateTime CreatedDate { get; set; }
+    public DateTime? QualificationDate { get; set; }
 
     public DateTime? DisqualificationDate { get; set; }
 
