@@ -92,4 +92,14 @@ public class LeadController : ControllerBase
 
         return Ok(lead);
     }
+
+    [HttpGet("account/{accountId:guid}")]   
+    [Authorize(Policy = TinyCrmPermissions.Leads.Read)]
+    public async Task<ActionResult<FilterAndPagingResultDto<LeadSummaryDto>>> GetByAccountIdAsync(
+        [FromQuery] FilterAndPagingLeadsDto dto, Guid accountId)
+    {
+        var leads = await _mediator.Send(new GetLeadsByAccountIdQuery(accountId, dto));
+
+        return Ok(leads);
+    }
 }
