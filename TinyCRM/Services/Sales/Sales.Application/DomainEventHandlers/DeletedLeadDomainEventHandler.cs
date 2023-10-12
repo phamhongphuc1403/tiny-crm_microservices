@@ -1,6 +1,6 @@
 using BuildingBlock.Domain.DomainEvent;
 using BuildingBlock.Domain.Repositories;
-using Sales.Domain.DealAggregate;
+using Sales.Domain.DealAggregate.Entities;
 using Sales.Domain.DealAggregate.Specifications;
 using Sales.Domain.LeadAggregate.Events;
 

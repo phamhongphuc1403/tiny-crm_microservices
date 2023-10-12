@@ -4,7 +4,7 @@ using BuildingBlock.Application.DTOs;
 using BuildingBlock.Domain.Repositories;
 using Sales.Application.CQRS.Queries.DealQueries.Requests;
 using Sales.Application.DTOs.DealDTOs;
-using Sales.Domain.DealAggregate;
+using Sales.Domain.DealAggregate.Entities;
 using Sales.Domain.DealAggregate.Specifications;
 
 namespace Sales.Application.CQRS.Queries.DealQueries.Handlers;

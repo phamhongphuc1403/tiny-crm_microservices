@@ -48,7 +48,7 @@ public class DealController : ControllerBase
     }
 
     [HttpGet("{dealId:guid}/lines/{dealLineId:guid}")]
-    public async Task<ActionResult<DealLineDto>> GetDealLinesAsync(Guid dealId, Guid dealLineId)
+    public async Task<ActionResult<DealLineDto>> GetDealLineAsync(Guid dealId, Guid dealLineId)
     {
         var dealLine = await _mediator.Send(new GetDeaLineByIdQuery(dealId, dealLineId));
 
@@ -72,7 +72,7 @@ public class DealController : ControllerBase
 
         return Ok(deal);
     }
-    
+
     [HttpPut("{dealId:guid}")]
     [Authorize(Policy = TinyCrmPermissions.Deals.Edit)]
     public async Task<ActionResult<DealDetailDto>> EditAsync(Guid dealId, [FromBody] DealEditDto dto)
@@ -98,5 +98,14 @@ public class DealController : ControllerBase
         var deal = await _mediator.Send(new CloseAsLostDealCommand(dealId));
 
         return Ok(deal);
+    }
+
+    [HttpGet("{dealId:guid}/lines")]
+    public async Task<ActionResult<FilterAndPagingResultDto<DealLineDto>>>
+        GetFilteredAndPagedDealLinesAsync(Guid dealId, [FromQuery] FilterAndPagingDealLineDto dto)
+    {
+        var dealLines = await _mediator.Send(new FilterAndPagingDealLinesQuery(dealId, dto));
+
+        return Ok(dealLines);
     }
 }

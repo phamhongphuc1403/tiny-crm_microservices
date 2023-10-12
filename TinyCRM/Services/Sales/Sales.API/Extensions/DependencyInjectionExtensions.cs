@@ -6,8 +6,8 @@ using BuildingBlock.Infrastructure.EFCore.Repositories;
 using Sales.Application.Seeds;
 using Sales.Domain.AccountAggregate;
 using Sales.Domain.AccountAggregate.DomainService;
-using Sales.Domain.DealAggregate;
 using Sales.Domain.DealAggregate.DomainService;
+using Sales.Domain.DealAggregate.Entities;
 using Sales.Domain.LeadAggregate;
 using Sales.Domain.LeadAggregate.DomainService;
 using Sales.Domain.ProductAggregate.DomainService;
@@ -32,6 +32,7 @@ public static class DependencyInjectionExtensions
         services.AddScoped<IOperationRepository<Product>, OperationRepository<SaleDbContext, Product>>();
         services.AddScoped<IProductOperationRepository, ProductOperationRepository>();
         services.AddScoped<IOperationRepository<Deal>, OperationRepository<SaleDbContext, Deal>>();
+        services.AddScoped<IReadOnlyRepository<DealLine>, ReadOnlyRepository<SaleDbContext, DealLine>>();
 
         services.AddScoped<IAccountDomainService, AccountDomainService>();
         services.AddScoped<ILeadDomainService, LeadDomainService>();

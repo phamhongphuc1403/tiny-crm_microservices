@@ -1,7 +1,7 @@
 using BuildingBlock.Domain.DomainEvent;
 using BuildingBlock.Domain.Repositories;
-using Sales.Domain.DealAggregate;
 using Sales.Domain.DealAggregate.DomainService;
+using Sales.Domain.DealAggregate.Entities;
 using Sales.Domain.LeadAggregate.Events;
 
 namespace Sales.Application.DomainEventHandlers;

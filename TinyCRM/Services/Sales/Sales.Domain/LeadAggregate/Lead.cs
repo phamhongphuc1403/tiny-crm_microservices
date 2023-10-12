@@ -1,6 +1,6 @@
 using BuildingBlock.Domain.Model;
 using Sales.Domain.AccountAggregate;
-using Sales.Domain.DealAggregate;
+using Sales.Domain.DealAggregate.Entities;
 using Sales.Domain.LeadAggregate.Enums;
 
 namespace Sales.Domain.LeadAggregate;

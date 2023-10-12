@@ -5,7 +5,7 @@ using Sales.Domain.DealAggregate.Enums;
 using Sales.Domain.DealAggregate.Exceptions;
 using Sales.Domain.LeadAggregate;
 
-namespace Sales.Domain.DealAggregate;
+namespace Sales.Domain.DealAggregate.Entities;
 
 public sealed class Deal : GuidEntity
 {

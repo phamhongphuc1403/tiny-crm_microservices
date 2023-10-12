@@ -4,8 +4,8 @@ using BuildingBlock.Domain.Interfaces;
 using BuildingBlock.Domain.Repositories;
 using Sales.Application.CQRS.Commands.DealCommands.Requests;
 using Sales.Application.DTOs.DealDTOs;
-using Sales.Domain.DealAggregate;
 using Sales.Domain.DealAggregate.DomainService;
+using Sales.Domain.DealAggregate.Entities;
 
 namespace Sales.Application.CQRS.Commands.DealCommands.Handlers;
 

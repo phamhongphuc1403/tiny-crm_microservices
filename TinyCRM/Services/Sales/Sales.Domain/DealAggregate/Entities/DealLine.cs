@@ -1,7 +1,7 @@
 using BuildingBlock.Domain.Model;
 using Sales.Domain.ProductAggregate.Entities;
 
-namespace Sales.Domain.DealAggregate;
+namespace Sales.Domain.DealAggregate.Entities;
 
 public class DealLine : GuidEntity
 {

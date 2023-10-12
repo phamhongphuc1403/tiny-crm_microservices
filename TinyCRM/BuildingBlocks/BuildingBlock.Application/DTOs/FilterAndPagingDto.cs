@@ -17,7 +17,7 @@ public class FilterAndPagingDto<TEnum>
 
     public virtual TEnum? SortBy { get; set; }
 
-    public string ConvertSort()
+    public virtual string ConvertSort()
     {
         if (SortBy == null) return string.Empty;
 

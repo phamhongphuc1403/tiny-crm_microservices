@@ -1,5 +1,5 @@
 using BuildingBlock.Domain.Model;
-using Sales.Domain.DealAggregate;
+using Sales.Domain.DealAggregate.Entities;
 using Sales.Domain.ProductAggregate.Entities.Enums;
 
 namespace Sales.Domain.ProductAggregate.Entities;

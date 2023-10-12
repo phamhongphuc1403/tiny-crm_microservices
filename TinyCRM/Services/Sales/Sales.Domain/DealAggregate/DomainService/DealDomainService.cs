@@ -4,6 +4,7 @@ using BuildingBlock.Domain.Utils;
 using Sales.Domain.AccountAggregate;
 using Sales.Domain.AccountAggregate.Exceptions;
 using Sales.Domain.AccountAggregate.Specifications;
+using Sales.Domain.DealAggregate.Entities;
 using Sales.Domain.DealAggregate.Enums;
 using Sales.Domain.DealAggregate.Events;
 using Sales.Domain.DealAggregate.Exceptions;

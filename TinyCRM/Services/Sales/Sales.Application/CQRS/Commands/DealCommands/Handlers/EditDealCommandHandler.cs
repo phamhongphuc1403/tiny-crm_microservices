@@ -5,8 +5,8 @@ using BuildingBlock.Domain.Repositories;
 using BuildingBlock.Domain.Utils;
 using Sales.Application.CQRS.Commands.DealCommands.Requests;
 using Sales.Application.DTOs.DealDTOs;
-using Sales.Domain.DealAggregate;
 using Sales.Domain.DealAggregate.DomainService;
+using Sales.Domain.DealAggregate.Entities;
 using Sales.Domain.DealAggregate.Exceptions;
 using Sales.Domain.DealAggregate.Specifications;
 

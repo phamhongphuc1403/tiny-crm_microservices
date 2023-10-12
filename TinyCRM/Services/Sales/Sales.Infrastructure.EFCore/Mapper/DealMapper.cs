@@ -1,5 +1,5 @@
 using Sales.Application.DTOs.DealDTOs;
-using Sales.Domain.DealAggregate;
+using Sales.Domain.DealAggregate.Entities;
 
 namespace Sales.Infrastructure.EFCore.Mapper;
 
@@ -12,6 +12,8 @@ public class DealMapper : Mapper
         CreateMap<Deal, DealDetailDto>();
 
         CreateMap<DealLine, DealLineDto>()
-            .ForMember(dest => dest.ProductCode, opt => opt.MapFrom(src => src.Product.Code));
+            .ForMember(dest => dest.ProductCode, opt => opt.MapFrom(src => src.Product.Code))
+            .ForMember(dest => dest.ProductName, opt => opt.MapFrom(src => src.Product.Name))
+            .ForMember(dest => dest.ProductId, opt => opt.MapFrom(src => src.Product.Id));
     }
 }

@@ -2,11 +2,10 @@ using AutoMapper;
 using BuildingBlock.Application.CQRS.Command;
 using BuildingBlock.Domain.Interfaces;
 using BuildingBlock.Domain.Repositories;
-using MediatR;
 using Sales.Application.CQRS.Commands.DealCommands.Requests;
 using Sales.Application.DTOs.DealDTOs;
-using Sales.Domain.DealAggregate;
 using Sales.Domain.DealAggregate.DomainService;
+using Sales.Domain.DealAggregate.Entities;
 
 namespace Sales.Application.CQRS.Commands.DealCommands.Handlers;
 

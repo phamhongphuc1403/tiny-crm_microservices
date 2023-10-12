@@ -1,3 +1,4 @@
+using Sales.Domain.DealAggregate.Entities;
 using Sales.Domain.DealAggregate.Enums;
 
 namespace Sales.Domain.DealAggregate.DomainService;

@@ -1,4 +1,5 @@
 using BuildingBlock.Domain.Exceptions;
+using Sales.Domain.DealAggregate.Entities;
 
 namespace Sales.Domain.DealAggregate.Exceptions;
 

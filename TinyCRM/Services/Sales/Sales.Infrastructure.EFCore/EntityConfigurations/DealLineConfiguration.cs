@@ -1,6 +1,6 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
-using Sales.Domain.DealAggregate;
+using Sales.Domain.DealAggregate.Entities;
 
 namespace Sales.Infrastructure.EFCore.EntityConfigurations;
 
