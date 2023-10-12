@@ -39,10 +39,18 @@ public class DealController : ControllerBase
         return Ok(deal);
     }
 
-    [HttpPut("{id:guid}/lines")]
-    public async Task<ActionResult<DealLineDto>> AddProductAsync(Guid id, [FromBody] CreateOrEditDealLineDto dto)
+    [HttpPut("{dealId:guid}/lines")]
+    public async Task<ActionResult<DealLineDto>> AddProductAsync(Guid dealId, [FromBody] CreateOrEditDealLineDto dto)
     {
-        var dealLine = await _mediator.Send(new CreateDealLineCommand(id, dto));
+        var dealLine = await _mediator.Send(new CreateDealLineCommand(dealId, dto));
+
+        return Ok(dealLine);
+    }
+
+    [HttpGet("{dealId:guid}/lines/{dealLineId:guid}")]
+    public async Task<ActionResult<DealLineDto>> GetDealLinesAsync(Guid dealId, Guid dealLineId)
+    {
+        var dealLine = await _mediator.Send(new GetDeaLineByIdQuery(dealId, dealLineId));
 
         return Ok(dealLine);
     }
