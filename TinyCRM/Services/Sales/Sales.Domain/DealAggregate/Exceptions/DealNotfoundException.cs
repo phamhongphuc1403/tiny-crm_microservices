@@ -7,4 +7,8 @@ public class DealNotfoundException : EntityNotFoundException
     public DealNotfoundException(Guid id) : base(nameof(Deal), id)
     {
     }
+
+    public DealNotfoundException(string message) : base(message)
+    {
+    }
 }

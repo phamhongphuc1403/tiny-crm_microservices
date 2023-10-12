@@ -31,6 +31,7 @@ public class DealController : ControllerBase
     }
 
     [HttpPost]
+    [Authorize(Policy = TinyCrmPermissions.Deals.Create)]
     public async Task<ActionResult<DealDetailDto>> CreateAsync([FromBody] DealCreateDto dto)
     {
         var deal = await _mediator.Send(new CreateDealCommand(dto));
@@ -44,5 +45,23 @@ public class DealController : ControllerBase
         var dealLine = await _mediator.Send(new CreateDealLineCommand(id, dto));
 
         return Ok(dealLine);
+    }
+
+    [HttpGet("lead/{leadId:guid}")]
+    [Authorize(Policy = TinyCrmPermissions.Deals.Read)]
+    public async Task<ActionResult<DealDetailDto>> GetByLeadIdAsync(Guid leadId)
+    {
+        var deal = await _mediator.Send(new GetDealByLeadIdQuery(leadId));
+
+        return Ok(deal);
+    }
+
+    [HttpGet("{dealId:guid}")]
+    [Authorize(Policy = TinyCrmPermissions.Deals.Read)]
+    public async Task<ActionResult<DealDetailDto>> GetByDealIdAsync(Guid dealId)
+    {
+        var deal = await _mediator.Send(new GetDealByDealIdQuery(dealId));
+
+        return Ok(deal);
     }
 }
