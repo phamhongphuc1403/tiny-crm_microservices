@@ -26,7 +26,8 @@ public class GetLeadsByAccountIdQueryHandler:IQueryHandler<GetLeadsByAccountIdQu
 
         var leadTitleSpecification = new LeadTitlePartialMatchSpecification(request.Keyword);
         var leadAccountIdSpecification = new LeadAccountIdMatchSpecification(request.AccountId);
-        var specification = leadAccountIdSpecification.And(leadTitleSpecification);
+        var leadStatusSpecification = new LeadStatusFilterSpecification(request.Status);
+        var specification = leadAccountIdSpecification.And(leadTitleSpecification).And(leadStatusSpecification);
         var (leads, totalCount) = await _repository.GetFilterAndPagingAsync(specification,
             request.Sort, request.Skip, request.Take, includes);
 

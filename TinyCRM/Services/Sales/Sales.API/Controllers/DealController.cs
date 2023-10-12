@@ -81,4 +81,22 @@ public class DealController : ControllerBase
 
         return Ok(deal);
     }
+    
+    [HttpPut("{dealId:guid}/close-as-won")]
+    [Authorize(Policy = TinyCrmPermissions.Deals.Edit)]
+    public async Task<ActionResult<DealDetailDto>> CloseAsWonAsync(Guid dealId)
+    {
+        var deal = await _mediator.Send(new CloseAsWonDealCommand(dealId));
+
+        return Ok(deal);
+    }
+    
+    [HttpPut("{dealId:guid}/close-as-lost")]
+    [Authorize(Policy = TinyCrmPermissions.Deals.Edit)]
+    public async Task<ActionResult<DealDetailDto>> CloseAsLostAsync(Guid dealId)
+    {
+        var deal = await _mediator.Send(new CloseAsLostDealCommand(dealId));
+
+        return Ok(deal);
+    }
 }

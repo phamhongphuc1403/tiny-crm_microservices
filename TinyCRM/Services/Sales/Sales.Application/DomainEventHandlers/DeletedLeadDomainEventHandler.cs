@@ -6,12 +6,12 @@ using Sales.Domain.LeadAggregate.Events;
 
 namespace Sales.Application.DomainEventHandlers;
 
-public class DeletedDealDomainEventHandler : IDomainEventHandler<DeletedLeadDomainEvent>
+public class DeletedLeadDomainEventHandler : IDomainEventHandler<DeletedLeadDomainEvent>
 {
     private readonly IOperationRepository<Deal> _dealOperationRepository;
     private readonly IReadOnlyRepository<Deal> _dealOnlyRepository;
 
-    public DeletedDealDomainEventHandler(IOperationRepository<Deal> dealOperationRepository,
+    public DeletedLeadDomainEventHandler(IOperationRepository<Deal> dealOperationRepository,
         IReadOnlyRepository<Deal> dealOnlyRepository)
     {
         _dealOperationRepository = dealOperationRepository;

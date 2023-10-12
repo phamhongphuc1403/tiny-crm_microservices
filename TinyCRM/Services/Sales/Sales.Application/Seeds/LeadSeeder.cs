@@ -83,6 +83,6 @@ public class LeadSeeder : IDataSeeder
                 lead.DisqualificationDate = f.Date.Past();
             });
 
-        _leadOperationRepository.AddRangeAsync(faker.Generate(50));
+        _leadOperationRepository.AddRangeAsync(faker.Generate(500));
     }
 }

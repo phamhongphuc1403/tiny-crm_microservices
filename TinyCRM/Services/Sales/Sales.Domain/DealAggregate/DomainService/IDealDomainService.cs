@@ -17,6 +17,8 @@ public interface IDealDomainService
 
     Task<Deal> GetDealAsync(Guid id);
 
+    Deal UpdateStatus(Deal deal, DealStatus dealStatus);
+
     Task<DealLine> CreateDealLineAsync(Deal deal, Guid productId, double price, int quantity);
 
     Task<Deal> UpdateDealLineAsync(Deal deal, Guid idDealLine, Guid productId, decimal price, int quantity);

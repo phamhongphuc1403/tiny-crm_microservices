@@ -98,12 +98,12 @@ public class DealDomainService : IDealDomainService
         }
 
         await ValidateUpdateDeal((Guid)leadId, customerId);
-            
+
         if (deal.LeadId != leadId)
         {
             deal.AddDomainEvent(new ChangedLeadIdForDealEvent(deal.LeadId, (Guid)leadId));
         }
-        
+
         deal.Update(title, customerId, leadId, description, estimatedRevenue, actualRevenue);
         return deal;
     }
@@ -132,6 +132,15 @@ public class DealDomainService : IDealDomainService
 
         return Optional<Deal>.Of(await _dealReadOnlyRepository.GetAnyAsync(dealIdSpecification, includeTables))
             .ThrowIfNotPresent(new DealNotfoundException(id)).Get();
+    }
+
+    public Deal UpdateStatus(Deal deal, DealStatus dealStatus)
+    {
+        if (deal.DealStatus != DealStatus.Open)
+            throw new DealValidStatusException(deal.DealStatus);
+
+        deal.DealStatus = dealStatus;
+        return deal;
     }
 
     public Task<Deal> DeleteManyDealAsync(List<Guid> ids)
