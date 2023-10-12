@@ -81,7 +81,7 @@ public class DealController : ControllerBase
 
         return Ok(deal);
     }
-    
+
     [HttpPut("{dealId:guid}/close-as-won")]
     [Authorize(Policy = TinyCrmPermissions.Deals.Edit)]
     public async Task<ActionResult<DealDetailDto>> CloseAsWonAsync(Guid dealId)
@@ -90,7 +90,7 @@ public class DealController : ControllerBase
 
         return Ok(deal);
     }
-    
+
     [HttpPut("{dealId:guid}/close-as-lost")]
     [Authorize(Policy = TinyCrmPermissions.Deals.Edit)]
     public async Task<ActionResult<DealDetailDto>> CloseAsLostAsync(Guid dealId)
@@ -108,7 +108,7 @@ public class DealController : ControllerBase
 
         return NoContent();
     }
-    
+
     [HttpDelete("all")]
     [Authorize(Policy = TinyCrmPermissions.Deals.Delete)]
     public async Task<ActionResult> DeleteFilterDealsAsync([FromQuery] FilterDealsDto dto)
@@ -117,7 +117,7 @@ public class DealController : ControllerBase
 
         return NoContent();
     }
-    
+
     [HttpGet("{dealId:guid}/lines")]
     public async Task<ActionResult<FilterAndPagingResultDto<DealLineDto>>>
         GetFilteredAndPagedDealLinesAsync(Guid dealId, [FromQuery] FilterAndPagingDealLineDto dto)
@@ -125,5 +125,14 @@ public class DealController : ControllerBase
         var dealLines = await _mediator.Send(new FilterAndPagingDealLinesQuery(dealId, dto));
 
         return Ok(dealLines);
+    }
+
+    [HttpPut("{dealId:guid}/lines/{dealLineId:guid}")]
+    public async Task<ActionResult<DealLineDto>> EditDealLineAsync(Guid dealId, Guid dealLineId,
+        [FromBody] CreateOrEditDealLineDto dto)
+    {
+        var dealLine = await _mediator.Send(new EditDealLineCommand(dealId, dealLineId, dto));
+
+        return Ok(dealLine);
     }
 }

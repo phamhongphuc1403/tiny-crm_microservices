@@ -68,14 +68,16 @@ public sealed class Deal : GuidEntity
         return dealLine;
     }
 
-    internal void UpdateDealLine(Guid id, Guid productId, string code, double price, int quantity, double totalAmount)
+    internal DealLine EditDealLine(Guid id, Guid productId, double pricePerUnit, int quantity)
     {
         var dealLine = GetDealLine(id);
 
         dealLine.ProductId = productId;
-        dealLine.PricePerUnit = price;
+        dealLine.PricePerUnit = pricePerUnit;
         dealLine.Quantity = quantity;
-        dealLine.TotalAmount = totalAmount;
+        dealLine.TotalAmount = pricePerUnit * quantity;
+
+        return dealLine;
     }
 
     internal void RemoveDealLine(Guid id)

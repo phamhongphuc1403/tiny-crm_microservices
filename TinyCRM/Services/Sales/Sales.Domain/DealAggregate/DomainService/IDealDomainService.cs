@@ -27,6 +27,8 @@ public interface IDealDomainService
     Task<Deal> DeleteManyDealLinesAsync(Deal deal, List<Guid> idDealLines);
 
     Task<Deal> UpdateDealStatusAsync(Deal deal, DealStatus dealStatus);
-    
+
     DealLine GetDealLine(Deal deal, Guid dealLineId);
+
+    Task<DealLine> EditDealLineAsync(Deal deal, Guid dealLineId, Guid productId, int quantity, double pricePerUnit);
 }

@@ -134,15 +134,13 @@ public class DealDomainService : IDealDomainService
                 .ThrowIfNotPresent(new DealNotfoundException(id)).Get();
             deals.Add(deal);
         }
+
         return deals;
     }
 
     public async Task<DealLine> CreateDealLineAsync(Deal deal, Guid productId, double price, int quantity)
     {
-        var productIdSpecification = new ProductIdSpecification(productId);
-
-        Optional<Product>.Of(await _productReadOnlyRepository.GetAnyAsync(productIdSpecification))
-            .ThrowIfNotPresent(new ProductNotFoundException(productId));
+        await CheckProductExist(productId);
 
         return deal.AddDealLine(productId, price, quantity);
     }
@@ -165,6 +163,22 @@ public class DealDomainService : IDealDomainService
     public DealLine GetDealLine(Deal deal, Guid dealLdineId)
     {
         return deal.GetDealLine(dealLdineId);
+    }
+
+    public async Task<DealLine> EditDealLineAsync(Deal deal, Guid dealLineId, Guid productId, int quantity,
+        double pricePerUnit)
+    {
+        await CheckProductExist(productId);
+
+        return deal.EditDealLine(dealLineId, productId, pricePerUnit, quantity);
+    }
+
+    private async Task CheckProductExist(Guid productId)
+    {
+        var productIdSpecification = new ProductIdSpecification(productId);
+
+        Optional<Product>.Of(await _productReadOnlyRepository.GetAnyAsync(productIdSpecification))
+            .ThrowIfNotPresent(new ProductNotFoundException(productId));
     }
 
     private async Task ValidateUpdateDeal(Guid leadId, Guid customerId, Guid? dealLeadId)
