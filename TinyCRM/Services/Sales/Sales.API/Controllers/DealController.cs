@@ -135,4 +135,12 @@ public class DealController : ControllerBase
 
         return Ok(dealLine);
     }
+
+    [HttpPut("{dealId:guid}/lines/delete-many")]
+    public async Task<ActionResult> DeleteManyDealLinesAsync(Guid dealId, [FromBody] DeleteManyDealLinesDto dto)
+    {
+        await _mediator.Send(new DeleteManyDealLinesCommand(dealId, dto));
+
+        return NoContent();
+    }
 }

@@ -82,8 +82,7 @@ public sealed class Deal : GuidEntity
 
     internal void RemoveDealLine(Guid id)
     {
-        var dealLine = DealLines.FirstOrDefault(x => x.Id == id);
-        if (dealLine == null) throw new DealLineNotFoundException(id);
+        var dealLine = GetDealLine(id);
 
         DealLines.Remove(dealLine);
     }

@@ -24,7 +24,7 @@ public interface IDealDomainService
 
     Task<Deal> UpdateDealLineAsync(Deal deal, Guid idDealLine, Guid productId, decimal price, int quantity);
 
-    Task<Deal> DeleteManyDealLinesAsync(Deal deal, List<Guid> idDealLines);
+    void RemoveManyDealLines(Deal deal, IEnumerable<Guid> dealLineIds);
 
     Task<Deal> UpdateDealStatusAsync(Deal deal, DealStatus dealStatus);
 
