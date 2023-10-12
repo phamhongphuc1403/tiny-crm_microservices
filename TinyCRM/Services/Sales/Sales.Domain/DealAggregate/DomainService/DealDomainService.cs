@@ -98,7 +98,7 @@ public class DealDomainService : IDealDomainService
             return deal;
         }
 
-        await ValidateUpdateDeal((Guid)leadId, customerId);
+        await ValidateUpdateDeal((Guid)leadId, customerId, deal.LeadId);
 
         if (deal.LeadId != leadId)
         {
@@ -109,14 +109,14 @@ public class DealDomainService : IDealDomainService
         return deal;
     }
 
-    private async Task ValidateUpdateDeal(Guid leadId, Guid customerId)
+    private async Task ValidateUpdateDeal(Guid leadId, Guid customerId, Guid? dealLeadId)
     {
         var leadIdSpecification = new LeadIdSpecification(leadId);
 
         var lead = Optional<Lead>.Of(await _leadReadOnlyRepository.GetAnyAsync(leadIdSpecification))
             .ThrowIfNotPresent(new LeadNotFoundException(leadId)).Get();
 
-        if (lead.Status is LeadStatus.Disqualified or LeadStatus.Qualified)
+        if (lead.Id != dealLeadId && lead.Status is LeadStatus.Disqualified or LeadStatus.Qualified)
             throw new LeadValidStatusException(lead.Status);
 
         var leadAccountIdSpecification = new LeadAccountIdMatchSpecification(customerId);
