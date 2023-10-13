@@ -11,7 +11,7 @@ public class DealConfiguration : IEntityTypeConfiguration<Deal>
         builder.Property(p => p.Title).HasMaxLength(256);
         builder.Property(p => p.Description).HasMaxLength(1024);
         builder.Property(d => d.EstimatedRevenue).HasColumnType("decimal(18,2)").IsRequired();
-        builder.Property(d => d.ActualRevenue).HasColumnType("decimal(18,2)").IsRequired();
+        builder.Property(d => d.ActualRevenue).HasColumnType("decimal(18,2)").IsRequired().HasDefaultValue(0);
         builder.HasOne(d => d.Customer)
             .WithMany()
             .HasForeignKey(d => d.CustomerId)

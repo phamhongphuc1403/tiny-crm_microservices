@@ -22,13 +22,9 @@ public interface IDealDomainService
 
     Task<DealLine> CreateDealLineAsync(Deal deal, Guid productId, double price, int quantity);
 
-    Task<Deal> UpdateDealLineAsync(Deal deal, Guid idDealLine, Guid productId, decimal price, int quantity);
-
     void RemoveDealLines(Deal deal, IEnumerable<Guid> dealLineIds);
 
     void RemoveDealLines(Deal deal, IEnumerable<DealLine> dealLines);
-
-    Task<Deal> UpdateDealStatusAsync(Deal deal, DealStatus dealStatus);
 
     DealLine GetDealLine(Deal deal, Guid dealLineId);
 

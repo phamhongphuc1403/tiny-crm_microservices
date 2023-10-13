@@ -40,7 +40,9 @@ public class DealController : ControllerBase
     }
 
     [HttpPut("{dealId:guid}/lines")]
-    public async Task<ActionResult<DealLineDto>> AddProductAsync(Guid dealId, [FromBody] CreateOrEditDealLineDto dto)
+    [Authorize(Policy = TinyCrmPermissions.Deals.Edit)]
+    public async Task<ActionResult<DealLineWithDealActualRevenueDto>> CreateDealLineAsync(Guid dealId,
+        [FromBody] CreateOrEditDealLineDto dto)
     {
         var dealLine = await _mediator.Send(new CreateDealLineCommand(dealId, dto));
 
@@ -48,6 +50,7 @@ public class DealController : ControllerBase
     }
 
     [HttpGet("{dealId:guid}/lines/{dealLineId:guid}")]
+    [Authorize(Policy = TinyCrmPermissions.Deals.Read)]
     public async Task<ActionResult<DealLineDto>> GetDealLineAsync(Guid dealId, Guid dealLineId)
     {
         var dealLine = await _mediator.Send(new GetDeaLineByIdQuery(dealId, dealLineId));
@@ -127,6 +130,7 @@ public class DealController : ControllerBase
     }
     
     [HttpGet("{dealId:guid}/lines")]
+    [Authorize(Policy = TinyCrmPermissions.Deals.Read)]
     public async Task<ActionResult<FilterAndPagingResultDto<DealLineDto>>>
         GetFilteredAndPagedDealLinesAsync(Guid dealId, [FromQuery] FilterAndPagingDealLineDto dto)
     {
@@ -136,7 +140,8 @@ public class DealController : ControllerBase
     }
 
     [HttpPut("{dealId:guid}/lines/{dealLineId:guid}")]
-    public async Task<ActionResult<DealLineDto>> EditDealLineAsync(Guid dealId, Guid dealLineId,
+    [Authorize(Policy = TinyCrmPermissions.Deals.Edit)]
+    public async Task<ActionResult<DealLineWithDealActualRevenueDto>> EditDealLineAsync(Guid dealId, Guid dealLineId,
         [FromBody] CreateOrEditDealLineDto dto)
     {
         var dealLine = await _mediator.Send(new EditDealLineCommand(dealId, dealLineId, dto));
@@ -145,18 +150,21 @@ public class DealController : ControllerBase
     }
 
     [HttpPut("{dealId:guid}/lines/delete-many")]
-    public async Task<ActionResult> DeleteManyDealLinesAsync(Guid dealId, [FromBody] DeleteManyDealLinesDto dto)
+    [Authorize(Policy = TinyCrmPermissions.Deals.Edit)]
+    public async Task<ActionResult<DealActualRevenueDto>> DeleteManyDealLinesAsync(Guid dealId,
+        [FromBody] DeleteManyDealLinesDto dto)
     {
-        await _mediator.Send(new DeleteManyDealLinesCommand(dealId, dto));
+        var dealActualRevenue = await _mediator.Send(new DeleteManyDealLinesCommand(dealId, dto));
 
-        return NoContent();
+        return Ok(dealActualRevenue);
     }
 
     [HttpPut("{dealId:guid}/lines/delete-all")]
+    [Authorize(Policy = TinyCrmPermissions.Deals.Edit)]
     public async Task<ActionResult> DeleteFilteredDealLinesAsync(Guid dealId, [FromQuery] FilterDealLinesDto dto)
     {
-        await _mediator.Send(new DeleteFilteredDealLinesCommand(dealId, dto));
+        var dealActualRevenue = await _mediator.Send(new DeleteFilteredDealLinesCommand(dealId, dto));
 
-        return NoContent();
+        return Ok(dealActualRevenue);
     }
 }

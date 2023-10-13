@@ -77,6 +77,8 @@ public sealed class Deal : GuidEntity
         dealLine.Quantity = quantity;
         dealLine.TotalAmount = pricePerUnit * quantity;
 
+        ActualRevenue += dealLine.TotalAmount;
+
         return dealLine;
     }
 
@@ -93,8 +95,8 @@ public sealed class Deal : GuidEntity
             .ThrowIfNotPresent(new DealLineNotFoundException(dealLineId)).Get();
     }
 
-    public void RemoveDealLine(DealLine dealLines)
+    public void RemoveDealLine(DealLine dealLine)
     {
-        DealLines.Remove(dealLines);
+        DealLines.Remove(dealLine);
     }
 }

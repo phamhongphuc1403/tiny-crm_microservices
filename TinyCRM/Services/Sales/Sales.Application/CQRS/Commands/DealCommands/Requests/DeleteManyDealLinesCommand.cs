@@ -3,7 +3,7 @@ using Sales.Application.DTOs.DealDTOs;
 
 namespace Sales.Application.CQRS.Commands.DealCommands.Requests;
 
-public class DeleteManyDealLinesCommand : DeleteManyDealLinesDto, ICommand
+public class DeleteManyDealLinesCommand : DeleteManyDealLinesDto, ICommand<DealActualRevenueDto>
 {
     public DeleteManyDealLinesCommand(Guid dealId, DeleteManyDealLinesDto dto)
     {

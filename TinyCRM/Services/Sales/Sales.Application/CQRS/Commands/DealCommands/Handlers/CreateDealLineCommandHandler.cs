@@ -9,7 +9,7 @@ using Sales.Domain.DealAggregate.Entities;
 
 namespace Sales.Application.CQRS.Commands.DealCommands.Handlers;
 
-public class CreateDealLineCommandHandler : ICommandHandler<CreateDealLineCommand, DealLineDto>
+public class CreateDealLineCommandHandler : ICommandHandler<CreateDealLineCommand, DealLineWithDealActualRevenueDto>
 {
     private readonly IDealDomainService _dealDomainService;
     private readonly IOperationRepository<Deal> _dealOperationRepository;
@@ -25,7 +25,8 @@ public class CreateDealLineCommandHandler : ICommandHandler<CreateDealLineComman
         _dealDomainService = dealDomainService;
     }
 
-    public async Task<DealLineDto> Handle(CreateDealLineCommand request, CancellationToken cancellationToken)
+    public async Task<DealLineWithDealActualRevenueDto> Handle(CreateDealLineCommand request,
+        CancellationToken cancellationToken)
     {
         var deal = await _dealDomainService.GetDealAsync(request.DealId);
 
@@ -36,8 +37,6 @@ public class CreateDealLineCommandHandler : ICommandHandler<CreateDealLineComman
 
         await _unitOfWork.SaveChangesAsync();
 
-        Console.WriteLine(deal);
-
-        return _mapper.Map<DealLineDto>(dealLine);
+        return _mapper.Map<DealLineWithDealActualRevenueDto>(dealLine);
     }
 }

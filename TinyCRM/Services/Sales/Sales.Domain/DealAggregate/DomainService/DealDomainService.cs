@@ -140,42 +140,58 @@ public class DealDomainService : IDealDomainService
 
     public async Task<DealLine> CreateDealLineAsync(Deal deal, Guid productId, double price, int quantity)
     {
+        CheckDealStatusValidOnAuditDealLine(deal.DealStatus);
+
         await CheckProductExist(productId);
 
-        return deal.AddDealLine(productId, price, quantity);
+        var dealLine = deal.AddDealLine(productId, price, quantity);
+
+        UpdateActualRevenue(deal);
+
+        return dealLine;
     }
 
-    public Task<Deal> UpdateDealLineAsync(Deal deal, Guid idDealLine, Guid productId, decimal price, int quantity)
+    private static void UpdateActualRevenue(Deal deal)
     {
-        throw new NotImplementedException();
+        deal.ActualRevenue = deal.DealLines.Sum(dealLine => dealLine.TotalAmount);
     }
 
     public void RemoveDealLines(Deal deal, IEnumerable<Guid> dealLineIds)
     {
+        CheckDealStatusValidOnAuditDealLine(deal.DealStatus);
+
         foreach (var dealLineId in dealLineIds) deal.RemoveDealLine(dealLineId);
+        
+        UpdateActualRevenue(deal);
     }
 
     public void RemoveDealLines(Deal deal, IEnumerable<DealLine> dealLines)
     {
+        CheckDealStatusValidOnAuditDealLine(deal.DealStatus);
+
         foreach (var dealLine in dealLines) deal.RemoveDealLine(dealLine);
+        
+        UpdateActualRevenue(deal);
     }
 
-    public Task<Deal> UpdateDealStatusAsync(Deal deal, DealStatus dealStatus)
-    {
-        throw new NotImplementedException();
-    }
 
-    public DealLine GetDealLine(Deal deal, Guid dealLdineId)
+    public DealLine GetDealLine(Deal deal, Guid dealLineId)
     {
-        return deal.GetDealLine(dealLdineId);
+        return deal.GetDealLine(dealLineId);
     }
 
     public async Task<DealLine> EditDealLineAsync(Deal deal, Guid dealLineId, Guid productId, int quantity,
         double pricePerUnit)
     {
+        CheckDealStatusValidOnAuditDealLine(deal.DealStatus);
+
         await CheckProductExist(productId);
 
-        return deal.EditDealLine(dealLineId, productId, pricePerUnit, quantity);
+        var dealLine = deal.EditDealLine(dealLineId, productId, pricePerUnit, quantity);
+        
+        UpdateActualRevenue(deal);
+
+        return dealLine;
     }
 
     private async Task CheckProductExist(Guid productId)
@@ -206,5 +222,10 @@ public class DealDomainService : IDealDomainService
     {
         if (status is LeadStatus.Qualified or LeadStatus.Disqualified)
             throw new LeadValidStatusException(status);
+    }
+
+    private static void CheckDealStatusValidOnAuditDealLine(DealStatus status)
+    {
+        if (status is DealStatus.Won or DealStatus.Lost) throw new DealValidStatusException(status);
     }
 }
