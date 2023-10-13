@@ -103,4 +103,12 @@ public class LeadController : ControllerBase
 
         return Ok(leads);
     }
+    
+    [HttpGet("statistics")]
+    public async Task<ActionResult<LeadStatisticsDto>> GetStatisticsAsync()
+    {
+        var statistics = await _mediator.Send(new GetStatisticsLeadQuery());
+
+        return Ok(statistics);
+    }
 }

@@ -70,6 +70,13 @@ public class ReadOnlyRepository<TDbContext, TEntity> : IReadOnlyRepository<TEnti
         return (await query.ToListAsync(), totalCount);
     }
 
+    public Task<int> CountAsync(ISpecification<TEntity> specification)
+    {
+        var query = DbSet.AsQueryable();
+        query = Filter(query, specification);
+        return query.CountAsync();
+    }
+
     private static IQueryable<TEntity> Filter(IQueryable<TEntity> query, ISpecification<TEntity> specification)
     {
         return query.Where(specification.ToExpression());

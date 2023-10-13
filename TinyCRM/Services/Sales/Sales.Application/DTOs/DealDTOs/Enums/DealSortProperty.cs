@@ -4,5 +4,5 @@ public enum DealSortProperty
 {
     CreatedDate,
     Title,
-    Customer
+    CustomerName
 }

@@ -15,8 +15,8 @@ public sealed class FilterAndPagingLeadsQuery : FilterAndPagingLeadsDto,
         Take = dto.Take;
         IsDescending = dto.IsDescending;
         Sort = dto.ConvertSort();
-        if (dto.SortBy == LeadSortProperty.Customer)
-            Sort = Sort.Replace("Customer", "Customer.Name");
+        if (dto.SortBy == LeadSortProperty.CustomerName)
+            Sort = Sort.Replace(nameof(LeadSortProperty.CustomerName), "Customer.Name");
         Status = dto.Status;
     }
 

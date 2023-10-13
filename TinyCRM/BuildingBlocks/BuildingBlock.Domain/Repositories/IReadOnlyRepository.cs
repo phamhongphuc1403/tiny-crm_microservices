@@ -14,4 +14,6 @@ public interface IReadOnlyRepository<TEntity> where TEntity : GuidEntity
 
     Task<(List<TEntity>, int)> GetFilterAndPagingAsync(ISpecification<TEntity> specification,
         string sort, int skip, int take, string? includeTables = null);
+    
+    Task<int> CountAsync(ISpecification<TEntity> specification);
 }

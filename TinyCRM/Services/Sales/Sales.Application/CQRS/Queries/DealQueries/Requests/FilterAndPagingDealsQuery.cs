@@ -14,8 +14,8 @@ public class FilterAndPagingDealsQuery : FilterAndPagingDealsDto, IQuery<FilterA
         Take = dto.Take;
         IsDescending = dto.IsDescending;
         Sort = dto.ConvertSort();
-        if (dto.SortBy == DealSortProperty.Customer)
-            Sort = Sort.Replace("Customer", "Customer.Name");
+        if (dto.SortBy == DealSortProperty.CustomerName)
+            Sort = Sort.Replace(nameof(DealSortProperty.CustomerName), "Customer.Name");
         Status = dto.Status;
     }
 

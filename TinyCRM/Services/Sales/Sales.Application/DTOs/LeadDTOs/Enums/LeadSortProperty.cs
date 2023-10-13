@@ -4,5 +4,5 @@ public enum LeadSortProperty
 {
     CreatedDate,
     Title,
-    Customer
+    CustomerName
 }
