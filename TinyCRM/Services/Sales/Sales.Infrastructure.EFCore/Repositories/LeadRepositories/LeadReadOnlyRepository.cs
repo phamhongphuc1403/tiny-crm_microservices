@@ -17,6 +17,8 @@ public class LeadReadOnlyRepository : ReadOnlyRepository<SaleDbContext, Lead>, I
         GetStatisticsAsync()
     {
         var query = DbSet.AsQueryable();
+        if (!await query.AnyAsync())
+            return (0, 0, 0, 0);
         var openLeads = await query.CountAsync(x => x.Status == LeadStatus.Open);
         var qualifiedLeads = await query.CountAsync(x => x.Status == LeadStatus.Qualified);
         var disqualifiedLeads = await query.CountAsync(x => x.Status == LeadStatus.Disqualified);

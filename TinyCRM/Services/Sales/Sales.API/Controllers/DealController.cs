@@ -118,6 +118,14 @@ public class DealController : ControllerBase
         return NoContent();
     }
 
+    [HttpGet("statistics")]
+    public async Task<ActionResult<DealStatisticsDto>> GetStatisticsAsync()
+    {
+        var statistics = await _mediator.Send(new GetStatisticsDealQuery());
+
+        return Ok(statistics);
+    }
+    
     [HttpGet("{dealId:guid}/lines")]
     public async Task<ActionResult<FilterAndPagingResultDto<DealLineDto>>>
         GetFilteredAndPagedDealLinesAsync(Guid dealId, [FromQuery] FilterAndPagingDealLineDto dto)
