@@ -38,10 +38,7 @@ public class LeadDomainService : ILeadDomainService
     {
         if (CheckValidStatus(lead.Status))
         {
-            if (status == LeadStatus.Qualified)
-            {
-                lead.QualificationDate = DateTime.UtcNow;
-            }
+            if (status == LeadStatus.Qualified) lead.QualificationDate = DateTime.UtcNow;
 
             Optional<bool>
                 .Of(await _accountReadOnlyRepository.CheckIfExistAsync(new AccountIdSpecification(customerId)))
@@ -81,7 +78,7 @@ public class LeadDomainService : ILeadDomainService
         return leads;
     }
 
-    public Lead Disqualify(Lead lead, LeadDisqualificationReason reason, string? description = null)
+    public Lead Disqualify(Lead lead, LeadDisqualificationReason? reason, string? description = null)
     {
         if (!CheckValidStatus(lead.Status)) throw new LeadValidStatusException(lead.Status);
         lead.Status = LeadStatus.Disqualified;

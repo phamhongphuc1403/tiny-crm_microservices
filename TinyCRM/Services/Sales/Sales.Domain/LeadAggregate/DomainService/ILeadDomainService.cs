@@ -14,6 +14,6 @@ public interface ILeadDomainService
 
     Task<IList<Lead>> DeleteManyAsync(IEnumerable<Guid> ids);
 
-    Lead Disqualify(Lead lead, LeadDisqualificationReason reason, string? description = null);
+    Lead Disqualify(Lead lead, LeadDisqualificationReason? reason, string? description = null);
     Lead Qualify(Lead lead, Guid dealId);
 }
