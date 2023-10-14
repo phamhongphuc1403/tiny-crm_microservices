@@ -68,10 +68,21 @@ public class ContactController : ControllerBase
     }
 
     [HttpDelete("all")]
+    [Authorize(Policy = TinyCrmPermissions.Contacts.Delete)]
     public async Task<ActionResult> DeleteAllAsync([FromQuery] FilterContactsDto dto)
     {
         await _mediator.Send(new DeleteFilteredContactsCommand(dto));
 
         return NoContent();
+    }
+
+    [HttpGet("account/{accountId:guid}/contacts")]
+    [Authorize(Policy = TinyCrmPermissions.Contacts.Read)]
+    public async Task<ActionResult<FilterAndPagingResultDto<ContactSummaryDto>>> GetContacts(Guid accountId,
+        [FromQuery] FilterAndPagingContactsDto dto)
+    {
+        var contacts = await _mediator.Send(new FilterAndPagingContactsByAccountIdQuery(accountId, dto));
+
+        return contacts;
     }
 }
