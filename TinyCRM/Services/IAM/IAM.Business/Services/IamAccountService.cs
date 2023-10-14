@@ -46,10 +46,7 @@ public class IamAccountService : IIamAccountService
         var users = await query.Skip(filterAndPagingUsersDto.Skip)
             .Take(filterAndPagingUsersDto.Take).ToListAsync();
 
-        return new FilterAndPagingResultDto<UserSummaryDto>(_mapper.Map<List<UserSummaryDto>>(users),
-            filterAndPagingUsersDto.Skip,
-            filterAndPagingUsersDto.Take,
-            totalCount);
+        return new FilterAndPagingResultDto<UserSummaryDto>(_mapper.Map<List<UserSummaryDto>>(users), totalCount);
     }
 
     // public async Task<UserDetailDto> CreateUserAsync(UserCreateDto userCreateDto)

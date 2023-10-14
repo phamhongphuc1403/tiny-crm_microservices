@@ -52,7 +52,6 @@ public class
         var (dealLines, totalCount) = await _dealLineReadOnlyRepository.GetFilterAndPagingAsync(specification,
             request.Sort, request.Skip, request.Take, includeTables);
 
-        return new FilterAndPagingResultDto<DealLineDto>(_mapper.Map<List<DealLineDto>>(dealLines), request.Skip,
-            request.Take, totalCount);
+        return new FilterAndPagingResultDto<DealLineDto>(_mapper.Map<List<DealLineDto>>(dealLines), totalCount);
     }
 }

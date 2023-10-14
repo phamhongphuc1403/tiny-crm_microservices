@@ -47,6 +47,6 @@ public class FilterAndPagingProductsQueryHandler : IQueryHandler<FilterAndPaging
             await _repository.GetFilterAndPagingAsync(specification, query.Sort, query.Skip, query.Take);
 
         return new FilterAndPagingResultDto<ProductSummaryDto>(_mapper.Map<List<ProductSummaryDto>>(products),
-            query.Skip, query.Take, totalCount);
+            totalCount);
     }
 }

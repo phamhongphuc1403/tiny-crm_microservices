@@ -39,8 +39,6 @@ public class
         var (leads, totalCount) = await _repository.GetFilterAndPagingAsync(specification,
             query.Sort, query.Skip, query.Take, includes);
 
-        return new FilterAndPagingResultDto<LeadSummaryDto>(_mapper.Map<List<LeadSummaryDto>>(leads), query.Skip,
-            query.Take,
-            totalCount);
+        return new FilterAndPagingResultDto<LeadSummaryDto>(_mapper.Map<List<LeadSummaryDto>>(leads), totalCount);
     }
 }

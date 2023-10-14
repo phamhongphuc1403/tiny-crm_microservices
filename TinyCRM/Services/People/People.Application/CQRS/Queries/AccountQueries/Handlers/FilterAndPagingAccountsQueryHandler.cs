@@ -39,6 +39,6 @@ public class
             await _repository.GetFilterAndPagingAsync(specification, request.Sort, request.Skip, request.Take);
 
         return new FilterAndPagingResultDto<AccountSummaryDto>(_mapper.Map<List<AccountSummaryDto>>(accounts),
-            request.Skip, request.Take, totalCount);
+            totalCount);
     }
 }

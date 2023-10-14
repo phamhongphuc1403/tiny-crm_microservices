@@ -21,7 +21,7 @@ public class ProductController : ControllerBase
     }
 
     [HttpGet]
-    [Authorize(Policy = TinyCrmPermissions.Products.Read)]
+    // [Authorize(Policy = TinyCrmPermissions.Products.Read)]
     public async Task<ActionResult<FilterAndPagingResultDto<ProductSummaryDto>>> GetAllAsync(
         [FromQuery] FilterAndPagingProductsDto dto)
     {

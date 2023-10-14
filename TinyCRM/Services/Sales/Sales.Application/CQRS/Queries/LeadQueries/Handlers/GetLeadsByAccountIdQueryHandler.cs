@@ -37,10 +37,8 @@ public class
 
         var specification = leadAccountIdSpecification.And(leadTitleSpecification).And(leadStatusSpecification);
         var (leads, totalCount) = await _repository.GetFilterAndPagingAsync(specification,
-            request.Sort, request.Skip, request.Take,includes);
+            request.Sort, request.Skip, request.Take, includes);
 
-        return new FilterAndPagingResultDto<LeadSummaryDto>(_mapper.Map<List<LeadSummaryDto>>(leads), request.Skip,
-            request.Take,
-            totalCount);
+        return new FilterAndPagingResultDto<LeadSummaryDto>(_mapper.Map<List<LeadSummaryDto>>(leads), totalCount);
     }
 }

@@ -29,8 +29,6 @@ public class
         var (accounts, totalCount) = await _repository.GetFilterAndPagingAsync(accountNameSpecification,
             request.Sort, request.Skip, request.Take);
         return new FilterAndPagingResultDto<AccountSummaryDto>(_mapper.Map<List<AccountSummaryDto>>(accounts),
-            request.Skip,
-            request.Take,
             totalCount);
     }
 }
