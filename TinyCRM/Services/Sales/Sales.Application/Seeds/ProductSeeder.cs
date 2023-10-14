@@ -1,5 +1,6 @@
 using Bogus;
 using BuildingBlock.Application;
+using BuildingBlock.Application.Constants;
 using BuildingBlock.Domain.Interfaces;
 using BuildingBlock.Domain.Repositories;
 using Microsoft.Extensions.Logging;
@@ -52,6 +53,6 @@ public class ProductSeeder : IDataSeeder
             .RuleFor(product => product.Type, f => f.PickRandom<ProductType>())
             .RuleFor(product => product.CreatedDate, f => f.Date.Past());
 
-        return faker.Generate(50);
+        return faker.Generate(SeedConstant.NumberOfRecords);
     }
 }

@@ -99,11 +99,11 @@ public class LeadController : ControllerBase
     public async Task<ActionResult<FilterAndPagingResultDto<LeadSummaryDto>>> GetByAccountIdAsync(
         [FromQuery] FilterAndPagingDto<LeadSortProperty> dto, Guid accountId)
     {
-        var leads = await _mediator.Send(new GetLeadsByAccountIdQuery(dto,accountId));
+        var leads = await _mediator.Send(new GetLeadsByAccountIdQuery(dto, accountId));
 
         return Ok(leads);
     }
-    
+
     [HttpGet("statistics")]
     public async Task<ActionResult<LeadStatisticsDto>> GetStatisticsAsync()
     {

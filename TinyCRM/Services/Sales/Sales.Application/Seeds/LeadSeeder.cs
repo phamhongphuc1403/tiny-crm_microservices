@@ -1,5 +1,6 @@
 using Bogus;
 using BuildingBlock.Application;
+using BuildingBlock.Application.Constants;
 using BuildingBlock.Domain.Exceptions;
 using BuildingBlock.Domain.Interfaces;
 using BuildingBlock.Domain.Repositories;
@@ -33,18 +34,21 @@ public class LeadSeeder : IDataSeeder
     public async Task SeedDataAsync()
     {
         var accountIds = new List<Guid>();
-        var policy = Policy.Handle<SeedDataException>()
-            .WaitAndRetry(5, retryAttempt => TimeSpan.FromSeconds(Math.Pow(2, retryAttempt)),
+
+        var policy = Policy
+            .Handle<SeedDataException>()
+            .WaitAndRetryAsync(5, retryAttempt => TimeSpan.FromSeconds(Math.Pow(2, retryAttempt)),
                 (ex, time) =>
                 {
                     _logger.LogWarning(ex, "Couldn't seed Leads table after {TimeOut}s", $"{time.TotalSeconds:n1}");
                 }
             );
 
-        policy.Execute(() =>
+        await policy.ExecuteAsync(async () =>
         {
-            var accounts = _accountReadonlyRepository.GetAllAsync().Result;
-            if (accounts.Count < 50) throw new SeedDataException("Account data not seeded yet!");
+            var accounts = await _accountReadonlyRepository.GetAllAsync();
+            if (accounts.Count < SeedConstant.NumberOfRecords)
+                throw new SeedDataException("Account data not seeded yet!");
 
             accountIds = accounts.Select(account => account.Id).ToList();
         });
@@ -83,6 +87,6 @@ public class LeadSeeder : IDataSeeder
                 lead.DisqualificationDate = f.Date.Past();
             });
 
-        _leadOperationRepository.AddRangeAsync(faker.Generate(500));
+        _leadOperationRepository.AddRangeAsync(faker.Generate(SeedConstant.NumberOfRecords));
     }
 }

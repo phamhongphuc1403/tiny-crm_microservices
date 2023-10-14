@@ -9,6 +9,10 @@ namespace Sales.Domain.DealAggregate.Entities;
 
 public sealed class Deal : GuidEntity
 {
+    public Deal()
+    {
+    }
+
     internal Deal(string title, Guid customerId, Guid? leadId, string? description,
         double estimatedRevenue, double actualRevenue)
     {
@@ -36,7 +40,7 @@ public sealed class Deal : GuidEntity
         DealLines = new List<DealLine>();
     }
 
-    public string Title { get; set; }
+    public string Title { get; set; } = null!;
     public Guid CustomerId { get; set; }
     public Account Customer { get; set; } = null!;
     public Guid? LeadId { get; set; }
@@ -45,7 +49,7 @@ public sealed class Deal : GuidEntity
     public DealStatus DealStatus { get; set; }
     public double EstimatedRevenue { get; set; }
     public double ActualRevenue { get; set; }
-    public List<DealLine> DealLines { get; set; }
+    public List<DealLine> DealLines { get; set; } = null!;
 
     internal void Update(string title, Guid customerId, Guid? leadId, string? description,
         double estimatedRevenue, double actualRevenue)

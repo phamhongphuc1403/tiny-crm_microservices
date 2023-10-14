@@ -1,5 +1,6 @@
 using Bogus;
 using BuildingBlock.Application;
+using BuildingBlock.Application.Constants;
 using BuildingBlock.Application.EventBus.Interfaces;
 using BuildingBlock.Domain.Interfaces;
 using BuildingBlock.Domain.Repositories;
@@ -59,16 +60,16 @@ public class AccountSeeder : IDataSeeder
         var faker = new Faker<Account>()
             .RuleFor(account => account.Id, f => f.Random.Guid())
             .RuleFor(account => account.Name, f => f.Company.CompanyName())
-            .RuleFor(account => account.Phone, f =>
+            .RuleFor(account => account.Phone, _ =>
             {
                 var xeger = new Xeger(RegexPatterns.PhoneNumber);
                 return xeger.Generate();
             })
             .RuleFor(account => account.Email, (f, account) => f.Internet.Email(account.Name))
             .RuleFor(account => account.Address, f => f.Address.FullAddress())
-            .RuleFor(account => account.TotalSales, f => Math.Round(f.Random.Double(0, 1000000), 2))
+            .RuleFor(account => account.TotalSales, f => f.Random.Double(0, 1000000))
             .RuleFor(account => account.CreatedDate, f => f.Date.Between(DateTime.Now, DateTime.Now.AddMonths(1)));
 
-        return faker.Generate(50).ToList();
+        return faker.Generate(SeedConstant.NumberOfRecords).ToList();
     }
 }

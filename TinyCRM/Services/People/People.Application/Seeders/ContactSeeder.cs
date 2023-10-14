@@ -1,5 +1,6 @@
 using Bogus;
 using BuildingBlock.Application;
+using BuildingBlock.Application.Constants;
 using BuildingBlock.Domain.Interfaces;
 using BuildingBlock.Domain.Repositories;
 using Fare;
@@ -63,6 +64,6 @@ public class ContactSeeder : IDataSeeder
             .RuleFor(contact => contact.CreatedDate, f => f.Date.Between(DateTime.Now, DateTime.Now.AddMonths(1)))
             .RuleFor(contact => contact.AccountId, f => f.PickRandom(accountIds));
 
-        _contactOperationRepository.AddRangeAsync(faker.Generate(50));
+        _contactOperationRepository.AddRangeAsync(faker.Generate(SeedConstant.NumberOfRecords));
     }
 }

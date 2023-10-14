@@ -32,7 +32,7 @@ public static class DependencyInjectionExtensions
         services.AddScoped<IReadOnlyRepository<Deal>, ReadOnlyRepository<SaleDbContext, Deal>>();
         services.AddScoped<ILeadReadOnlyRepository, LeadReadOnlyRepository>();
         services.AddScoped<IDealReadOnlyRepository, DealReadOnlyRepository>();
-        
+
         services.AddScoped<IOperationRepository<Lead>, OperationRepository<SaleDbContext, Lead>>();
         services.AddScoped<IOperationRepository<Account>, OperationRepository<SaleDbContext, Account>>();
         services.AddScoped<IOperationRepository<Product>, OperationRepository<SaleDbContext, Product>>();
@@ -50,6 +50,7 @@ public static class DependencyInjectionExtensions
 
         services.AddScoped<IDataSeeder, ProductSeeder>();
         services.AddScoped<IDataSeeder, LeadSeeder>();
+        services.AddScoped<IDataSeeder, DealSeeder>();
         return services;
     }
 }

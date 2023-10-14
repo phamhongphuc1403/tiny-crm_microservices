@@ -43,6 +43,8 @@ services:
     depends_on:
       tinycrm.rabbitmq:
         condition: service_healthy
+      tinycrm.sales.api:
+        condition: service_started
   tinycrm.sales.api:
     image: ${DOCKER_REGISTRY-}tinycrm.sales.api
     ports:

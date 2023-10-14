@@ -5,6 +5,10 @@ namespace Sales.Domain.DealAggregate.Entities;
 
 public class DealLine : GuidEntity
 {
+    public DealLine()
+    {
+    }
+
     public DealLine(Guid productId, double pricePerUnit, int quantity)
     {
         ProductId = productId;
