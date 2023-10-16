@@ -5,23 +5,24 @@ using BuildingBlock.Domain.Repositories;
 using Sales.Application.CQRS.Queries.LeadQueries.Requests;
 using Sales.Application.DTOs.LeadDTOs;
 using Sales.Domain.LeadAggregate;
+using Sales.Domain.LeadAggregate.Enums;
 using Sales.Domain.LeadAggregate.Specifications;
 
 namespace Sales.Application.CQRS.Queries.LeadQueries.Handlers;
 
 public class
-    GetLeadsByAccountIdQueryHandler : IQueryHandler<GetLeadsByAccountIdQuery, FilterAndPagingResultDto<LeadSummaryDto>>
+    GetLeadsValidByAccountIdQueryHandler : IQueryHandler<GetLeadsValidByAccountIdQuery, FilterAndPagingResultDto<LeadSummaryDto>>
 {
     private readonly IMapper _mapper;
     private readonly IReadOnlyRepository<Lead> _repository;
 
-    public GetLeadsByAccountIdQueryHandler(IReadOnlyRepository<Lead> repository, IMapper mapper)
+    public GetLeadsValidByAccountIdQueryHandler(IMapper mapper, IReadOnlyRepository<Lead> repository)
     {
-        _repository = repository;
         _mapper = mapper;
+        _repository = repository;
     }
 
-    public async Task<FilterAndPagingResultDto<LeadSummaryDto>> Handle(GetLeadsByAccountIdQuery request,
+    public async Task<FilterAndPagingResultDto<LeadSummaryDto>> Handle(GetLeadsValidByAccountIdQuery request,
         CancellationToken cancellationToken)
     {
         const string includes = "Customer";
@@ -30,7 +31,8 @@ public class
         var leadAccountIdSpecification = new LeadAccountIdMatchSpecification(request.AccountId);
 
         var leadStatusSpecification =
-            new LeadStatusFilterSpecification(request.Status);
+            new LeadStatusFilterSpecification(LeadStatus.Open).Or(
+                new LeadStatusFilterSpecification(LeadStatus.Prospect));
 
 
         var specification = leadAccountIdSpecification.And(leadTitleSpecification).And(leadStatusSpecification);
