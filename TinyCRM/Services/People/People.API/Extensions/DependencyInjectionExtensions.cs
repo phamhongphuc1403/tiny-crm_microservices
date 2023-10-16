@@ -32,7 +32,9 @@ public static class DependencyInjectionExtensions
         services.AddScoped<IContactService, ContactService>();
 
         services.AddTransient<AccountSaleCreatedIntegrationEventHandler>();
-
+        services.AddTransient<ClosedWonDealIntegrationEventHandler>();
+        services.AddTransient<DeletedWonDealIntegrationEventHandler>();
+        
         return services;
     }
 }

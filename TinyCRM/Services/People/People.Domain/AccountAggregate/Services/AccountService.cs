@@ -59,6 +59,12 @@ public class AccountService : IAccountService
         return accounts;
     }
 
+    public Account UpdateTotalSales(Account account, double actualRevenue)
+    {
+        account.TotalSales += actualRevenue;
+        return account;
+    }
+
     private async Task CheckValidOnCreateAsync(string email)
     {
         var accountEmailSpecification = new AccountEmailExactMatchSpecification(email);

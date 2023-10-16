@@ -9,7 +9,8 @@ public static class EventBusMiddleware
     public static IApplicationBuilder SubscribeIntegrationEvents(this IApplicationBuilder app, IEventBus eventBus)
     {
         eventBus.Subscribe<AccountSaleCreatedIntegrationEvent, AccountSaleCreatedIntegrationEventHandler>();
-
+        eventBus.Subscribe<ClosedWonDealIntegrationEvent,ClosedWonDealIntegrationEventHandler>();
+        eventBus.Subscribe<DeletedWonDealIntegrationEvent,DeletedWonDealIntegrationEventHandler>();
         return app;
     }
 }
