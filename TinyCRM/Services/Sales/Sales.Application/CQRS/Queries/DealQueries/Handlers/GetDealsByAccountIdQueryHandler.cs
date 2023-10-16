@@ -1,0 +1,39 @@
+using AutoMapper;
+using BuildingBlock.Application.CQRS.Query;
+using BuildingBlock.Application.DTOs;
+using BuildingBlock.Domain.Repositories;
+using Sales.Application.CQRS.Queries.DealQueries.Requests;
+using Sales.Application.DTOs.DealDTOs;
+using Sales.Domain.DealAggregate.Entities;
+using Sales.Domain.DealAggregate.Specifications;
+
+namespace Sales.Application.CQRS.Queries.DealQueries.Handlers;
+
+public class
+    GetDealsByAccountIdQueryHandler : IQueryHandler<GetDealsByAccountIdQuery, FilterAndPagingResultDto<DealSummaryDto>>
+{
+    private readonly IMapper _mapper;
+    private readonly IReadOnlyRepository<Deal> _repository;
+
+    public GetDealsByAccountIdQueryHandler(IReadOnlyRepository<Deal> repository, IMapper mapper)
+    {
+        _repository = repository;
+        _mapper = mapper;
+    }
+
+    public async Task<FilterAndPagingResultDto<DealSummaryDto>> Handle(GetDealsByAccountIdQuery request, CancellationToken cancellationToken)
+    {
+        const string includes = "Customer";
+
+        var dealTitleSpecification = new DealTitlePartialMatchSpecification(request.Keyword);
+        var dealAccountNameSpecification = new DealAccountNamePartialMatchSpecification(request.Keyword);
+        var dealStatusSpecification = new DealStatusFilterSpecification(request.Status);
+        var dealAccountIdSpecification = new DealAccountIdSpecification(request.AccountId);
+        var specification = dealAccountIdSpecification.And(dealStatusSpecification.And(dealTitleSpecification.Or(dealAccountNameSpecification)));
+
+        var (deals, totalCount) = await _repository.GetFilterAndPagingAsync(specification,
+            request.Sort, request.Skip, request.Take, includes);
+
+        return new FilterAndPagingResultDto<DealSummaryDto>(_mapper.Map<List<DealSummaryDto>>(deals), totalCount);
+    }
+}

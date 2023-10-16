@@ -87,6 +87,7 @@ public class LeadController : ControllerBase
     }
 
     [HttpPut("{id:guid}/qualify")]
+    [Authorize(Policy = TinyCrmPermissions.Leads.Edit)]
     public async Task<ActionResult<LeadDetailDto>> QualifyAsync(Guid id)
     {
         var lead = await _mediator.Send(new QualifyLeadCommand(id));
@@ -115,6 +116,7 @@ public class LeadController : ControllerBase
     }
     
     [HttpGet("statistics")]
+    [Authorize(Policy = TinyCrmPermissions.Leads.Read)]
     public async Task<ActionResult<LeadStatisticsDto>> GetStatisticsAsync()
     {
         var statistics = await _mediator.Send(new GetStatisticsLeadQuery());

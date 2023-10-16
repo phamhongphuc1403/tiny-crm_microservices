@@ -121,7 +121,18 @@ public class DealController : ControllerBase
         return NoContent();
     }
 
+    [HttpGet("account/{accountId:guid}/deals")]
+    [Authorize(Policy = TinyCrmPermissions.Deals.Read)]
+    public async Task<ActionResult<FilterAndPagingResultDto<DealSummaryDto>>> GetByAccountIdAsync(
+        [FromQuery] FilterAndPagingDealsDto dto, Guid accountId)
+    {
+        var deals = await _mediator.Send(new GetDealsByAccountIdQuery(dto, accountId));
+
+        return Ok(deals);
+    }
+    
     [HttpGet("statistics")]
+    [Authorize(Policy = TinyCrmPermissions.Deals.Read)]
     public async Task<ActionResult<DealStatisticsDto>> GetStatisticsAsync()
     {
         var statistics = await _mediator.Send(new GetStatisticsDealQuery());
