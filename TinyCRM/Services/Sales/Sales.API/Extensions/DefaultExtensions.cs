@@ -25,6 +25,7 @@ public static class DefaultExtensions
         services
             .AddDefaultOpenApi(configuration)
             .AddCqrs<SalesApplicationAssemblyReference>()
+            .AddMailService(configuration)
             .AddEventBus(configuration)
             .AddAutoMapper(Assembly.GetAssembly(typeof(Mapper)))
             .AddDatabase<SaleDbContext>(configuration)

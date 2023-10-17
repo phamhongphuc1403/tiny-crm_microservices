@@ -1,4 +1,6 @@
 using System.Net.Sockets;
+using BuildingBlock.Application.Email;
+using BuildingBlock.Application.Email.ConstMessageMails;
 using Microsoft.Extensions.Logging;
 using Polly;
 using RabbitMQ.Client;
@@ -12,16 +14,23 @@ public class RabbitMQPersistentConnection : IRabbitMQPersistentConnection
     private readonly IConnectionFactory _connectionFactory;
     private readonly ILogger<RabbitMQPersistentConnection> _logger;
     private readonly int _retryCount;
-
+    private readonly IEmailSender _emailSender;
     private readonly object _syncRoot = new();
     private IConnection _connection;
     public bool Disposed;
+    private readonly EmailMessage _emailMessage = new()
+    {
+        ToEmails = EmailReceive.RabbitMqConnectionIssue,
+        Subject = EmailSubject.RabbitMqConnectionIssue,
+        Content = EmailContent.RabbitMqConnectionIssueContent
+    };
 
     public RabbitMQPersistentConnection(IConnectionFactory connectionFactory,
-        ILogger<RabbitMQPersistentConnection> logger, int retryCount = 5)
+        ILogger<RabbitMQPersistentConnection> logger, IEmailSender emailSender, int retryCount = 5)
     {
         _connectionFactory = connectionFactory ?? throw new ArgumentNullException(nameof(connectionFactory));
         _logger = logger ?? throw new ArgumentNullException(nameof(logger));
+        _emailSender = emailSender;
         _retryCount = retryCount;
     }
 
@@ -41,36 +50,42 @@ public class RabbitMQPersistentConnection : IRabbitMQPersistentConnection
 
         lock (_syncRoot)
         {
-            var policy = Policy.Handle<SocketException>()
-                .Or<BrokerUnreachableException>()
-                .WaitAndRetry(_retryCount, retryAttempt => TimeSpan.FromSeconds(Math.Pow(2, retryAttempt)),
-                    (ex, time) =>
-                    {
-                        _logger.LogWarning(ex, "RabbitMQ Client could not connect after {TimeOut}s",
-                            $"{time.TotalSeconds:n1}");
-                    }
-                );
-
-            policy.Execute(() =>
+            try
             {
-                _connection = _connectionFactory
-                    .CreateConnection();
-            });
+                var policy = Policy.Handle<SocketException>()
+                    .Or<BrokerUnreachableException>()
+                    .WaitAndRetry(_retryCount, retryAttempt => TimeSpan.FromSeconds(Math.Pow(2, retryAttempt)),
+                        (ex, time) =>
+                        {
+                            _logger.LogWarning(ex, "RabbitMQ Client could not connect after {TimeOut}s",
+                                $"{time.TotalSeconds:n1}");
+                        }
+                    );
 
-            if (IsConnected)
-            {
-                _connection.ConnectionShutdown += OnConnectionShutdown;
-                _connection.CallbackException += OnCallbackException;
-                _connection.ConnectionBlocked += OnConnectionBlocked;
+                policy.Execute(() =>
+                {
+                    _connection = _connectionFactory
+                        .CreateConnection();
+                });
 
-                _logger.LogInformation(
-                    "RabbitMQ Client acquired a persistent connection to '{HostName}' and is subscribed to failure events",
-                    _connection.Endpoint.HostName);
+                if (IsConnected)
+                {
+                    _connection.ConnectionShutdown += OnConnectionShutdown;
+                    _connection.CallbackException += OnCallbackException;
+                    _connection.ConnectionBlocked += OnConnectionBlocked;
 
-                return true;
+                    _logger.LogInformation(
+                        "RabbitMQ Client acquired a persistent connection to '{HostName}' and is subscribed to failure events",
+                        _connection.Endpoint.HostName);
+
+                    return true;
+                }
             }
-
-            _logger.LogCritical("Fatal error: RabbitMQ connections could not be created and opened");
+            catch
+            {
+                _emailSender.SendEmailAsync(_emailMessage).Wait();
+                _logger.LogCritical("Fatal error: RabbitMQ connections could not be created and opened");
+            }
 
             return false;
         }
@@ -118,7 +133,6 @@ public class RabbitMQPersistentConnection : IRabbitMQPersistentConnection
         if (Disposed) return;
 
         _logger.LogWarning("A RabbitMQ connection is on shutdown. Trying to re-connect...");
-
         TryConnect();
     }
 }

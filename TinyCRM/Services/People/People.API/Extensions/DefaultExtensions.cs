@@ -32,6 +32,7 @@ public static class DefaultExtensions
             .AddTinyCRMAuthentication(configuration)
             .AddValidatorsFromAssembly(typeof(PeopleApplicationAssemblyReference).Assembly)
             .AddAuthorizations()
+            .AddMailService(configuration)
             .AddEventBus(configuration)
             ;
 
