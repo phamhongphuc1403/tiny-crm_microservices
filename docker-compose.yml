@@ -19,6 +19,7 @@ services:
       - Routes__2__DownstreamHostAndPorts__0__Host=tinycrm.iam.api
       - Routes__2__DownstreamHostAndPorts__0__Port=80
       - SwaggerEndPoints__2__Config__0__Url=http://tinycrm.iam.api/swagger/v1/swagger.json
+      - Serilog__SeqServerUrl=http://seq:5341
     depends_on:
       - tinycrm.people.api
       - tinycrm.sales.api
@@ -40,6 +41,7 @@ services:
       - ConnectionStrings__Default=Server=tinycrm.db,1433;Database=TinyCrm.People;User=sa;Password=Admin123;TrustServerCertificate=false;Encrypt=false;
       - ConnectionStrings__Redis=tinycrm.redis:6379
       - EventBus__HostName=tinycrm.rabbitmq
+      - Serilog__SeqServerUrl=http://seq:5341
     depends_on:
       tinycrm.rabbitmq:
         condition: service_healthy
@@ -58,6 +60,7 @@ services:
       - ConnectionStrings__Default=Server=tinycrm.db,1433;Database=TinyCrm.Sales;User=sa;Password=Admin123;TrustServerCertificate=false;Encrypt=false;
       - ConnectionStrings__Redis=tinycrm.redis:6379
       - EventBus__HostName=tinycrm.rabbitmq
+      - Serilog__SeqServerUrl=http://seq:5341
     depends_on:
       tinycrm.rabbitmq:
         condition: service_healthy
@@ -77,6 +80,7 @@ services:
       - JWT__SecretKey=phucphamsieudeptrai
       - Kestrel__Endpoints__Http__Url=http://+:80
       - Kestrel__Endpoints__gRPC__Url=http://+:50051
+      - Serilog__SeqServerUrl=http://seq:5341
     restart: always
     depends_on:
       - tinycrm.db
@@ -103,6 +107,7 @@ services:
     environment:
       - RABBITMQ_DEFAULT_USER=admin
       - RABBITMQ_DEFAULT_PASS=admin
+      - Serilog__SeqServerUrl=http://seq:5341
     healthcheck:
       test: rabbitmq-diagnostics -q ping
       interval: 10s

@@ -21,7 +21,7 @@ builder.Services.AddCors(options =>
             .AllowAnyHeader();
     });
 });
-
+builder.Host.UseSerilog();
 
 var app = builder.Build();
 app.UseCors("TinyCRM");
