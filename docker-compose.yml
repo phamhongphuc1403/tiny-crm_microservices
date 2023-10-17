@@ -108,5 +108,13 @@ services:
       interval: 10s
       timeout: 30s
       retries: 3
+  seq:
+    image: datalust/seq:latest
+    ports:
+      - "5341:5341"
+      - "5342:80"
+    environment:
+      - ACCEPT_EULA=Y
+    restart: always
 volumes:
   crmdata:

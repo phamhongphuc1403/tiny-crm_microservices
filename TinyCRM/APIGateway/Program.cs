@@ -1,8 +1,11 @@
+using BuildingBlock.Infrastructure.Serilog;
 using BuildingBlock.Presentation.Extensions;
 using Ocelot.DependencyInjection;
 using Ocelot.Middleware;
+using Serilog;
 
 var builder = WebApplication.CreateBuilder(args);
+Log.Logger = ApplicationLoggerFactory.CreateSerilogLogger(builder.Configuration, "TinyCRM");
 
 
 builder.Services.AddDefaultOpenApi(builder.Configuration);

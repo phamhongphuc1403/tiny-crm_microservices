@@ -1,11 +1,15 @@
 using BuildingBlock.Application.EventBus.Interfaces;
+using BuildingBlock.Infrastructure.Serilog;
 using BuildingBlock.Presentation.Middleware;
 using People.API.Extensions;
 using People.API.Middlewares;
+using Serilog;
 
 var builder = WebApplication.CreateBuilder(args);
+Log.Logger = ApplicationLoggerFactory.CreateSerilogLogger(builder.Configuration, "PeopleService");
 
 await builder.Services.AddDefaultExtensions(builder.Configuration);
+builder.Host.UseSerilog();
 
 var app = builder.Build();
 

@@ -26,6 +26,7 @@
 
 
     <ItemGroup>
+        <ProjectReference Include="..\..\..\BuildingBlocks\BuildingBlock.Infrastructure.Serilog\BuildingBlock.Infrastructure.Serilog.csproj" />
         <ProjectReference Include="..\..\..\BuildingBlocks\BuildingBlock.Presentation\BuildingBlock.Presentation.csproj"/>
         <ProjectReference Include="..\People.Application\People.Application.csproj"/>
         <ProjectReference Include="..\People.Infrastructure.EFCore\People.Infrastructure.EFCore.csproj"/>

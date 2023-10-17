@@ -75,6 +75,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "DockerCompose", "DockerComp
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BuildingBlock.Infrastructure.MailKit", "TinyCRM\BuildingBlocks\BuildingBlock.Infrastructure.MailKit\BuildingBlock.Infrastructure.MailKit.csproj", "{3308DB68-D0BC-4086-9143-E998825B8F1E}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BuildingBlock.Infrastructure.Serilog", "TinyCRM\BuildingBlocks\BuildingBlock.Infrastructure.Serilog\BuildingBlock.Infrastructure.Serilog.csproj", "{2313E622-A999-4421-B667-DC8347366C78}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -161,6 +163,10 @@ Global
 		{3308DB68-D0BC-4086-9143-E998825B8F1E}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{3308DB68-D0BC-4086-9143-E998825B8F1E}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{3308DB68-D0BC-4086-9143-E998825B8F1E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2313E622-A999-4421-B667-DC8347366C78}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2313E622-A999-4421-B667-DC8347366C78}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2313E622-A999-4421-B667-DC8347366C78}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2313E622-A999-4421-B667-DC8347366C78}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -206,6 +212,7 @@ Global
 		{96AD94F4-1ED1-4955-9324-A8892D98341B} = {092AA6A0-B54C-430E-8A94-D2A51EE78150}
 		{725E518B-2ABD-4F05-9784-E38FAB764D07} = {092AA6A0-B54C-430E-8A94-D2A51EE78150}
 		{3308DB68-D0BC-4086-9143-E998825B8F1E} = {3A37EDE2-7513-48D9-8DBA-E7D15AEE0A6D}
+		{2313E622-A999-4421-B667-DC8347366C78} = {3A37EDE2-7513-48D9-8DBA-E7D15AEE0A6D}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {ED4E88BC-28CC-4E52-B707-F67C29CDDD0C}

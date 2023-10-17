@@ -30,6 +30,7 @@
     </ItemGroup>
 
     <ItemGroup>
+        <ProjectReference Include="..\..\..\BuildingBlocks\BuildingBlock.Infrastructure.Serilog\BuildingBlock.Infrastructure.Serilog.csproj" />
         <ProjectReference Include="..\..\..\BuildingBlocks\BuildingBlock.Presentation\BuildingBlock.Presentation.csproj"/>
         <ProjectReference Include="..\IAM.Business\IAM.Business.csproj"/>
 

@@ -1,4 +1,5 @@
 using BuildingBlock.Application.Identity;
+using BuildingBlock.Infrastructure.Serilog;
 using BuildingBlock.Presentation.Authentication;
 using BuildingBlock.Presentation.Extensions;
 using BuildingBlock.Presentation.Middleware;
@@ -6,8 +7,11 @@ using FluentValidation;
 using IAM.API.Extensions;
 using IAM.API.GRPC.Services;
 using IAM.Business;
+using Serilog;
 
 var builder = WebApplication.CreateBuilder(args);
+
+Log.Logger = ApplicationLoggerFactory.CreateSerilogLogger(builder.Configuration, "IamService");
 
 builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
@@ -19,6 +23,8 @@ builder.Services.AddDatabase(builder.Configuration)
     .AddValidatorsFromAssembly(typeof(IdentityBusinessAssemblyReference).Assembly)
     .AddServices()
     .AddRedisCacheIam(builder.Configuration);
+
+builder.Host.UseSerilog();
 
 builder.Services.AddScoped<ICurrentUser, CurrentUser>();
 builder.Services.AddGrpc();

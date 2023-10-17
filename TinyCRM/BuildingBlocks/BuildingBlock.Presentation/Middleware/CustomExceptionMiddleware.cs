@@ -46,7 +46,6 @@ public static class CustomExceptionMiddleware
                         validationException.Errors.Select(x => new { x.PropertyName, x.ErrorMessage }));
 
                 pd.Extensions.Add("traceId", context.TraceIdentifier);
-
                 await context.Response.WriteAsync(JsonSerializer.Serialize(pd));
             }
         });
