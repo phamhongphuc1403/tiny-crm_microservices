@@ -1,4 +1,5 @@
 using BuildingBlock.Application.CQRS.Query;
+using BuildingBlock.Application.DTOs;
 using Sales.Application.CQRS.Queries.DealQueries.Requests;
 using Sales.Application.DTOs.DealDTOs;
 using Sales.Domain.DealAggregate.Repositories;
@@ -20,10 +21,33 @@ public class GetStatisticsDealQueryHandler : IQueryHandler<GetStatisticsDealQuer
             await _dealReadOnlyRepository.GetStatisticsAsync();
         return new DealStatisticsDto
         {
-            OpenDeals = openDeals,
-            DealsWon = wonDeals,
-            AvgRevenue = avgRevenue,
-            TotalRevenue = totalRevenue
+            Cards = new List<CardDto>
+            {
+                new()
+                {
+                    Name = DealNameStatisticsDto.OpenDeals,
+                    Value = openDeals,
+                    IsPrice = false
+                },
+                new()
+                {
+                    Name = DealNameStatisticsDto.DealsWon,
+                    Value = wonDeals,
+                    IsPrice = false
+                },
+                new()
+                {
+                    Name = DealNameStatisticsDto.AverageRevenue,
+                    Value = avgRevenue,
+                    IsPrice = true
+                },
+                new()
+                {
+                    Name = DealNameStatisticsDto.TotalRevenue,
+                    Value = totalRevenue,
+                    IsPrice = true
+                }
+            }
         };
     }
 }
