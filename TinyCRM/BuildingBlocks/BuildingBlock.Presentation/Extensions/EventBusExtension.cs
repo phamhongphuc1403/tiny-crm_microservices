@@ -1,6 +1,7 @@
 using BuildingBlock.Application.Email;
 using BuildingBlock.Application.EventBus;
 using BuildingBlock.Application.EventBus.Interfaces;
+using BuildingBlock.Infrastructure.RedisCache.Cache.Interface;
 using BuildingBlock.RabbitMQ;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -30,10 +31,17 @@ public static class EventBusExtension
         {
             var logger = sp.GetRequiredService<ILogger<RabbitMQPersistentConnection>>();
             IEmailSender emailSender;
-            using (var scope = sp.CreateScope()) 
+            using (var scope = sp.CreateScope())
             {
                 emailSender = scope.ServiceProvider.GetRequiredService<IEmailSender>();
             }
+
+            IMailSenderCacheManager mailSenderCacheManager;
+            using (var scope = sp.CreateScope())
+            {
+                mailSenderCacheManager = scope.ServiceProvider.GetRequiredService<IMailSenderCacheManager>();
+            }
+
             var factory = new ConnectionFactory
             {
                 HostName = eventBusSection["HostName"] ?? "tinycrm.rabbitmq",
@@ -44,7 +52,9 @@ public static class EventBusExtension
             };
 
             var retryCount = eventBusSection.GetValue("RetryCount", 5);
-            return new RabbitMQPersistentConnection(factory, logger, emailSender,retryCount);
+            var subscriptionClientName = eventBusSection["SubscriptionClientName"] ?? "";
+            return new RabbitMQPersistentConnection(factory, logger, emailSender, mailSenderCacheManager,
+                subscriptionClientName, retryCount);
         });
 
         services.AddSingleton<IEventBus, EventBusRabbitMQ>(sp =>

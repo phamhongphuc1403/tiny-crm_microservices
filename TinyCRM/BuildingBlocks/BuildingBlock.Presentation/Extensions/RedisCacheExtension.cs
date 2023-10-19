@@ -1,4 +1,5 @@
 using BuildingBlock.Infrastructure.RedisCache;
+using BuildingBlock.Infrastructure.RedisCache.Cache;
 using BuildingBlock.Infrastructure.RedisCache.Cache.Interface;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -15,6 +16,7 @@ public static class RedisCacheExtension
         services.AddSingleton<IConnectionMultiplexer>(multiplexer);
         services.AddTransient<ICacheService, RedisCacheService>();
         services.AddTransient<IPermissionCacheManager, PermissionCacheManager>();
+        services.AddTransient<IMailSenderCacheManager,MailSenderCacheManager>();
         return services;
     }
 }

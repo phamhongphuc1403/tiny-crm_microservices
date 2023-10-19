@@ -1,4 +1,6 @@
-namespace BuildingBlock.Infrastructure.RedisCache.Cache.Interface;
+using BuildingBlock.Infrastructure.RedisCache.Cache.Interface;
+
+namespace BuildingBlock.Infrastructure.RedisCache.Cache;
 
 public class PermissionCacheManager : IPermissionCacheManager
 {

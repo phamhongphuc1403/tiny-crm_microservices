@@ -1,6 +1,7 @@
 using System.Net.Sockets;
 using BuildingBlock.Application.Email;
 using BuildingBlock.Application.Email.ConstMessageMails;
+using BuildingBlock.Infrastructure.RedisCache.Cache.Interface;
 using Microsoft.Extensions.Logging;
 using Polly;
 using RabbitMQ.Client;
@@ -17,21 +18,22 @@ public class RabbitMQPersistentConnection : IRabbitMQPersistentConnection
     private readonly IEmailSender _emailSender;
     private readonly object _syncRoot = new();
     private IConnection _connection;
+    private readonly IMailSenderCacheManager _mailSenderCacheManager;
     public bool Disposed;
-    private readonly EmailMessage _emailMessage = new()
-    {
-        ToEmails = EmailReceive.RabbitMqConnectionIssue,
-        Subject = EmailSubject.RabbitMqConnectionIssue,
-        Content = EmailContent.RabbitMqConnectionIssueContent
-    };
+    private readonly string _subscriptionClientName;
 
     public RabbitMQPersistentConnection(IConnectionFactory connectionFactory,
-        ILogger<RabbitMQPersistentConnection> logger, IEmailSender emailSender, int retryCount = 5)
+        ILogger<RabbitMQPersistentConnection> logger, IEmailSender emailSender,
+        IMailSenderCacheManager mailSenderCacheManager, string subscriptionClientName, int retryCount = 5)
     {
         _connectionFactory = connectionFactory ?? throw new ArgumentNullException(nameof(connectionFactory));
         _logger = logger ?? throw new ArgumentNullException(nameof(logger));
         _emailSender = emailSender;
-        _retryCount = retryCount;
+        _mailSenderCacheManager = mailSenderCacheManager;
+        _subscriptionClientName = subscriptionClientName;
+        _retryCount = 2;
+        _mailSenderCacheManager.RemoveMailSenderAsync(EmailSubject.RabbitMqConnectionIssue +
+                                                      _subscriptionClientName);
     }
 
     public bool IsConnected => _connection is { IsOpen: true } && !Disposed;
@@ -41,7 +43,10 @@ public class RabbitMQPersistentConnection : IRabbitMQPersistentConnection
         if (!IsConnected)
             throw new InvalidOperationException("No RabbitMQ connections are available to perform this action");
 
-        return _connection.CreateModel();
+        var model = _connection.CreateModel();
+        _mailSenderCacheManager.RemoveMailSenderAsync(EmailSubject.RabbitMqConnectionIssue +
+                                                      _subscriptionClientName);
+        return model;
     }
 
     public bool TryConnect()
@@ -73,7 +78,8 @@ public class RabbitMQPersistentConnection : IRabbitMQPersistentConnection
                     _connection.ConnectionShutdown += OnConnectionShutdown;
                     _connection.CallbackException += OnCallbackException;
                     _connection.ConnectionBlocked += OnConnectionBlocked;
-
+                    _mailSenderCacheManager.RemoveMailSenderAsync(EmailSubject.RabbitMqConnectionIssue +
+                                                                  _subscriptionClientName);
                     _logger.LogInformation(
                         "RabbitMQ Client acquired a persistent connection to '{HostName}' and is subscribed to failure events",
                         _connection.Endpoint.HostName);
@@ -83,7 +89,21 @@ public class RabbitMQPersistentConnection : IRabbitMQPersistentConnection
             }
             catch
             {
-                _emailSender.SendEmailAsync(_emailMessage).Wait();
+                var status = _mailSenderCacheManager
+                    .CheckStatusMailSenderAsync(EmailSubject.RabbitMqConnectionIssue + _subscriptionClientName).Result;
+                if (status == null)
+                {
+                    _mailSenderCacheManager.SetStatusMailSenderAsync(EmailSubject.RabbitMqConnectionIssue +
+                                                                     _subscriptionClientName).Wait();
+                    var emailMessage = new EmailMessage
+                    {
+                        ToEmails = EmailReceive.RabbitMqConnectionIssue,
+                        Subject = EmailSubject.RabbitMqConnectionIssue + " - Service[" + _subscriptionClientName + "]",
+                        Content = EmailContent.RabbitMqConnectionIssueContent
+                    };
+                    _emailSender.SendEmailAsync(emailMessage).Wait();
+                }
+
                 _logger.LogCritical("Fatal error: RabbitMQ connections could not be created and opened");
             }
 

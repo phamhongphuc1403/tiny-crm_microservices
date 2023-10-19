@@ -3,6 +3,7 @@ using BuildingBlock.Application;
 using BuildingBlock.Domain.Interfaces;
 using BuildingBlock.Infrastructure.EFCore;
 using BuildingBlock.Infrastructure.RedisCache;
+using BuildingBlock.Infrastructure.RedisCache.Cache;
 using BuildingBlock.Infrastructure.RedisCache.Cache.Interface;
 using IAM.Business;
 using IAM.Business.Helper;
