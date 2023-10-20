@@ -121,6 +121,24 @@ public class DealController : ControllerBase
         return NoContent();
     }
 
+    [HttpGet("deals-won-per-month")]
+    [Authorize(Policy = TinyCrmPermissions.Deals.Read)]
+    public async Task<ActionResult<DealStatisticsDto>> GetDealsWonPerMonthAsync()
+    {
+        var dealsWonPerMonth = await _mediator.Send(new GetDealsWonPerMonthQuery());
+
+        return Ok(dealsWonPerMonth);
+    }
+
+    [HttpGet("deals-revenue-per-month")]
+    [Authorize(Policy = TinyCrmPermissions.Deals.Read)]
+    public async Task<ActionResult<DealStatisticsDto>> GetDealsRevenuePerMonthAsync()
+    {
+        var dealsRevenuePerMonth = await _mediator.Send(new GetDealsRevenuePerMonthQuery());
+
+        return Ok(dealsRevenuePerMonth);
+    }
+
     [HttpGet("account/{accountId:guid}/deals")]
     [Authorize(Policy = TinyCrmPermissions.Deals.Read)]
     public async Task<ActionResult<FilterAndPagingResultDto<DealSummaryDto>>> GetByAccountIdAsync(
@@ -130,7 +148,7 @@ public class DealController : ControllerBase
 
         return Ok(deals);
     }
-    
+
     [HttpGet("statistics")]
     [Authorize(Policy = TinyCrmPermissions.Deals.Read)]
     public async Task<ActionResult<DealStatisticsDto>> GetStatisticsAsync()
@@ -139,7 +157,7 @@ public class DealController : ControllerBase
 
         return Ok(statistics);
     }
-    
+
     [HttpGet("{dealId:guid}/lines")]
     [Authorize(Policy = TinyCrmPermissions.Deals.Read)]
     public async Task<ActionResult<FilterAndPagingResultDto<DealLineDto>>>

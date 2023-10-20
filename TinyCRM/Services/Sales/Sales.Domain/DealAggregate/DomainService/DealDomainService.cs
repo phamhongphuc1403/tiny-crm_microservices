@@ -121,6 +121,7 @@ public class DealDomainService : IDealDomainService
             throw new DealValidStatusException(deal.DealStatus);
 
         deal.DealStatus = dealStatus;
+        deal.CloseDateTime = DateTime.UtcNow;
         return deal;
     }
 
@@ -151,17 +152,12 @@ public class DealDomainService : IDealDomainService
         return dealLine;
     }
 
-    private static void UpdateActualRevenue(Deal deal)
-    {
-        deal.ActualRevenue = deal.DealLines.Sum(dealLine => dealLine.TotalAmount);
-    }
-
     public void RemoveDealLines(Deal deal, IEnumerable<Guid> dealLineIds)
     {
         CheckDealStatusValidOnAuditDealLine(deal.DealStatus);
 
         foreach (var dealLineId in dealLineIds) deal.RemoveDealLine(dealLineId);
-        
+
         UpdateActualRevenue(deal);
     }
 
@@ -170,7 +166,7 @@ public class DealDomainService : IDealDomainService
         CheckDealStatusValidOnAuditDealLine(deal.DealStatus);
 
         foreach (var dealLine in dealLines) deal.RemoveDealLine(dealLine);
-        
+
         UpdateActualRevenue(deal);
     }
 
@@ -188,10 +184,15 @@ public class DealDomainService : IDealDomainService
         await CheckProductExist(productId);
 
         var dealLine = deal.EditDealLine(dealLineId, productId, pricePerUnit, quantity);
-        
+
         UpdateActualRevenue(deal);
 
         return dealLine;
+    }
+
+    private static void UpdateActualRevenue(Deal deal)
+    {
+        deal.ActualRevenue = deal.DealLines.Sum(dealLine => dealLine.TotalAmount);
     }
 
     private async Task CheckProductExist(Guid productId)

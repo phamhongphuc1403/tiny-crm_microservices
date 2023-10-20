@@ -47,6 +47,7 @@ public sealed class Deal : GuidEntity
     public Lead? Lead { get; set; }
     public string? Description { get; set; }
     public DealStatus DealStatus { get; set; }
+    public DateTime? CloseDateTime { get; set; }
     public double EstimatedRevenue { get; set; }
     public double ActualRevenue { get; set; }
     public List<DealLine> DealLines { get; set; } = null!;

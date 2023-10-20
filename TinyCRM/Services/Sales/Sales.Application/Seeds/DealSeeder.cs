@@ -75,14 +75,20 @@ public class DealSeeder : IDataSeeder
     private IEnumerable<Deal> SeedDeals(IEnumerable<Guid> accountIds)
     {
         var faker = new Faker<Deal>()
-            .RuleFor(deal => deal.Id, f => f.Random.Guid())
-            .RuleFor(deal => deal.Description, f => f.Lorem.Paragraph())
-            .RuleFor(deal => deal.EstimatedRevenue, f => f.Random.Double(0, 1000000))
-            .RuleFor(deal => deal.CreatedDate, f => f.Date.Past())
-            .RuleFor(deal => deal.Title, f => f.Lorem.Sentence())
-            .RuleFor(deal => deal.DealStatus, f => f.PickRandom<DealStatus>())
-            .RuleFor(deal => deal.CustomerId, f => f.PickRandom(accountIds))
-            .RuleFor(deal => deal.DealLines, _ => new List<DealLine>());
+                .RuleFor(deal => deal.Id, f => f.Random.Guid())
+                .RuleFor(deal => deal.Description, f => f.Lorem.Paragraph())
+                .RuleFor(deal => deal.EstimatedRevenue, f => f.Random.Double(0, 1000000))
+                .RuleFor(deal => deal.CreatedDate, f => f.Date.Past())
+                .RuleFor(deal => deal.Title, f => f.Lorem.Sentence())
+                .RuleFor(deal => deal.DealStatus, f => f.PickRandom<DealStatus>())
+                .RuleFor(deal => deal.CustomerId, f => f.PickRandom(accountIds))
+                .RuleFor(deal => deal.DealLines, _ => new List<DealLine>())
+                .RuleFor(deal=>deal.ActualRevenue,f=>f.Random.Double(0,1000000))
+                .FinishWith((f, deal) =>
+                {
+                    if (deal.DealStatus is not DealStatus.Open) deal.CloseDateTime = f.Date.Past();
+                })
+            ;
 
         return faker.Generate(SeedConstant.NumberOfRecords);
     }

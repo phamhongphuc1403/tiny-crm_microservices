@@ -12,6 +12,9 @@
 
     </ItemGroup>
 
+    <ItemGroup>
+        <Folder Include="DealAggregate\Model\"/>
+    </ItemGroup>
 
 
 </Project>
